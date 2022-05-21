@@ -18,7 +18,8 @@ Here is just my attempt to solve the 15 levels.
     <pubDate>Mon, 14 Dec 2020 00:00:00 &#43;0000</pubDate>
     <author>Author</author>
     <guid>https://pasqnix.github.io/startingpoint/</guid>
-    <description><![CDATA[INTRODUCTION This path is composed of 6 boxes in a way that later boxes use information (like credentials) gathered from the previous ones. ▸ ARCHTYPE ◦ About =============
+    <description><![CDATA[INTRODUCTION (pdf)
+This path is composed of 6 boxes in a way that later boxes use information (like credentials) gathered from the previous ones. ▸ ARCHTYPE ◦ About =============
 This is a Windows box where you can learn how enumeration can lead to RCE via SQL server queries.
  Machine : Archetype  Ip: 10.10.10.27  ◦ Enumeration =============
 nmap -sC -sV 10.10.10.27

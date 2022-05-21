@@ -1,6 +1,8 @@
 # Starting Point on HackTheBox (2020)
 
 ## INTRODUCTION
+([pdf](sp2020.pdf))
+
 
  This path is composed of 6 boxes in a way that later boxes use information (like credentials) gathered from the previous ones.
 <br>
