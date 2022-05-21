@@ -1,0 +1,339 @@
+<!DOCTYPE html>
+<html lang="en" >
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="robots" content="noodp" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge, chrome=1">
+        <title>[Practical Binary Analysis] Introduction - HackSpread.com</title><meta name="Description" content="What is Binary Analysis? This post covers the introduction of the book from Daniel Andriesse &#34;Practical Binary Analysis&#34;.. "><meta property="og:title" content="[Practical Binary Analysis] Introduction" />
+<meta property="og:description" content="What is Binary Analysis? This post covers the introduction of the book from Daniel Andriesse &#34;Practical Binary Analysis&#34;.. " />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://pasqnix.github.io/practicalbinaryanalysis_intro/" /><meta property="og:image" content="https://pasqnix.github.io/practicalbinaryanalysis_intro/featured-image.jpg"/><meta property="article:section" content="posts" />
+<meta property="article:published_time" content="2021-09-01T00:00:00+00:00" />
+<meta property="article:modified_time" content="2021-09-01T00:00:00+00:00" />
+
+<meta name="twitter:card" content="summary_large_image"/>
+<meta name="twitter:image" content="https://pasqnix.github.io/practicalbinaryanalysis_intro/featured-image.jpg"/>
+<meta name="twitter:title" content="[Practical Binary Analysis] Introduction"/>
+<meta name="twitter:description" content="What is Binary Analysis? This post covers the introduction of the book from Daniel Andriesse &#34;Practical Binary Analysis&#34;.. "/>
+<meta name="application-name" content="psqnix.github.io">
+<meta name="apple-mobile-web-app-title" content="psqnix.github.io"><meta name="theme-color" content="#ffffff"><meta name="msapplication-TileColor" content="#da532c"><link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
+        <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+        <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+        <link rel="stylesheet" href="../../../css/custom.css">
+        <link rel="stylesheet" href="../../../css/style.css"><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"><link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5"><link rel="manifest" href="/site.webmanifest"><link rel="canonical" href="https://pasqnix.github.io/practicalbinaryanalysis_intro/" /><link rel="prev" href="https://pasqnix.github.io/startingpoint/" /><link rel="next" href="https://pasqnix.github.io/practicalbinaryanalysis_part1/" /><link rel="stylesheet" href="/lib/normalize/normalize.min.css"><link rel="stylesheet" href="/lib/fontawesome-free/all.min.css"><link rel="stylesheet" href="/lib/animate/animate.min.css"><script type="application/ld+json">
+    {
+        "@context": "http://schema.org",
+        "@type": "BlogPosting",
+        "headline": "[Practical Binary Analysis] Introduction",
+        "inLanguage": "en",
+        "mainEntityOfPage": {
+            "@type": "WebPage",
+            "@id": "https:\/\/pasqnix.github.io\/practicalbinaryanalysis_intro\/"
+        },"image": [{
+                            "@type": "ImageObject",
+                            "url": "https:\/\/pasqnix.github.io\/practicalbinaryanalysis_intro\/featured-image.jpg",
+                            "width":  1920 ,
+                            "height":  1080 
+                        }],"genre": "posts","keywords": "ReverseEngineering, Assembly, Hacking, Debugging, Binary Analysis","wordcount":  843 ,
+        "url": "https:\/\/pasqnix.github.io\/practicalbinaryanalysis_intro\/","datePublished": "2021-09-01T00:00:00+00:00","dateModified": "2021-09-01T00:00:00+00:00","license": "This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.","publisher": {
+            "@type": "Organization",
+            "name": "xxxx","logo": {
+                    "@type": "ImageObject",
+                    "url": "https:\/\/pasqnix.github.io\/images\/mylogo.png",
+                    "width":  286 ,
+                    "height":  53 
+                }},"author": {
+                "@type": "Person",
+                "name": "Daniel Andriesse"
+            },"description": "What is Binary Analysis? This post covers the introduction of the book from Daniel Andriesse \"Practical Binary Analysis\".. "
+    }
+    </script></head>
+    <body header-desktop="fixed" header-mobile="auto" ><script type="text/javascript">(window.localStorage && localStorage.getItem('theme') ? localStorage.getItem('theme') === 'dark' : ('light' === 'auto' ? window.matchMedia('(prefers-color-scheme: dark)').matches : 'light' === 'dark')) && document.body.setAttribute('theme', 'dark');</script>
+
+        <div id="mask"></div><div class="wrapper"><header class="desktop" id="header-desktop" style="border-bottom:1px solid #E1E1E1;box-shadow: 0 0 1.5rem 0 #E1E1E1;"> 
+    
+    <div class="header-wrapper">
+        <div class="header-title" >
+            <a href="/" title="HackSpread.com"><img src="/images/mylogo.png">
+
+  
+            </a>
+        </div>
+        <div class="menu">
+            <div class="menu-inner"><a class="menu-item" href="/"> Home </a><a class="menu-item" href="/posts/"> Posts </a><a class="menu-item" href="/tags/"> Tags </a><a class="menu-item" href="/about/"> About </a><span class="menu-item delimiter"></span><span class="menu-item search" id="search-desktop">
+                        <input type="text" placeholder="Search titles or contents..." id="search-input-desktop">
+                        <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-desktop" title="Search">
+                            <i class="fas fa-search fa-fw"></i>
+                        </a>
+                        <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-desktop" title="Clear">
+                            <i class="fas fa-times-circle fa-fw"></i>
+                        </a>
+                        <span class="search-button search-loading" id="search-loading-desktop">
+                            <i class="fas fa-spinner fa-fw fa-spin"></i>
+                        </span>
+                    </span>
+            </div>
+        </div>
+    </div>
+</header><header class="mobile" id="header-mobile">
+    <div class="header-container">
+        <div class="header-wrapper">
+            <div class="header-title">
+                <a href="/" title="HackSpread.com"><img src="/images/mylogo-mobile.png">
+                    
+                </a>
+            </div>
+            <div class="menu-toggle" id="menu-toggle-mobile">
+                <span></span><span></span><span></span>
+            </div>
+        </div>
+        <div class="menu" id="menu-mobile"><div class="search-wrapper">
+                    <div class="search mobile" id="search-mobile">
+                        <input type="text" placeholder="Search titles or contents..." id="search-input-mobile">
+                        <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-mobile" title="Search">
+                            <i class="fas fa-search fa-fw"></i>
+                        </a>
+                        <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-mobile" title="Clear">
+                            <i class="fas fa-times-circle fa-fw"></i>
+                        </a>
+                        <span class="search-button search-loading" id="search-loading-mobile">
+                            <i class="fas fa-spinner fa-fw fa-spin"></i>
+                        </span>
+                    </div>
+                    <a href="javascript:void(0);" class="search-cancel" id="search-cancel-mobile">
+                        Cancel
+                    </a>
+                </div><a class="menu-item" href="/" title="">Home</a><a class="menu-item" href="/posts/" title="">Posts</a><a class="menu-item" href="/tags/" title="">Tags</a><a class="menu-item" href="/about/" title="">About</a><a href="javascript:void(0);" class="menu-item theme-switch" title="Switch Theme">
+                <i class="fas fa-adjust fa-fw"></i>
+            </a></div>
+    </div>
+</header>
+<div class="search-dropdown desktop">
+    <div id="search-dropdown-desktop"></div>
+</div>
+<div class="search-dropdown mobile">
+    <div id="search-dropdown-mobile"></div>
+</div>
+<main class="main" >
+                <div class="container" style="max-width: 100%;margin:0;padding-left:0;padding-right: 0;" ><div>
+    <img
+        width="200"
+        height="400"
+        class=" lazyload"
+        src="/svg/loading.min.svg"
+        data-src="/practicalbinaryanalysis_intro/featured-image.jpg"
+        data-srcset="/practicalbinaryanalysis_intro/featured-image.jpg, /practicalbinaryanalysis_intro/featured-image.jpg 1.5x, /practicalbinaryanalysis_intro/featured-image.jpg 2x"
+        data-sizes="auto"
+        alt="/practicalbinaryanalysis_intro/featured-image.jpg"
+        title="What is Binary Analysis? This post covers the introduction of the book from Daniel Andriesse &#34;Practical Binary Analysis&#34;.. "
+        style="width: 100%;object-fit: cover;margin: 0pt;"/></div><div class="toc" id="toc-auto" style="position:relative;background-color: #E0E0E0;">
+            <table >
+                <tr style="position:relative;background-color: #E0E0E0;border: 2px solid white;border-left: none;border-right: none;">
+                    <td style="text-align:center;vertical-align: middle;" >Table of Contents</td>
+                </tr></table>
+           
+        
+
+         
+         <div class="toc-content" id="toc-content-auto"></div>
+    
+    
+            
+        </div><article class="page single" style="border:0px solid black;max-width:1400px;flex-wrap: wrap;padding:2%;"><h1 class="single-title animated flipInX">[Practical Binary Analysis] Introduction</h1>
+<div class="post-meta">
+
+           
+            <div class="post-meta-line" style="padding-top: 25px;;">
+                <table ><tr>
+                <td style="border:none"><i class="far fa-calendar-alt fa-fw"></i>&nbsp;<time datetime="01 Sep 2021">01 Sep 2021</time>&nbsp;
+                <i class="far fa-clock fa-fw"></i>&nbsp;4 minutes&nbsp;
+</td><td style="border:none;text-align: right;">
+                <span><a href="javascript:void(0);" onclick="window.history.back();">Back</a></span>&nbsp;|&nbsp;<span><a href="/">Home</a></span></td>
+            </tr></table>
+            </div>
+
+
+          
+            
+
+        </div>
+<div class="details toc" id="toc-static"  kept="">
+                <div class="details-summary toc-title">
+                    <span>Contents</span>
+                    <span><i class="details-icon fas fa-angle-right"></i></span>
+                </div>
+                <div class="details-content toc-content" id="toc-content-static"><nav id="TableOfContents">
+  <ul>
+    <li><a href="#introduction">INTRODUCTION</a></li>
+    <li><a href="#9656-what-is-binary-analysis">▸ What is Binary Analysis?</a>
+      <ul>
+        <li><a href="#9702-static-analysis">◦ Static analysis</a></li>
+        <li><a href="#9702-dynamic-analysis">◦ Dynamic analysis</a></li>
+        <li><a href="#9702-other-techniques">◦ Other techniques</a></li>
+      </ul>
+    </li>
+    <li><a href="#9656--what-makes-it-challenging">▸  What makes it Challenging?</a></li>
+  </ul>
+</nav></div>
+            </div><div class="content" id="content"><!-- >
+description: "What is Binary Analysis? <br> This post covers the introduction of the book <a href=\"https://practicalbinaryanalysis.com/\">\"Practical Binary Analysis\"</a> "
+
+As malware increasingly obfuscates itself and applies anti-analysis techniques to thwart our analysis, we need more sophisticated methods that allow us to raise that dark curtain designed to keep us out--binary analysis can help. The goal of all binary analysis is to determine (and possibly modify) the true properties of binary programs to understand what they really do, rather than what we think they should do. While reverse engineering and disassembly are critical first steps in many forms of binary analysis, there is much more to be learned.
+
+SOMMARIO
+
+
+
+2 ANATOMY OF BINARY 6
+
+2.1 The C Compilation Process 6
+
+2.1.1 The Processing Phase 7
+
+2.1.2 The Compiling Phase 9
+
+2.1.3 The Assembly Phase 11
+
+2.1.4 The Linking Phase 12
+
+2.2 Symbols and Stripped Binaries 15
+
+2.2.1 Viewing Symbolic Information 15
+
+2.2.2 Another Binary Turns to the dark side: Stripping a Binary 17
+
+2.3 Disassembling a Binary 18
+
+-->
+<p>The content of this page is entirly coming from the &ldquo;Practical Binary Analysis&rdquo; book (<a href="https://practicalbinaryanalysis.com/" target="_blank" rel="noopener noreffer">https://practicalbinaryanalysis.com/</a>) from Andriesse (<a href="https://mistakenot.net/" target="_blank" rel="noopener noreffer">https://mistakenot.net/</a>)</p>
+<h2 id="introduction">INTRODUCTION</h2>
+<p>=================</p>
+<p>(<a href="pba.pdf" rel="">pdf</a>)</p>
+<ul>
+<li>
+<p>The vast majority of computers programs are written in high-level
+languages like C or C++, which computers cannot run directly.</p>
+</li>
+<li>
+<p>Before using these programs, they must first be compiled into “binary
+executable” containing machine code that the computer can run.</p>
+</li>
+<li>
+<p>There is a big semantic gap between the compiled program (binary) and
+the high-level source.</p>
+</li>
+<li>
+<p>As a result, many compilers bugs, subtle implementation errors,
+binary-level backdoors and malicious parasites can go unnoticed.</p>
+</li>
+</ul>
+<h2 id="9656-what-is-binary-analysis">▸ What is Binary Analysis?</h2>
+<p style="font-size:20px;font-weight:bold;">&#9702;  What is Binary Analysis, and why do we need it?</p>
+<table class="list">
+<tr><td style="background:#272C34;color:white;text-align:center;font-weight:bold;">Binary analysis: </td></tr>
+<tr><td style="border: 1px solid black;background:white;color:black"><ul>
+<li style="list-style-type: circle;">Is the science and art of <b>analysing</b> the properties of <i>binary computer programs, called binaries, and the machine code
+    and the data they contain</i>.</li></ul>
+</td></tr>
+<tr><td style="border: 1px solid black;background:white;color:black"><ul><li style="list-style-type: circle;"> <b>Tries to figure out</b> (and possibly to modify) <i>the true properties of binary programs trying to understand what
+    they really do as opposed to what they think they should do.</i></li></ul></td></tr>
+</table>
+<p>Broadly, binary analysis techniques can be divided into two classes, or
+a combination of these:</p>
+<h3 id="9702-static-analysis">◦ Static analysis</h3>
+<p><em>Static analysis</em> techniques reason about a binary program <strong><u>without running it</u></strong></p>
+<table class="list">
+<tr><td style="background:#272C34;color:#00CC00;text-align:center">ADVANTAGES</td></tr>
+<tr><td style="border: 1px solid black;background:white;color:black"><ul><li style="list-style-type: circle;">You can potentially analyse the whole binary in one go without the need of having a CPU that can run the binary: <i><u>For instance, you can statically analyse an ARM binary on an x86 machine.</u></i></li></ul></td></tr>
+<tr><td style="border: 1px solid black;background:#272C34;color:#FF3333;text-align:center">DOWNSIDES</td></tr>
+<tr><td style="border: 1px solid black;background:white;color:black"><ul><li style="list-style-type: circle;">Static analysis has no knowledge of the binary’s runtime state, which can make the analysis really challenging.</li></ul></td></tr>
+</table>
+<h3 id="9702-dynamic-analysis">◦ Dynamic analysis</h3>
+<p><em>Dynamic analysis</em> <strong><u>runs the binary</u></strong> and analyses it as it executes.</p>
+<table class="list">
+<tr><td style="background:#272C34;color:#00CC00;text-align:center">ADVANTAGES</td></tr>
+<tr><td style="border: 1px solid black;background:white;color:black"><ul><li style="list-style-type: circle;">This approach is often simpler because you have full knowledge of the entire runtime state, including the values, the variables, and the outcomes of conditional branches.</u></i></li></ul></td></tr>
+<tr><td style="border: 1px solid black;background:#272C34;color:#FF3333;text-align:center">DOWNSIDES</td></tr>
+<tr><td style="border: 1px solid black;background:white;color:black"><ul><li style="list-style-type: circle;">You can only see the executed code, so the analysis may miss interesting parts of the program.<br></li></ul></td></tr>
+</table>
+<!-- Both techniques have their own advantages and disadvantages.-->
+<h3 id="9702-other-techniques">◦ Other techniques</h3>
+<ul>
+<li>
+<p>Passive binary analysis</p>
+</li>
+<li>
+<p>Binary instrumentation ( <strong>can be used to modify binary program
+without needing source</strong>)</p>
+</li>
+</ul>
+<h2 id="9656--what-makes-it-challenging">▸  What makes it Challenging?</h2>
+<p>Binary analysis is challenging and much more difficult the equivalent
+analysis at the source code level.</p>
+<p>In fact, many binary analysis tasks are fundamentally undecidable,
+meaning that:</p>
+<ul>
+<li><strong><em>It is impossible to build an analysis engine for these problems
+that always returns a correct result</em>!</strong></li>
+</ul>
+<p>An important part of binary analysis is to come up with creative ways to
+build usable tools despite analysis errors!</p>
+<p style="font-size:20px;font-weight:bold;">&#9702;  What makes binary analysis difficult?</p>
+*Here is a list of some of the things that make binary analysis difficult*:
+<table class="list">
+<tr><td style="background:#272C34;;text-align:center;font-weight:bold;">NO SYMBOLIC INFORMATION </td></tr>
+<tr><td style="border: 1px solid black;background:white;color:black"><ul><li style="list-style-type: circle;">In high-level language, like C or C++, we give name to construct such as variables, functions and classes. All these names are called “symbolic information” o simply “symbol”. Good naming conventions make the source code much easier to understand BUT at binary level, they have no real relevance..</i></li><li style="list-style-type: circle;">As a result, <b>binaries are often stripped of symbols</b>, making it much harder to understand.</i></li></ul></td></tr>
+<tr><td style="background:#272C34;;text-align:center;font-weight:bold;">NO TYPE INFORMATION </td></tr>
+<tr> <td style="border: 1px solid black;background:white;color:black"><ul><li style="list-style-type: circle;">Inother feature of high-level programs is that they revolve around variables with well-defined types, such as INT*, FLOAT, STRING*, as well as more complex data structures like <b>STRUCT TYPE</b>.</i></li><li style="list-style-type: circle;">In contrast, at the binary level, <b>types are never explicitly stated</b>, making the purpose and structure of data hard to infer.</i></li></ul></td></tr>
+<tr><td style="background:#272C34;;text-align:center;font-weight:bold;">NO HIGH-LEVEL ABSTRACTIONS </td></tr>
+<tr><td style="border: 1px solid black;background:white;color:black"><ul><li style="list-style-type: circle;">Modern programs are compartmentalized into classes and functions, but compilers throw away these high-level constructs.   </i></li><li style="list-style-type: circle;">That means that binaries appear as huge blobs of code and data, rather thrown well-structured programs, and restoring the high-level structure <b>is complex and error-prone</b></i></li></ul></td></tr>
+<tr><td style="background:#272C34;;text-align:center;font-weight:bold;">MIXED CODE AND DATA</td></tr>
+<tr><td style="border: 1px solid black;background:white;color:black"><ul><li style="list-style-type: circle;">Binaries can (and DO) contain data fragments mixed in with the executable code (Visual studio, for example, is especially notorious in terms of mixing code and data)</i></li><li style="list-style-type: circle;">This makes it easy to accidentally interpret data as code, or vice versa, <b>leading to incorrect results.</b></i></li></ul></td></tr>
+<tr><td style="background:#272C34;;text-align:center;font-weight:bold;">LOCATION-DEPENDENT CODE AND DATA</td></tr>
+<tr><td style="border: 1px solid black;background:white;color:black"><ul><li style="list-style-type: circle;">Because binaries re not designed to be modified, even adding a single machine instruction can cause problems as it shifts other code around invalidating memory addresses and references from elsewhere in the code.</i></li><li style="list-style-type: circle;text-decoration:underline;">As a result, <b>any kind of code or data modification is extremely challenging and prone to braking the binary.</b></i></li></ul></td></tr>
+</table>
+</div><div class="post-footer" id="post-footer">
+    <div class="post-info">
+        <div class="post-info-line">
+            <div class="post-info-mod">
+                <span>Updated on 01 Sep 2021</span>
+            </div>
+            <div class="post-info-license"></div>
+        </div>
+        <div class="post-info-line">
+            <div class="post-info-md"><span>
+                            <a class="link-to-markdown" href="/practicalbinaryanalysis_intro/index.md" target="_blank">Read Markdown</a>
+                        </span></div>
+            <div class="post-info-share">
+                <span><a href="javascript:void(0);" title="Share on Twitter" data-sharer="twitter" data-url="https://pasqnix.github.io/practicalbinaryanalysis_intro/" data-title="[Practical Binary Analysis] Introduction" data-via="xxxx" data-hashtags="ReverseEngineering,Assembly,Hacking,Debugging,Binary Analysis"><i class="fab fa-twitter fa-fw"></i>&nbsp;</a><a href="javascript:void(0);" title="Share on Facebook" data-sharer="facebook" data-url="https://pasqnix.github.io/practicalbinaryanalysis_intro/" data-hashtag="ReverseEngineering"><i class="fab fa-facebook-square fa-fw"></i>&nbsp;</a><a href="javascript:void(0);" title="Share on Hacker News" data-sharer="hackernews" data-url="https://pasqnix.github.io/practicalbinaryanalysis_intro/" data-title="[Practical Binary Analysis] Introduction"><i class="fab fa-hacker-news fa-fw"></i>&nbsp;</a><a href="javascript:void(0);" title="Share on Line" data-sharer="line" data-url="https://pasqnix.github.io/practicalbinaryanalysis_intro/" data-title="[Practical Binary Analysis] Introduction"><i data-svg-src="/lib/simple-icons/icons/line.min.svg"></i></a><a href="javascript:void(0);" title="Share on 微博" data-sharer="weibo" data-url="https://pasqnix.github.io/practicalbinaryanalysis_intro/" data-title="[Practical Binary Analysis] Introduction"><i class="fab fa-weibo fa-fw"></i>&nbsp;</a></span>
+            </div>
+        </div>
+    </div>
+
+    <div class="post-info-more">
+        <section class="post-tags"><i class="fas fa-tags fa-fw"></i>&nbsp;<a href="/tags/reverseengineering/">ReverseEngineering</a>,&nbsp;<a href="/tags/assembly/">Assembly</a>,&nbsp;<a href="/tags/hacking/">Hacking</a>,&nbsp;<a href="/tags/debugging/">Debugging</a>,&nbsp;<a href="/tags/binary-analysis/">Binary Analysis</a></section>
+        <section>
+            <span><a href="javascript:void(0);" onclick="window.history.back();">Back</a></span>&nbsp;|&nbsp;<span><a href="/">Home</a></span>
+        </section>
+    </div>
+
+    <div class="post-nav"><a href="/startingpoint/" class="prev" rel="prev" title="Starting Point on HackTheBox (2020)"><i class="fas fa-angle-left fa-fw"></i>Starting Point on HackTheBox (2020)</a>
+            <a href="/practicalbinaryanalysis_part1/" class="next" rel="next" title="[Practical Binary Analysis]  Part.1 (Chapter.1)">[Practical Binary Analysis]  Part.1 (Chapter.1)<i class="fas fa-angle-right fa-fw"></i></a></div>
+</div>
+
+
+        <div style="height: 80px;position:absolute;">&nbsp;</div>
+    </article></div>
+            </main><footer class="footer">
+        <div class="footer-container"><div class="footer-line">Powered by <a href="https://gohugo.io/" target="_blank" rel="noopener noreffer" title="Hugo 0.92.2">Hugo</a> | Theme - <a href="https://github.com/dillonzq/LoveIt" target="_blank" rel="noopener noreffer" title="LoveIt 0.2.10"><i class="far fa-kiss-wink-heart fa-fw"></i> LoveIt</a>&nbsp;|&nbsp;<span class="license"><a rel="license external nofollow noopener noreffer" href="https://creativecommons.org/licenses/by-nc/4.0/" target="_blank">CC BY-NC 4.0</a></span></div>
+        </div>
+    </footer></div>
+
+        <div id="fixed-buttons"><a href="#" id="back-to-top" class="fixed-button" title="Back to Top">
+                <i class="fas fa-arrow-up fa-fw"></i>
+            </a><a href="#" id="view-comments" class="fixed-button" title="View Comments">
+                <i class="fas fa-comment fa-fw"></i>
+            </a>
+        </div><link rel="stylesheet" href="/lib/lightgallery/lightgallery.min.css"><script type="text/javascript" src="/lib/smooth-scroll/smooth-scroll.min.js"></script><script type="text/javascript" src="/lib/autocomplete/autocomplete.min.js"></script><script type="text/javascript" src="/lib/lunr/lunr.min.js"></script><script type="text/javascript" src="/lib/lazysizes/lazysizes.min.js"></script><script type="text/javascript" src="/lib/lightgallery/lightgallery.min.js"></script><script type="text/javascript" src="/lib/lightgallery/lg-thumbnail.min.js"></script><script type="text/javascript" src="/lib/lightgallery/lg-zoom.min.js"></script><script type="text/javascript" src="/lib/clipboard/clipboard.min.js"></script><script type="text/javascript" src="/lib/sharer/sharer.min.js"></script><script type="text/javascript">window.config={"code":{"copyTitle":"Copy to clipboard","maxShownLines":10},"comment":{},"lightGallery":{"actualSize":false,"exThumbImage":"data-thumbnail","hideBarsDelay":2000,"selector":".lightgallery","speed":400,"thumbContHeight":80,"thumbWidth":80,"thumbnail":true},"search":{"highlightTag":"em","lunrIndexURL":"/index.json","maxResultLength":20,"noResultsFound":"No results found","snippetLength":30,"type":"lunr"}};</script><script type="text/javascript" src="/js/theme.min.js"></script></body>
+</html>

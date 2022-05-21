@@ -1,0 +1,21 @@
+<rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0">
+    <channel>
+        <title>Binary Analysis - Tag - HackSpread.com</title>
+        <link>https://pasqnix.github.io/tags/binary-analysis/</link>
+        <description>Binary Analysis - Tag - HackSpread.com</description>
+        <generator>Hugo -- gohugo.io</generator><language>en</language><copyright>This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.</copyright><lastBuildDate>Tue, 16 Nov 2021 00:00:00 &#43;0000</lastBuildDate><atom:link href="https://pasqnix.github.io/tags/binary-analysis/" rel="self" type="application/rss+xml" /><item>
+    <title>[Practical Binary Analysis]  Part.1 (Chapter.1)</title>
+    <link>https://pasqnix.github.io/practicalbinaryanalysis_part1/</link>
+    <pubDate>Tue, 16 Nov 2021 00:00:00 &#43;0000</pubDate>
+    <author>Author</author>
+    <guid>https://pasqnix.github.io/practicalbinaryanalysis_part1/</guid>
+    <description><![CDATA[As malware increasingly obfuscates itself and applies anti-analysis techniques to thwart our analysis, we need more sophisticated methods that allow us to raise that dark curtain designed to keep us out--binary analysis can help. The goal of all binary analysis is to determine (and possibly modify) the true properties of binary programs to understand what they really do, rather than what we think they should do. While reverse engineering and disassembly are critical first steps in many forms of binary analysis, there is much more to be learned.]]></description>
+</item><item>
+    <title>[Practical Binary Analysis] Introduction</title>
+    <link>https://pasqnix.github.io/practicalbinaryanalysis_intro/</link>
+    <pubDate>Wed, 01 Sep 2021 00:00:00 &#43;0000</pubDate>
+    <author>Author</author>
+    <guid>https://pasqnix.github.io/practicalbinaryanalysis_intro/</guid>
+    <description><![CDATA[description: "What is Binary Analysis? This post covers the introduction of the book \"Practical Binary Analysis\" " As malware increasingly obfuscates itself and applies anti-analysis techniques to thwart our analysis, we need more sophisticated methods that allow us to raise that dark curtain designed to keep us out--binary analysis can help. The goal of all binary analysis is to determine (and possibly modify) the true properties of binary programs to understand what they really do, rather than what we think they should do.]]></description>
+</item></channel>
+</rss>

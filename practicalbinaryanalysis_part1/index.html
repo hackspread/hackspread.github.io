@@ -1,0 +1,2256 @@
+<!DOCTYPE html>
+<html lang="en" >
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="robots" content="noodp" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge, chrome=1">
+        <title>[Practical Binary Analysis]  Part.1 (Chapter.1) - HackSpread.com</title><meta name="Description" content="The anatomy of a BINARY, from the first chapter of the book from Daniel Andriesse &#34;Practical Binary Analysis&#34;. "><meta property="og:title" content="[Practical Binary Analysis]  Part.1 (Chapter.1)" />
+<meta property="og:description" content="The anatomy of a BINARY, from the first chapter of the book from Daniel Andriesse &#34;Practical Binary Analysis&#34;. " />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://pasqnix.github.io/practicalbinaryanalysis_part1/" /><meta property="og:image" content="https://pasqnix.github.io/practicalbinaryanalysis_part1/featured-image.jpg"/><meta property="article:section" content="posts" />
+<meta property="article:published_time" content="2021-11-16T00:00:00+00:00" />
+<meta property="article:modified_time" content="2021-11-16T00:00:00+00:00" />
+
+<meta name="twitter:card" content="summary_large_image"/>
+<meta name="twitter:image" content="https://pasqnix.github.io/practicalbinaryanalysis_part1/featured-image.jpg"/>
+<meta name="twitter:title" content="[Practical Binary Analysis]  Part.1 (Chapter.1)"/>
+<meta name="twitter:description" content="The anatomy of a BINARY, from the first chapter of the book from Daniel Andriesse &#34;Practical Binary Analysis&#34;. "/>
+<meta name="application-name" content="psqnix.github.io">
+<meta name="apple-mobile-web-app-title" content="psqnix.github.io"><meta name="theme-color" content="#ffffff"><meta name="msapplication-TileColor" content="#da532c"><link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
+        <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+        <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+        <link rel="stylesheet" href="../../../css/custom.css">
+        <link rel="stylesheet" href="../../../css/style.css"><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"><link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5"><link rel="manifest" href="/site.webmanifest"><link rel="canonical" href="https://pasqnix.github.io/practicalbinaryanalysis_part1/" /><link rel="prev" href="https://pasqnix.github.io/practicalbinaryanalysis_intro/" /><link rel="next" href="https://pasqnix.github.io/reveringhero/" /><link rel="stylesheet" href="/lib/normalize/normalize.min.css"><link rel="stylesheet" href="/lib/fontawesome-free/all.min.css"><link rel="stylesheet" href="/lib/animate/animate.min.css"><script type="application/ld+json">
+    {
+        "@context": "http://schema.org",
+        "@type": "BlogPosting",
+        "headline": "[Practical Binary Analysis]  Part.1 (Chapter.1)",
+        "inLanguage": "en",
+        "mainEntityOfPage": {
+            "@type": "WebPage",
+            "@id": "https:\/\/pasqnix.github.io\/practicalbinaryanalysis_part1\/"
+        },"image": [{
+                            "@type": "ImageObject",
+                            "url": "https:\/\/pasqnix.github.io\/practicalbinaryanalysis_part1\/featured-image.jpg",
+                            "width":  425 ,
+                            "height":  260 
+                        }],"genre": "posts","keywords": "ReverseEngineering, Assembly, Hacking, Debugging, Binary Analysis","wordcount":  7502 ,
+        "url": "https:\/\/pasqnix.github.io\/practicalbinaryanalysis_part1\/","datePublished": "2021-11-16T00:00:00+00:00","dateModified": "2021-11-16T00:00:00+00:00","license": "This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.","publisher": {
+            "@type": "Organization",
+            "name": "xxxx","logo": {
+                    "@type": "ImageObject",
+                    "url": "https:\/\/pasqnix.github.io\/images\/mylogo.png",
+                    "width":  286 ,
+                    "height":  53 
+                }},"author": {
+                "@type": "Person",
+                "name": "Daniel Andriesse"
+            },"description": "The anatomy of a BINARY, from the first chapter of the book from Daniel Andriesse \"Practical Binary Analysis\". "
+    }
+    </script></head>
+    <body header-desktop="fixed" header-mobile="auto" ><script type="text/javascript">(window.localStorage && localStorage.getItem('theme') ? localStorage.getItem('theme') === 'dark' : ('light' === 'auto' ? window.matchMedia('(prefers-color-scheme: dark)').matches : 'light' === 'dark')) && document.body.setAttribute('theme', 'dark');</script>
+
+        <div id="mask"></div><div class="wrapper"><header class="desktop" id="header-desktop" style="border-bottom:1px solid #E1E1E1;box-shadow: 0 0 1.5rem 0 #E1E1E1;"> 
+    
+    <div class="header-wrapper">
+        <div class="header-title" >
+            <a href="/" title="HackSpread.com"><img src="/images/mylogo.png">
+
+  
+            </a>
+        </div>
+        <div class="menu">
+            <div class="menu-inner"><a class="menu-item" href="/"> Home </a><a class="menu-item" href="/posts/"> Posts </a><a class="menu-item" href="/tags/"> Tags </a><a class="menu-item" href="/about/"> About </a><span class="menu-item delimiter"></span><span class="menu-item search" id="search-desktop">
+                        <input type="text" placeholder="Search titles or contents..." id="search-input-desktop">
+                        <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-desktop" title="Search">
+                            <i class="fas fa-search fa-fw"></i>
+                        </a>
+                        <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-desktop" title="Clear">
+                            <i class="fas fa-times-circle fa-fw"></i>
+                        </a>
+                        <span class="search-button search-loading" id="search-loading-desktop">
+                            <i class="fas fa-spinner fa-fw fa-spin"></i>
+                        </span>
+                    </span>
+            </div>
+        </div>
+    </div>
+</header><header class="mobile" id="header-mobile">
+    <div class="header-container">
+        <div class="header-wrapper">
+            <div class="header-title">
+                <a href="/" title="HackSpread.com"><img src="/images/mylogo-mobile.png">
+                    
+                </a>
+            </div>
+            <div class="menu-toggle" id="menu-toggle-mobile">
+                <span></span><span></span><span></span>
+            </div>
+        </div>
+        <div class="menu" id="menu-mobile"><div class="search-wrapper">
+                    <div class="search mobile" id="search-mobile">
+                        <input type="text" placeholder="Search titles or contents..." id="search-input-mobile">
+                        <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-mobile" title="Search">
+                            <i class="fas fa-search fa-fw"></i>
+                        </a>
+                        <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-mobile" title="Clear">
+                            <i class="fas fa-times-circle fa-fw"></i>
+                        </a>
+                        <span class="search-button search-loading" id="search-loading-mobile">
+                            <i class="fas fa-spinner fa-fw fa-spin"></i>
+                        </span>
+                    </div>
+                    <a href="javascript:void(0);" class="search-cancel" id="search-cancel-mobile">
+                        Cancel
+                    </a>
+                </div><a class="menu-item" href="/" title="">Home</a><a class="menu-item" href="/posts/" title="">Posts</a><a class="menu-item" href="/tags/" title="">Tags</a><a class="menu-item" href="/about/" title="">About</a><a href="javascript:void(0);" class="menu-item theme-switch" title="Switch Theme">
+                <i class="fas fa-adjust fa-fw"></i>
+            </a></div>
+    </div>
+</header>
+<div class="search-dropdown desktop">
+    <div id="search-dropdown-desktop"></div>
+</div>
+<div class="search-dropdown mobile">
+    <div id="search-dropdown-mobile"></div>
+</div>
+<main class="main" >
+                <div class="container" style="max-width: 100%;margin:0;padding-left:0;padding-right: 0;" ><div>
+    <img
+        width="200"
+        height="400"
+        class=" lazyload"
+        src="/svg/loading.min.svg"
+        data-src="/practicalbinaryanalysis_part1/featured-image.jpg"
+        data-srcset="/practicalbinaryanalysis_part1/featured-image.jpg, /practicalbinaryanalysis_part1/featured-image.jpg 1.5x, /practicalbinaryanalysis_part1/featured-image.jpg 2x"
+        data-sizes="auto"
+        alt="/practicalbinaryanalysis_part1/featured-image.jpg"
+        title="The anatomy of a BINARY, from the first chapter of the book from Daniel Andriesse &#34;Practical Binary Analysis&#34;. "
+        style="width: 100%;object-fit: cover;margin: 0pt;"/></div><div class="toc" id="toc-auto" style="position:relative;background-color: #E0E0E0;">
+            <table >
+                <tr style="position:relative;background-color: #E0E0E0;border: 2px solid white;border-left: none;border-right: none;">
+                    <td style="text-align:center;vertical-align: middle;" >Table of Contents</td>
+                </tr></table>
+           
+        
+
+         
+         <div class="toc-content" id="toc-content-auto"></div>
+    
+    
+            
+        </div><article class="page single" style="border:0px solid black;max-width:1400px;flex-wrap: wrap;padding:2%;"><h1 class="single-title animated flipInX">[Practical Binary Analysis]  Part.1 (Chapter.1)</h1>
+<div class="post-meta">
+
+           
+            <div class="post-meta-line" style="padding-top: 25px;;">
+                <table ><tr>
+                <td style="border:none"><i class="far fa-calendar-alt fa-fw"></i>&nbsp;<time datetime="16 Nov 2021">16 Nov 2021</time>&nbsp;
+                <i class="far fa-clock fa-fw"></i>&nbsp;36 minutes&nbsp;
+</td><td style="border:none;text-align: right;">
+                <span><a href="javascript:void(0);" onclick="window.history.back();">Back</a></span>&nbsp;|&nbsp;<span><a href="/">Home</a></span></td>
+            </tr></table>
+            </div>
+
+
+          
+            
+
+        </div>
+<div class="details toc" id="toc-static"  kept="">
+                <div class="details-summary toc-title">
+                    <span>Contents</span>
+                    <span><i class="details-icon fas fa-angle-right"></i></span>
+                </div>
+                <div class="details-content toc-content" id="toc-content-static"><nav id="TableOfContents">
+  <ul>
+    <li><a href="#chapter-1"><strong>CHAPTER 1</strong></a></li>
+    <li><a href="#9656--the-anatomy-of-a-binary">▸  <strong>The anatomy of a BINARY</strong></a></li>
+    <li><a href="#9656-the-c-compilation-process">▸ The C Compilation Process</a>
+      <ul>
+        <li><a href="#9702-the-processing-phase">◦ The Processing Phase</a></li>
+        <li><a href="#9702-the-compiling-phase">◦ The Compiling Phase</a></li>
+        <li><a href="#9702-the-assembly-phase">◦ The Assembly Phase</a></li>
+        <li><a href="#9702-the-linking-phase">◦ The Linking Phase</a></li>
+      </ul>
+    </li>
+    <li><a href="#9656-symbols-and-stripped-binaries">▸ Symbols and Stripped Binaries</a>
+      <ul>
+        <li><a href="#9702-viewing-symbolic-information">◦ Viewing Symbolic Information</a></li>
+        <li><a href="#9702-stripping-a-binary">◦ Stripping a Binary</a></li>
+      </ul>
+    </li>
+    <li><a href="#9656-disassembling-a-binary">▸ Disassembling a Binary</a>
+      <ul>
+        <li><a href="#9702-looking-inside-an-object-file">◦ Looking inside an Object File.</a></li>
+        <li><a href="#9702-examining-a-complete-binary-executable">◦ Examining a complete binary executable</a></li>
+      </ul>
+    </li>
+    <li><a href="#9656-loading-and-executing-a-binary">▸ Loading and Executing a Binary</a></li>
+    <li><a href="#9656-summary">▸ Summary</a></li>
+  </ul>
+</nav></div>
+            </div><div class="content" id="content"><!-- >
+
+As malware increasingly obfuscates itself and applies anti-analysis techniques to thwart our analysis, we need more sophisticated methods that allow us to raise that dark curtain designed to keep us out--binary analysis can help. The goal of all binary analysis is to determine (and possibly modify) the true properties of binary programs to understand what they really do, rather than what we think they should do. While reverse engineering and disassembly are critical first steps in many forms of binary analysis, there is much more to be learned.
+
+SOMMARIO
+
+
+
+2 ANATOMY OF BINARY 6
+
+2.1 The C Compilation Process 6
+
+2.1.1 The Processing Phase 7
+
+2.1.2 The Compiling Phase 9
+
+2.1.3 The Assembly Phase 11
+
+2.1.4 The Linking Phase 12
+
+2.2 Symbols and Stripped Binaries 15
+
+2.2.1 Viewing Symbolic Information 15
+
+2.2.2 Another Binary Turns to the dark side: Stripping a Binary 17
+
+2.3 Disassembling a Binary 18
+
+-->
+<p>The content of this page is entirly coming from the &ldquo;Practical Binary Analysis&rdquo; book (<a href="https://practicalbinaryanalysis.com/" target="_blank" rel="noopener noreffer">https://practicalbinaryanalysis.com/</a>) from Andriesse (<a href="https://mistakenot.net/" target="_blank" rel="noopener noreffer">https://mistakenot.net/</a>)</p>
+<h2 id="chapter-1"><strong>CHAPTER 1</strong></h2>
+<p>(<a href="pba.pdf" rel="">pdf</a>)</p>
+<h2 id="9656--the-anatomy-of-a-binary">▸  <strong>The anatomy of a BINARY</strong></h2>
+<p>=================</p>
+<p><em><strong>What exactly is a binary?</strong></em></p>
+<p>Modern computers perform their computations using the binary numerical
+system, which express all numbers as strings of one and zeros.</p>
+<p>The machine code that these systems execute is called <strong>binary code.</strong></p>
+<p><em>Every program consists of a collection of</em>:</p>
+<ul>
+<li>
+<p><strong>Binary code</strong> <em>the machine instructions</em></p>
+</li>
+<li>
+<p><strong>Data</strong> variables, constants and the like</p>
+</li>
+</ul>
+<p>To keep track of all the different programs on a given system is needed
+a way to store all the code and data belonging to each program in a
+self-contained file.</p>
+<p><em>These files</em>, containing executable binary programs, are called
+<strong>binary executable files</strong> or simply <strong>binary</strong></p>
+<h2 id="9656-the-c-compilation-process">▸ The C Compilation Process</h2>
+<hr>
+<p>Binaries are produced through <strong>compilation</strong>:</p>
+<table><tr><td>
+<b>COMPILATION</b> : Is the process of translating human-readable source code into machine code that the processor can execute.
+ </td></tr></table>
+<p>Compiling C code involves four phases (modern compilers often merge some
+or all of these phases):</p>
+<ol>
+<li>
+<p><strong>Processing</strong></p>
+</li>
+<li>
+<p><strong>Compilation</strong></p>
+</li>
+<li>
+<p><strong>Assembly</strong></p>
+</li>
+<li>
+<p><strong>Linking</strong></p>
+</li>
+</ol>
+<h3 id="9702-the-processing-phase">◦ The Processing Phase</h3>
+<p>Below a typical compilation process for C code:</p>
+<p><img
+        width="200"
+        height="200"
+        class=" lazyload"
+        src="/svg/loading.min.svg"
+        data-src="fig1.jpeg"
+        data-srcset="/practicalbinaryanalysis_part1/fig1.jpeg, fig1.jpeg 1.5x, /practicalbinaryanalysis_part1/fig1.jpeg 2x"
+        data-sizes="auto"
+        alt="/practicalbinaryanalysis_part1/fig1.jpeg"
+        title="WhatsApp Image 2019-12-08 at 11"
+        style="width: 100%;object-fit: cover;margin: 0pt;"/></p>
+<p>The compilation process starts with a number of source files that have
+to be compiled ( <em><strong>file-1.c</strong></em> through <em><strong>file-n.c</strong></em> )</p>
+<p>It is possible to have one large file but typically, <em>large programs are
+composed of many files</em>, this for the following reasons:</p>
+<p>a)  <strong>It makes the project easier to manage</strong></p>
+<p>b)  <strong>It speeds up compilation because if one file changes, only that
+file has to be recompiled instead of all the code.</strong></p>
+<p><em>C source files contain:</em></p>
+<ul>
+<li>
+<p><strong>Macros</strong> (<em>#define</em>)</p>
+</li>
+<li>
+<p><strong>Directives</strong> (<em>#include</em>): <em>are used to include header files (with the
+extension .h), on which the source code depends.</em></p>
+</li>
+</ul>
+<p>The Processing phase expands any <strong>“#define”</strong> <em>macros</em> or <strong>“#include”</strong>
+<em>directives</em> in the source file, so all that is left is pure C code ready
+to be compiled.</p>
+<p>Let take the following code as an example:</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-c" data-lang="c">  <span class="c1">//compilation_example.c
+</span><span class="c1"></span>  
+  <span class="cp">#include</span> <span class="cpf">&lt;stdio.h&gt;</span><span class="cp">
+</span><span class="cp"></span>  
+  <span class="cp">#define FORMAT_STRING “%s”
+</span><span class="cp"></span>  
+  <span class="cp">#define MESSAGE “Hello, world!\n”
+</span><span class="cp"></span>  
+  <span class="kt">int</span>
+  
+  <span class="nf">main</span><span class="p">(</span><span class="kt">int</span> <span class="n">argc</span><span class="p">,</span> <span class="kt">char</span> <span class="err">\</span><span class="o">*</span><span class="n">argv</span><span class="err">\</span><span class="p">[</span><span class="err">\</span><span class="p">])</span>
+  
+  <span class="p">{</span>
+  
+  <span class="n">printf</span><span class="p">(</span><span class="n">FORMAT_STRING</span><span class="p">,</span><span class="n">MESSAGE</span><span class="p">);</span>
+  
+  <span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
+  
+  <span class="p">}</span>
+
+</code></pre></td></tr></table>
+</div>
+</div><p>Let us compile the file “<em>compilation_example.c” using <strong>gcc</strong> (into
+<em>x86-64 code</em>)</em> using the following parameters:</p>
+<ul>
+<li>
+<p><strong>-E</strong> : tells gcc to stop after processing</p>
+</li>
+<li>
+<p><strong>-P</strong> : causes the compiler to omit the debugging information, so
+that the output is a bit cleaner.</p>
+</li>
+</ul>
+<p>Below the output of the C processor of the <em>compilation_example.c <strong>gcc
+-E -P compilation_example.c</strong></em></p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span><span class="lnt">33
+</span><span class="lnt">34
+</span><span class="lnt">35
+</span><span class="lnt">36
+</span><span class="lnt">37
+</span><span class="lnt">38
+</span><span class="lnt">39
+</span><span class="lnt">40
+</span><span class="lnt">41
+</span><span class="lnt">42
+</span><span class="lnt">43
+</span><span class="lnt">44
+</span><span class="lnt">45
+</span><span class="lnt">46
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-c" data-lang="c">  <span class="o">---</span>
+ <span class="err">$</span> <span class="n">gcc</span> <span class="o">-</span><span class="n">E</span> <span class="o">-</span><span class="n">P</span> <span class="n">compilation_example</span><span class="p">.</span><span class="n">c</span> 
+  
+  <span class="k">typedef</span> <span class="kt">long</span> <span class="kt">unsigned</span> <span class="kt">int</span> <span class="n">size_t</span><span class="p">;</span>
+  
+  <span class="k">typedef</span> <span class="kt">unsigned</span> <span class="kt">char</span> <span class="n">__u_char</span><span class="p">;</span>
+  
+  <span class="k">typedef</span> <span class="kt">unsigned</span> <span class="kt">short</span> <span class="kt">int</span> <span class="n">__u_short</span><span class="p">;</span>
+  
+  <span class="k">typedef</span> <span class="kt">unsigned</span> <span class="kt">int</span> <span class="n">__u_int</span><span class="p">;</span>
+  
+  <span class="k">typedef</span> <span class="kt">unsigned</span> <span class="kt">long</span> <span class="kt">int</span> <span class="n">__u_long</span><span class="p">;</span>
+  
+   <span class="cm">/*.....*/</span>
+  
+  <span class="k">extern</span> <span class="kt">int</span> <span class="n">sys_nerr</span><span class="p">;</span>
+  
+  <span class="k">extern</span> <span class="k">const</span> <span class="kt">char</span> <span class="o">*</span><span class="k">const</span> <span class="n">sys_errlist</span><span class="err">\</span><span class="p">[</span><span class="err">\</span><span class="p">];</span>
+  
+  <span class="k">extern</span> <span class="kt">int</span> <span class="nf">fileno</span> <span class="p">(</span><span class="n">FILE</span> <span class="o">*</span><span class="n">__stream</span><span class="p">)</span> <span class="n">__attribute__</span> <span class="p">((</span><span class="n">__nothrow__</span> <span class="p">,</span> <span class="n">__leaf__</span><span class="p">))</span> <span class="p">;</span>
+  
+  <span class="k">extern</span> <span class="kt">int</span> <span class="nf">fileno_unlocked</span> <span class="p">(</span><span class="n">FILE</span> <span class="o">*</span><span class="n">__stream</span><span class="p">)</span> <span class="n">__attribute__</span> <span class="p">((</span><span class="n">__nothrow__</span> <span class="p">,</span> <span class="n">__leaf__</span><span class="p">))</span> <span class="p">;</span>
+  
+  <span class="k">extern</span> <span class="n">FILE</span> <span class="o">*</span><span class="nf">popen</span> <span class="p">(</span><span class="k">const</span> <span class="kt">char</span> <span class="o">*</span><span class="n">__command</span><span class="p">,</span> <span class="k">const</span> <span class="kt">char</span> <span class="o">*</span><span class="n">__modes</span><span class="p">)</span> <span class="p">;</span><span class="o">*</span>
+  
+  <span class="k">extern</span> <span class="kt">int</span> <span class="nf">pclose</span> <span class="p">(</span><span class="n">FILE</span> <span class="o">*</span><span class="n">__stream</span><span class="p">);</span><span class="o">*</span>
+  
+  <span class="k">extern</span> <span class="kt">char</span> <span class="o">*</span><span class="nf">ctermid</span> <span class="p">(</span><span class="kt">char</span> <span class="o">*</span><span class="n">__s</span><span class="p">)</span> <span class="n">__attribute__</span> <span class="p">((</span><span class="n">__nothrow__</span> <span class="p">,</span> <span class="n">__leaf__</span><span class="p">));</span>
+  
+  <span class="k">extern</span> <span class="kt">void</span> <span class="nf">flockfile</span> <span class="p">(</span><span class="n">FILE</span> <span class="o">*</span><span class="n">__stream</span><span class="p">)</span> <span class="n">__attribute__</span> <span class="p">((</span><span class="n">__nothrow__</span> <span class="p">,</span> <span class="n">__leaf__</span><span class="p">));</span>
+  
+  <span class="k">extern</span> <span class="kt">int</span> <span class="nf">ftrylockfile</span> <span class="p">(</span><span class="n">FILE</span> <span class="o">*</span><span class="n">__stream</span><span class="p">)</span> <span class="n">__attribute__</span> <span class="p">((</span><span class="n">__nothrow__</span> <span class="p">,</span> <span class="n">__leaf__</span><span class="p">));</span>
+  
+  <span class="k">extern</span> <span class="kt">void</span> <span class="nf">funlockfile</span> <span class="p">(</span><span class="n">FILE</span> <span class="o">*</span><span class="n">__stream</span><span class="p">)</span> <span class="n">__attribute__</span> <span class="p">((</span><span class="n">__nothrow__</span> <span class="p">,</span> <span class="n">__leaf__</span><span class="p">));</span>
+  
+  <span class="kt">int</span>
+  
+  <span class="nf">main</span><span class="p">(</span><span class="kt">int</span> <span class="n">argc</span><span class="p">,</span> <span class="kt">char</span> <span class="o">*</span><span class="n">argv</span><span class="p">[])</span> <span class="p">{</span>
+  
+  <span class="n">printf</span><span class="p">(</span><span class="s">&#34;%s&#34;</span><span class="p">,</span> <span class="s">&#34;Hello, world!</span><span class="se">\n</span><span class="s">&#34;</span><span class="p">);</span>
+  
+  <span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
+  
+  <span class="p">}</span>
+
+  <span class="o">---</span>
+</code></pre></td></tr></table>
+</div>
+</div><p>The “<em>stdio.h”</em> header is included in its entirety, with all <em>its type
+definitions, global variables, and function prototypes</em> “copied in” to
+the source file.</p>
+<ul>
+<li>
+<p>Because this happens for every <strong>#include directive</strong>, preprocessor
+output can be quite verbose.</p>
+</li>
+<li>
+<p>The preprocessor also fully expands all of any <strong>#define macros</strong>
+used. In the above example both arguments to “printf”* are
+evaluated and replaced by the constant strings they represent:</p>
+</li>
+</ul>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-c" data-lang="c">  <span class="o">-----</span>
+  <span class="p">..</span>
+  
+  <span class="cp">#define FORMAT_STRING &lt;b&gt;“%s”&lt;/b&gt;
+</span><span class="cp"></span>  
+  <span class="cp">#define MESSAGE &lt;b&gt;“Hello, world!\n”&lt;/b&gt;
+</span><span class="cp"></span>  
+  <span class="p">..</span>
+  
+  <span class="n">printf</span><span class="p">(</span><span class="n">FORMAT_STRING</span><span class="p">,</span><span class="n">MESSAGE</span><span class="p">);</span><span class="o">*</span><span class="p">..</span>
+  <span class="o">-----</span>
+</code></pre></td></tr></table>
+</div>
+</div><p>to:</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-c" data-lang="c">  <span class="o">-------</span>
+  <span class="p">..</span>
+  
+  <span class="n">printf</span><span class="p">(</span><span class="o">**</span><span class="s">&#34;%s**&#34;</span><span class="p">,</span> <span class="o">**</span><span class="s">&#34;Hello, world!</span><span class="se">\n</span><span class="s">&#34;</span><span class="o">**</span><span class="p">);</span>
+  
+  <span class="p">..</span>
+  <span class="o">-------</span>
+</code></pre></td></tr></table>
+</div>
+</div><h3 id="9702-the-compiling-phase">◦ The Compiling Phase</h3>
+<ul>
+<li></li>
+</ul>
+<p>After the processing part is completed, the source is now ready to be
+compiled-</p>
+<table><tr><td>
+The <b>compilation phase</b> takes the preprocessed code and translate it into assembly language.
+ </td></tr></table>
+<p><strong>Most compilers also perform heavy optimization in this phase,
+typically configurable as an optimization level through command line
+switches such as option <strong>–Oo3</strong> through <strong>–O3</strong> in <strong>gcc</strong>. The degree
+of optimization during compilation can have a profound effect on
+disassembly.</strong></p>
+<p>The main reason why the compilation phase produces assembly language
+instead of machine code is that <em>writing a compiler that emits, at the
+same time, machine code for many different languages</em> would be an
+extremely demanding and time-consuming task.</p>
+<p>It is better to instead emit assembly code, which is an already
+challenging task, and have <em>a single dedicated assembler</em> that <em>can
+handle</em> the final translation of assembly to machine code for every
+language.</p>
+<p>Therefore, the output of the compilation phase is:</p>
+<ul>
+<li><strong>Assembly</strong>, <em>in a reasonably human-readable form, <em>with symbolic
+information intact</em></em>.</li>
+</ul>
+<p>As mentioned, gcc normally calls all compilation phases automatically,
+so:</p>
+<p>To see the emitted assembly from the compilation stage, the <em>parameters
+and options</em> to use in order to tell <em><strong>gcc</strong></em> to stop after stage and
+store the assembly to the disk <em>are</em>:</p>
+<ul>
+<li>
+<p><strong>-S</strong> : This flag is for the conventional extension for assembly
+files <em><strong>“*.s”</strong></em></p>
+</li>
+<li>
+<p><strong>-masm=intel</strong> : With this option “gcc” emits assembly in Intel
+syntax rather than the default AT&amp;T syntax</p>
+</li>
+</ul>
+<p>Below the output of the C processor of the <em>compilation_example.c <strong>gcc
+-S -masm=intel compilation_example.c</strong></em></p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell">  --------
+  $ gcc -S -masm<span class="o">=</span>intel compilation<span class="se">\_</span>example.c
+  
+ $ ls –la
+  
+  *total 32*
+  
+ <span class="se">\*</span>….<span class="se">\*</span>
+  
+  -rw-r--r-- <span class="m">1</span> binary binary <span class="m">173</span> dec <span class="m">8</span> 16:29 compilation_example.c
+  
+ -rw-rw-r-- <span class="m">1</span> binary binary <span class="m">562</span> dec <span class="m">8</span> 19:57 **compilation_example.s*
+  
+ -rw-r--r-- <span class="m">1</span> binary binary <span class="m">10240</span> apr <span class="m">19</span> <span class="m">2018</span> hello.exe
+  
+ -rw-r--r-- <span class="m">1</span> binary binary <span class="m">723</span> apr <span class="m">19</span> <span class="m">2018</span> Makefile
+  --------
+</code></pre></td></tr></table>
+</div>
+</div><p>Below the output of <em><strong>$ cat compilation_example.s</strong></em></p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span><span class="lnt">33
+</span><span class="lnt">34
+</span><span class="lnt">35
+</span><span class="lnt">36
+</span><span class="lnt">37
+</span><span class="lnt">38
+</span><span class="lnt">39
+</span><span class="lnt">40
+</span><span class="lnt">41
+</span><span class="lnt">42
+</span><span class="lnt">43
+</span><span class="lnt">44
+</span><span class="lnt">45
+</span><span class="lnt">46
+</span><span class="lnt">47
+</span><span class="lnt">48
+</span><span class="lnt">49
+</span><span class="lnt">50
+</span><span class="lnt">51
+</span><span class="lnt">52
+</span><span class="lnt">53
+</span><span class="lnt">54
+</span><span class="lnt">55
+</span><span class="lnt">56
+</span><span class="lnt">57
+</span><span class="lnt">58
+</span><span class="lnt">59
+</span><span class="lnt">60
+</span><span class="lnt">61
+</span><span class="lnt">62
+</span><span class="lnt">63
+</span><span class="lnt">64
+</span><span class="lnt">65
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell">  
+  <span class="nv">$gcc</span> -S -masm<span class="o">=</span>intel compilation<span class="se">\_</span>example.c
+  
+  <span class="nv">$cat</span> compilation<span class="se">\_</span>example.s
+  
+  .file <span class="s2">&#34;compilation\_example.c&#34;</span>
+  
+  .intel<span class="se">\_</span>syntax noprefix
+  
+  .section .rodata
+  
+  .LC0: <span class="o">(</span>1<span class="o">)</span>
+  
+  .string <span class="s2">&#34;Hello, world!&#34;</span>
+  
+  .text
+  
+  .globl main
+  
+  .type main, @function
+  
+  main: <span class="o">(</span>2<span class="o">)</span>
+  
+  .LFB0:
+  
+  .cfi_startproc
+  
+  push rbp
+  
+  .cfi_def_cfa_offset <span class="m">16</span>
+  
+  .cfi_offset 6, -16
+  
+  mov rbp, rsp
+  
+  .cfi_def_cfa_register <span class="m">6</span>
+  
+  sub rsp, <span class="m">16</span>
+  
+  mov DWORD PTR <span class="o">[</span>rbp-4<span class="o">]</span>, edi
+  
+  mov QWORD PTR <span class="o">[</span>rbp-16<span class="o">]</span>, rsi
+  
+  mov edi, OFFSET FLAT:.LC0 <span class="o">(</span>3<span class="o">)</span>
+  
+  call puts
+  
+  mov eax, <span class="m">0</span>
+  
+  leave
+  
+  .cfi_def_cfa 7, <span class="m">8</span>
+  
+  ret
+  
+  .cfi_endproc
+  
+  .LFE0:
+  
+  .size main, .-main
+  
+  .ident <span class="s2">&#34;GCC: (Ubuntu 5.4.0-6ubuntu1\~16.04.5) 5.4.0 20160609&#34;</span>
+  
+  .section .note.GNU-stack,<span class="s2">&#34;&#34;</span>,@progbits
+  
+</code></pre></td></tr></table>
+</div>
+</div><p>The above code looks relatively easy to read because the symbols and
+functions have been preserved:</p>
+<ul>
+<li>ln.12 - The auto generated name <b><i>LC0</i></b> for the nameless “Hello, world!” string. </li>
+<li>ln.22 - The explicit label for the <b><i>main</i></b>function.</li>
+<li>ln.44 - The symbolic reference to code and data to the <b><i>LC0</i></b>(the“Hello, world!” string).</li>
+</ul>
+<p><u>Constants and variables have symbolic names rather than just address:</u></p>
+<ul>
+<li><em><strong>Unfortunately, with stripped binaries it’s not possible to gain all these extensive information.</strong></em></li>
+</ul>
+<h3 id="9702-the-assembly-phase">◦ The Assembly Phase</h3>
+<p>The <em><strong>Assembly phase</strong></em>: when some real machine code is finally
+generated!</p>
+<p>The input of the assembly phase is the set of assembly language files
+generated in the compilation phase, and the output is a set of object
+files, sometimes also referred to as module. <em>Object files contain
+machine instructions that are in principle executable by the processor</em>.
+Typically, each source file corresponds to one assembly file, and each
+assembly file corresponds to one object file.</p>
+<p>Below the process of generating an object file with <strong>gcc</strong> .<em>The
+parameter</em> <em>to generate an object file</em>, is <strong>-c</strong> : Flag to generate an
+object file.</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">  -----
+  ***\$ gcc -c compilation\_example.c***
+  
+  *\$ ls -la*
+  
+  *total 36*
+  
+  *drwxr-xr-x 2 binary binary 4096 dec 8 23:44 .*
+  
+  *drwxrwxr-x 16 binary binary 4096 apr 19 2018 ..*
+  
+  *-rw-r--r-- 1 binary binary 173 dec 8 16:29 compilation\_example.c*
+  
+  *-rw-rw-r-- 1 binary binary 1536 dec 8 23:44 compilation\_example.o*
+  
+  *-rw-rw-r-- 1 binary binary 562 dec 8 19:57 compilation\_example.s*
+  
+  *-rw-r--r-- 1 binary binary 10240 apr 19 2018 hello.exe*
+  
+  *-rw-r--r-- 1 binary binary 723 apr 19 2018 Makefile*
+  -----
+</code></pre></td></tr></table>
+</div>
+</div><p>The <strong>“file &lt;file.o&gt;”</strong> utility to confirm that the produced file
+is indeed and object file</p>
+<table class="view">
+<tr><td  class="top" style="font-weight:bold;">$ file compilation\_example.o</td></tr>
+<tr><td style="font-weight:bold;">compilation\_example.o: <span style="background-color: #990099;color:white">ELF 64-bit LSB relocatable,</span> x86-64, version 1 (SYSV), <span style="background-color: #004C99;color:white">not stripped</span><td></tr>
+</table>
+<p>Let’s analyse the output, the first part of the file output shows that
+the file conforms to the elf specification for binary executables:</p>
+<table class="list">
+<!-- <tr><td style="background:#272C34;color:#B09765;text-align:center;font-weight:bold;">ELF 64-bit LSB relocatable  </td></tr> -->
+<tr><td style="background:#990099;ext-align:center;font-weight:bold;text-align:center;color:white">ELF 64-bit LSB relocatable:</td></tr>
+<tr>    <td style="background:white;color:black"><ul style="list-style-type: circle;">
+      <li>It is a 64-bit ELF file (since we are compiling for 64-bit)</li>
+      <li>It is <b>LSB</b>, meaning that numbers are ordered in memory with their least significant byte first. <b>But most important is that is <u>relocatable</u></b></li>
+      <li>Relocatable files don’t rely on being placed at any particular address in memory; rather, they can be moved around at will without this breaking any assumption in the code.</li>
+      <li>When you see the term relocatable in the file output, you know are dealing with an object file and not with an executable. (There *are also position-independent relocatable files executable, but these show up in files as shared objects rather than relocatable. You can tell them apart from ordinary shared libraries because they have an entry point)</li></ul></td></tr>
+<tr><td style="background:#004C99;ext-align:center;font-weight:bold;text-align:center;color:white;">not stripped:</td></tr>
+<tr> <td style="background:white;color:black"><ul style="list-style-type: circle;"><li><b>Non-stripped binaries</b> <u>have debugging information built into it.</u> So if you compile an executable with the flag -g (gcc -g), it contains debugging information.</li></ul></td></tr>
+</table>
+<!--
+
+<table>
+
+  <tr>
+    <td style="border: 1px solid black;background:#990099; width:20%; text-align:center;color:black;">ELF 64-bit LSB relocatable </td>
+    <td style="border: 1px solid black;"><ul>
+      <li>It is a 64-bit ELF file (since we are compiling for 64-bit)</li>
+      <li>It is **LSB**, meaning that numbers are ordered in memory with their least significant byte first. **But most important is that is *relocatable***</li>
+      <li>Relocatable files don’t rely on being placed at any particular address in memory; rather, they can be moved around at will without this breaking any assumption in the code.</li>
+      <li>When you see the term relocatable in the file output, you know are dealing with an object file and not with an executable. (There *are also position-independent relocatable files executable, but these show up in files as shared objects rather than relocatable. You can tell them apart from ordinary shared libraries because they have an entry point)</li></ul></td>
+   
+  </tr>
+  <tr>
+      <td style="border: 1px solid black;background:#3399FF; width:20%; text-align:center;color:black">Not stripped </td>
+    <td style="border: 1px solid black;"><ul><li>***Non-stripped binaries*** *have debugging information built into it*. So if you compile an executable with the flag -g (gcc -g), it contains debugging information.</li></ul></td>
+  
+  </tr>
+
+</table>
+
+-->
+<p>Object files are compiled independently from each other, so the
+assembler has no way of knowing the memory addresses of other objects
+files when assembling an object file.</p>
+<p>That’s why objects files need to be relocatable; so that you can link
+them together in any order to form a complete binary executable. (<strong>If
+objects files were not relocatable, that action would be impossible)</strong></p>
+<h3 id="9702-the-linking-phase">◦ The Linking Phase</h3>
+<hr>
+<table class="text">
+<tr><td>
+The linking phase is the *final phase of the compilation process*. As
+the name implies, this phase links together all the object files **into
+a single binary executable.**
+</td></tr>
+<tr><td>
+In modern systems, *the linking phase* sometimes incorporate an
+**additional optimization pass**, called:
+<ul style="list-style-type: circle;">
+      <li>**link-time optimization (LTO)**</li></ul>
+</td></tr>
+<tr><td>
+The program that performs the linking phase is called a ***linke**r*, or
+***link editor*** and ***it is typically separate from the compiler**,
+which usually implements all the preceding phases*.
+</td></tr>
+<tr><td>
+**Objects file are relocatable** because they are **compiled
+independently from each other**, preventing the compiler from assuming
+that an object **will end up at any particular address**. **Moreover,
+“*object file”* may reference functions or variables in other *objects
+files* or in libraries that are external to the program**.
+</td></tr>
+<tr><td>
+**Before** the linking phase, **the address** at which the referenced
+code and data will be placed **are not yet known**:
+<ul style="list-style-type: circle;">
+      <li>-   ***relocation symbol*** : The **object files** **only contain**
+    “*relocation symbol”* that can specify how function and variable
+    references should eventually be resolved.</li>
+      <li>-   ***symbolic references** :* in the context of linking, *references
+    that rely on a relocation symbol*</li></ul>
+</td></tr>
+<tr><td style="padding: 0;border-collapse: collapse;padding-bottom: 1em;border: none;">
+**When an object file references *one of its own functions or variables
+by absolute address*, the reference will also be symbolic**.
+<blockquote>
+<p><em><strong>The linker’s job is to</strong></em>:</p>
+<ul>
+<li>Take all the object files belonging to a program.</li>
+<li>Merge them into a single coherent executable, <i>typically intended
+to be loaded at a particular memory address</i>.</li>
+</ul>
+</td></tr>
+</blockquote>
+<tr><td style="padding: 0;border-collapse: collapse;padding-bottom: 1em;border: none;">
+Now that the arrangement of all modules in the executable is known, the
+linker can also resolve most symbolic refences.
+<p><strong>References to libraries <strong>may or may</strong> <strong>not be completely resolved</strong>,
+depending on the type of library</strong>.</p>
+<ul>
+<li>
+<p><em><strong>Static libraries</strong></em>(on Linux typically have extension <strong>“<em>.
+a</em></strong>*”)*:</p>
+<ul>
+<li>Are merged into the binary executable, allowing any references
+to them to be resolved entirely.</li>
+</ul>
+</li>
+<li>
+<p><em><strong>Dynamic</strong> (shared) <strong>libraries</strong></em> :</p>
+<ul>
+<li>
+<p>Are shared in memory among all programs that run on a system.</p>
+</li>
+<li>
+<p>Rather then copying the library into every binary that uses it,
+<em>dynamic libraries are loaded into memory only once</em>, and any
+binary that wants to use the library <em>needs to use this shared
+copy.</em></p>
+</li>
+<li>
+<p><em>During the linking phase</em>, <em>the address</em> at which dynamic
+libraries will reside <em>are not yet known</em>, so references to them
+cannot be resolved. Instead, <em>the linker leaves symbolic
+references to these libraries</em> even in the final executable, and
+these references are not resolved until the binary is actually
+loaded into memory to be executed.</p>
+</li>
+</ul>
+</li>
+</ul>
+</td></tr>
+<tr><td style="padding: 0;border-collapse: collapse;padding-bottom: 1em;border: none;">
+To produce a complete binary executable, only **gcc with no special
+switches is required. **
+</td></tr>
+<tr><td style="padding: 0;border-collapse: collapse;padding-bottom: 1em;border: none;">
+The below example shows the generated binary executable with **gcc (with
+-o it’s possible to name the file)**
+</td></tr>
+</table>
+<table class="view">
+<!-- <tr><td class="top" colspan="11">&nbsp;</td></tr> -->
+<tr><td colspan="11" class="top" style="font-weight:bold;">$ gcc compilation_example.c</td></tr>
+<tr><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
+<tr><td style="font-weight:bold;">$ ls -la</td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
+<tr><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
+<tr><td>total</td><td>40</td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
+<tr><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
+<tr><td>drwxr-xr-x</td><td>2</td><td>binary</td><td>binary</td><td>4096</td><td>dec</td><td>10</td><td>17:38</td><td>.</td><td></td></tr>
+<tr><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
+<tr><td>drwxrwxr-x</td><td>16</td><td>binary</td><td>binary</td><td>4096</td><td>apr</td><td>19</td><td>2018</td><td>..</td><td></td></tr>
+<tr><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
+<tr><td>-rwxrwxr-x</td><td>1</td><td>binary</td><td>binary</td><td>8616</td><td>dec</td><td>10</td><td>17:38</td><td style="font-weight:bold;"><span style="background-color:#95692F;color:white">a.out</span></td><td><span style="background-color:#95692F;color:white">(with no switches, by default the executable is called ‘a.out’)</span></td></tr>
+<tr><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
+<tr><td>-rw-r--r--</td><td>1</td><td>binary</td><td>binary</td><td>172</td><td>apr</td><td>19</td><td>2018</td><td>compilation_example.c</td><td></td></tr>
+<tr><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
+<tr><td>-rw-r--r--</td><td>1</td><td>binary</td><td>binary</td><td>10240</td><td>apr</td><td>19</td><td>2018</td><td>hello.exe</td><td></td></tr>
+<tr><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
+<tr><td>-rw-r--r--</td><td>1</td><td>binary</td><td>binary</td><td>723</td><td>apr</td><td>19</td><td>2018</td><td>Makefile</td><td></td></tr>
+<tr><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
+</table>
+<p>Let&rsquo;s run <b>file</b> commmand angainst the generated binary file <b>a.out</b></p>
+<table class="view">
+<tr><td colspan="11" class="top"style="font-weight:bold;">$ file a.out</td></tr>
+<tr><td colspan="11" style="font-weight:bold;">a.out: <span style="background-color:#3741C3;color:white">ELF 64-bit LSB executable</span>, x86-64, version 1 (SYSV), <span style="background-color:#A15716;color:white">dynamically linked</span>, <span style="background-color:#3C6F3C;color:white">interpreter /lib64/ld-linux-x86-64.so.2</span>, for GNU/Linux 2.6.32, BuildID\[sha1\]=c21ccd6d27df9e553a574b2be2d6d58501fa8a0b, <span style="background-color:#E27EA4;color:white">not stripped</span></td></tr>
+</table>
+<!-- #C5E0B3
+``` 
+  -
+  ***\$ gcc compilation\_example.c***
+  
+  ***\$ ls -la***
+  
+  *total 40*
+  
+  *drwxr-xr-x 2 binary binary 4096 dec 10 17:38 .*
+  
+  *drwxrwxr-x 16 binary binary 4096 apr 19 2018 ..*
+  
+  *-rwxrwxr-x 1 binary binary 8616 dec 10 17:38 **a.out (with no switches, by default the executable is called ‘a.out’)***
+  
+  *-rw-r--r-- 1 binary binary 172 apr 19 2018 compilation\_example.c*
+  
+  *-rw-r--r-- 1 binary binary 10240 apr 19 2018 hello.exe*
+  
+  *-rw-r--r-- 1 binary binary 723 apr 19 2018 Makefile*
+  
+  ***\$ file a.out***
+  
+  *a.out: ELF 64-bit LSB executable, x86-64, version 1 (SYSV), dynamically linked, interpreter /lib64/ld-linux-x86-64.so.2, for GNU/Linux 2.6.32, BuildID\[sha1\]=c21ccd6d27df9e553a574b2be2d6d58501fa8a0b, not stripped*
+  -
+```-->
+<p>Let’s analyse the output generated by the <em><strong>“file”</strong></em> utility (<strong>$
+file a.out</strong>):</p>
+<table class="list">
+<!-- <tr><td style="background:#272C34;color:#B09765;text-align:center;font-weight:bold;">ELF 64-bit LSB relocatable  </td></tr> -->
+<tr><td style="background:#3741C3;ext-align:center;font-weight:bold;text-align:center;color:white">ELF 64-bit LSB executable:</td></tr>
+<tr><td style="background:white;color:black"><ul style="list-style-type: circle;">
+<li style="list-style-type: circle;">Rather then being relocatable, as in the assembly phase, <b>now the ELF 64-bit LSB is executable</b></li>
+      <li style="list-style-type: circle;">It is <b style="color:black;">LSB</b>, meaning that numbers are ordered in memory with their least significant byte first. <b>But most important is that is <i>executable</i></b></li></ul></td>
+</tr>
+<tr><td style="background:#A15716;ext-align:center;font-weight:bold;text-align:center;color:white;">dynamically linked:</td></tr>
+<tr> <td style="background:white;color:black"><ul>
+    <li style="list-style-type: circle;">The file is dynamically linked, meaning that it uses some libraries that are nit merged into the executable but are instead shared among all programs running on the same system.</li></ul></td>
+</tr>
+<tr><td style="background:#3C6F3C;text-align:center;font-weight:bold;text-align:center;color:white">interpreter /lib64/ld-linux-x86-64.so.2 :</td></tr>
+<tr><td style="background:white;color:black"><ul>
+      <li style="list-style-type: circle;"><i>“interpreter /lib64/ld-linux-x86-64.so.2”</i> in the file output tells which dynamic linker will be used to resolve the final dependencies on dynamic libraries when the executable is loaded into memory to be executed.</li>
+      <li style="list-style-type: circle;">Running the binary, with <b>$ ./a.out</b>, produces “<b>Hello, world!</b>” to the standard output.<u>This confirms that we have a working binary.</u></li></ul></td>
+</tr>
+<tr><td style="background:#E27EA4;text-align:center;font-weight:bold;text-align:center;color:white;">not stripped :</td></tr>
+<tr> <td style="background:white;color:black"><ul>
+    <li style="list-style-type: circle;"><b><i>Non-stripped binaries</i></b> <i>have debugging information built into it</i>. So if you compile an executable with the flag -g (gcc -g), it contains debugging information</li>
+    <li style="list-style-type: circle;"><b><i>Stripped binaries</i></b> generally <i> do not have this debugging information</i> which is not necessary for execution. The file size is also reduced</li><ul></td>
+</tr>
+</table>
+<!--
+<table style="background:white;color:black;">
+
+ 
+  
+  </tr>
+  <tr>
+    <td style="border: 1px solid black;background:#C5E0B3; width:20%; text-align:center;color:black;">interpreter /lib64/ld-linux-x86-64.so.2 </td>
+    <td style="border: 1px solid black;">
+      </td>
+   
+  </tr>
+  <tr>
+      <td style="border: 1px solid black;background:#E27EA4; width:20%; text-align:center;color:black">Not stripped </td>
+    <td style="border: 1px solid black;"><ul>
+    <li style="list-style-type: circle;">**Non-stripped binaries*** *have debugging information built into it*. So if you compile an executable with the flag -g (gcc -g), it contains debugging information</li>
+    <li style="list-style-type: circle;">***Strip binaries*** generally *remove this debugging information* from the binary file which is not necessary for execution so as to reduce the size of the file</li><ul></td> 
+  </tr>
+</table>
+-->
+<h2 id="9656-symbols-and-stripped-binaries">▸ Symbols and Stripped Binaries</h2>
+<p>=============================</p>
+<p>High-level source code, such as C code, centers around functions and
+variables with meaningful, human-readable names.</p>
+<blockquote>
+<p><b>When compiling a program, compiler emit <i>symbols</i>, which:</b></p>
+<ul>
+<li>
+<p><em>Keep track</em> of such symbolic names.</p>
+</li>
+<li>
+<p><em>Record</em> which binary code and data correspond to each symbol.</p>
+</li>
+</ul>
+</blockquote>
+<p>For instance, function symbols provide a mapping from symbolic,
+high-level function names to the first address and the size of each
+function.</p>
+<p>This information is normally used by the linker when combining object
+files (for instance, to resolve function and variable references between
+modules) and also aids debugging.</p>
+<h3 id="9702-viewing-symbolic-information">◦ Viewing Symbolic Information</h3>
+<p>The below example shows some symbolic information for the file “a.out”
+using “<strong>readelf &ndash;syms”:</strong></p>
+<ul>
+<li><strong>‘-s’ or ‘&ndash;syms’ or ‘&ndash;symbols’ (An alias for ‘&ndash;syms’) :</strong>
+Display the symbol table</li>
+</ul>
+<table class="view">
+<tr><td colspan="8" class="top" style="font-weight:bold;">$ readelf –syms a.out</td></tr>
+<tr><td colspan="8">Symbol table '.dynsym' contains 4 entries:</td></tr>
+<tr style="font-weight:bold;"><td style="width:5%;">Num</td><td >Value (the address)</td><td>Size</td><td>Type</td><td>ind</td><td>Vis</td><td>Ndx</td><td>Name</td></tr>
+<tr><td>0:</td><td>0000000000000000</td><td>0</td><td>NOTYPE</td><td>LOCAL</td><td>DEFAULT</td><td>UND</td><td></td></tr>
+<tr><td>1:</td><td>0000000000000000</td><td>0</td><td>FUNC</td><td>GLOBAL</td><td>DEFAULT</td><td>UND</td><td>puts@GLIBC_2.2.5(2)</td></tr>
+<tr><td>2:</td><td>0000000000000000</td><td>0</td><td>FUNC</td><td>GLOBAL</td><td>DEFAULT</td><td>UND</td><td>__libc_start_main@GLIBC_2.2.5(2)</td></tr>
+<tr><td>3</td><td>0000000000000000</td><td>0</td><td>NOTYPE</td><td>WEAK</td><td>DEFAULT</td><td>UND</td><td>__gmon_start__</td></tr>
+<tr><td colspan="8">&nbsp;</td></tr>
+<tr><td colspan="8" style="font-weight:italic">Symbol table '.symtab' contains 67 entries:</td></tr>
+<tr style="font-weight:bold;"><td style="width:5%;">Num</td><td >Value (the address)</td><td>Size</td><td>Type</td><td>ind</td><td>Vis</td><td>Ndx</td><td>Name</td></tr>
+<tr><td>...</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td></tr>
+<tr><td>56</td><td>0000000000601030</td><td>0</td><td>OBJECT/td><td>GLOBAL</td><td>HIDDEN</td><td>25</td><td>__dso_handle</td></tr>
+<tr><td>57:</td><td>00000000004005d0</td><td>4</td><td>OBJECT</td><td>GLOBAL</td><td>DEFAULT</td><td>16</td><td>_IO_stdin_used</td></tr>
+<tr><td>58:</td><td>0000000000400550</td><td>101</td><td>FUNC</td><td>GLOBAL</td><td>DEFAULT</td><td>14</td><td>__libc_csu_init</td></tr>
+<tr><td>59:</td><td>0000000000601040</td><td>0</td><td>NOTYPE</td><td>GLOBAL</td><td>DEFAULT</td><td>26</td><td>_end</td></tr>
+<tr><td>60:</td><td>0000000000400430</td><td>42</td><td>FUNC</td><td>GLOBAL</td><td>DEFAULT</td><td>14</td><td>_start</td></tr>
+<tr><td>61:</td><td>0000000000601038</td><td>0</td><td>NOTYPE</td><td>GLOBAL</td><td>DEFAULT</td><td>26</td><td>__bss_start</td></tr>
+<tr style="background-color:#95692F;color:white;font-weight:bold;"><td >62:</td><td>0000000000400526</span></td><td>32</td><td>FUNC</td><td>GLOBAL</td><td>DEFAULT</td><td>14</td><td>main</td></tr>
+<tr><td>63:</td><td>0000000000000000</td><td>0</td><td>NOTYPE</td><td>WEAK</td><td>DEFAULT</td><td>UND</td><td>_Jv_RegisterClasses</td></tr>
+<tr><td>64:</td><td>0000000000601038</td><td>0</td><td>OBJECT</td><td>GLOBAL</td><td>HIDDEN</td><td>25</td><td>__TMC_END__</td></tr>
+<tr><td>65:</td><td>0000000000000000</td><td>0</td><td>NOTYPE</td><td>WEAK</td><td>DEFAULT</td><td>UND</td><td>_ITM_registerTMCloneTable</td></tr>
+<tr><td>66:</td><td>00000000004003c8</td><td>0</td><td>FUNC</td><td>GLOBAL</td><td>DEFAULT</td><td>11</td><td>_init</td></tr>
+</table>
+<p>In the above listing, with the utility <strong><strong>readelf</strong></strong> is possible to
+display the symbol table, among many unfamiliar symbols we can find a
+symbol for:</p>
+<table class="view">
+<tr><td colspan="8" class="top" style="font-weight:bold;">$ readelf –syms a.out</td></tr>
+<tr><td colspan="8">Symbol table '.dynsym' contains 4 entries:</td></tr>
+<tr style="font-weight:bold;"><td style="width:5%;">Num</td><td >Value (the address)</td><td>Size</td><td>Type</td><td>ind</td><td>Vis</td><td>Ndx</td><td>Name</td></tr> 
+<tr><td colspan="8">....</td></tr>
+<!-- <tr><td>61:</td><td>0000000000601038</td><td>0</td><td>NOTYPE</td><td>GLOBAL</td><td>DEFAULT</td><td>26</td><td>__bss_start</td></tr>-->
+<tr style="background-color:#95692F;color:white;font-weight:bold;"><td >62:</td><td>0000000000<span style="background-color:#3741C3;color:white">400526</span></td><td><span style="background-color:#3C6F3C;color:white">32</span></td><td><span style="background-color:#E27EA4;color:white">FUNC</span></td><td>GLOBAL</td><td>DEFAULT</td><td>14</td><td><span style="background-color:#3741C3;color:white">main</span></td></tr>
+<!-- <tr><td>63:</td><td>0000000000000000</td><td>0</td><td>NOTYPE</td><td>WEAK</td><td>DEFAULT</td><td>UND</td><td>_Jv_RegisterClasses</td></tr>-->
+<tr><td colspan="8">....</td></tr>
+<!-- <tr><td>66:</td><td>00000000004003c8</td><td>0</td><td>FUNC</td><td>GLOBAL</td><td>DEFAULT</td><td>11</td><td>_init</td></tr> -->
+</table>
+<!-- >
+  ---
+  ***\$ readelf --syms a.out***
+  
+  */\*….\*/*
+  
+    *Num:*   ***Value** (the address)*   ***Size***   ***Type***   *Bind*     *Vis*       *Ndx*   ***Name***
+    --------  --- --- - -- ------- 
+    *…*                                                                                           
+    *61:*    *0000000000601038*          *0*          *NOTYPE*     *GLOBAL*   *DEFAULT*   *26*    *__bss\_start*
+    *62:*    *0000000000**400526***      ***32***     ***FUNC***   *GLOBAL*   *DEFAULT*   *14*    ***main***
+    *66:*    *00000000004003c8*          *0*          *FUNC*       *GLOBAL*   *DEFAULT*   *11*    *\_init*
+                                                                                                  
+  
+  ---
+-->
+<ul>
+<li>
+<p><em>The <span style="background-color:#3741C3;color:white"><strong>main</strong></span> function</em>: the value <span style="background-color:#3741C3;color:white;font-weight:bold;">0x400526</span>represents the
+<strong>address</strong> at which &ldquo;main&rdquo; will reside when the binary is loaded into
+memory.</p>
+</li>
+<li>
+<p>The output also shows the code size of main (<span style="background-color:#3C6F3C;color:white"><strong>32</strong> bytes</span>) and
+indicates that you are dealing with a function symbol (<span style="background-color:#E27EA4;color:white">type
+<strong>FUNC</strong></span>)</p>
+</li>
+</ul>
+<blockquote>
+<p><b>Symbolic information can be emitted either</b></p>
+<p><strong>a)</strong>  As part of the binary (as shown above).</p>
+<p><strong>b)</strong>  Or in the form of a separate symbol file, and it comes on various
+flavours.</p>
+</blockquote>
+<table class="text">
+<tr><td>
+The linking phase is the *final phase of the compilation process*. As
+the name implies, this phase links together all the object files **into
+a single binary executable.**
+</td></tr>
+<tr><td>
+In modern systems, *the linking phase* sometimes incorporate an
+**additional optimization pass**, called:
+<ul style="list-style-type: circle;">
+      <li>**link-time optimization (LTO)**</li></ul>
+</td></tr>
+<tr><td>
+The linker needs only basic symbols, but far more extensive information
+can be emitted for debugging purposes. **Debugging symbols** information
+go as far as providing a full mapping between source lines and
+binary-level instructions, and they **even describe** function
+parameters, stack frame information, and more.
+</td></tr>
+<tr><td>
+<ul>
+<li>
+<p><strong>ELF binaries</strong>: In <em>ELF binaries</em>, debugging symbols are typically
+generated in the DWARF format. <strong>DWARF information is usually
+embedded within the binary.</strong></p>
+</li>
+<li>
+<p><strong>PE binaries</strong>: PE binaries usually use the proprietary Microsoft
+Portable Debugging (PDB) format. <strong>PDB comes in the form of a
+separate symbol file.</strong></p>
+</li>
+</ul>
+</td></tr>
+<tr><td>
+As you might imagine, symbolic information is extremely useful for
+binary analysis. Having a set of well-defined function symbols at your
+disposal makes disassembly much easier because you can use each function
+symbol as a starting point for disassembly.
+</td></tr>
+<tr><td>
+This makes it much less likely that you will *accidentally disassemble
+data as code*, for instance (which would lead to bogus instructions in
+the disassembly output)
+</td></tr>
+<tr><td>
+Knowing which part of a binary belong to which function, and what the
+function is called, also makes it much easier for human reverse engineer
+to compartmentalize and understand what the code is doing. Even just
+basic linker symbols are already a tremendous help in many binary
+analysis applications.
+</td></tr>
+<tr><td>
+**Unfortunately, extensive debugging information typically isn’t
+included in production-ready binaries, and even symbolic information is
+stripped to reduce the size and prevent reverse engineering, especially
+in the case of malware or proprietary software. **
+</td></tr>
+</table>
+<h3 id="9702-stripping-a-binary">◦ Stripping a Binary</h3>
+<p><strong>Another Binary Turns to the Dark Side: Stripping a Binary</strong></p>
+<p>Apparently, the default behaviour of gcc is not to automatically strip
+newly compiled binaries.</p>
+<p>The below example shows how binary with symbols end up stripped by using
+the command :<br><strong>$ strip &ndash;strip-all a.out</strong></p>
+<table class="view">
+<tr><td colspan="11" style="font-weight:bold;">$ strip --strip-all a.out</td></tr>
+<tr><td colspan="11" style="font-weight:bold;"> $ file a.out*/td></tr>
+<tr><td colspan="11" style="font-weight:bold;">a.out: <span style="background-color:#3741C3;color:white">ELF 64-bit LSB executable</span>, x86-64, version 1 (SYSV), <span style="background-color:#A15716;color:white">dynamically linked</span>, <span style="background-color:#3C6F3C;color:white">interpreter /lib64/ld-linux-x86-64.so.2</span>, for GNU/Linux 2.6.32, BuildID[sha1]=c21ccd6d27df9e553a574b2be2d6d58501fa8a0b, <span style="background-color:#E27EA4;color:white">stripped</span></td></tr>
+</table>
+<p>Using the command “<strong>strip &ndash;strip-all a.out</strong>”, the binary is now
+stripped.</p>
+<p>Only symbols in &lsquo;<em>.dynsym&rsquo;</em> table are left, these are used to resolve
+dynamic dependencies when the binary is loaded into memory, but they are
+not much use when disassembling.</p>
+<table class="view">
+<tr><td colspan="8" class="top" style="font-weight:bold;">$ readelf –syms a.out</td></tr>
+<tr><td colspan="8">Symbol table '.dynsym' contains 4 entries:</td></tr>
+<tr style="font-weight:bold;"><td style="width:5%;">Num</td><td >Value (the address)</td><td>Size</td><td>Type</td><td>ind</td><td>Vis</td><td>Ndx</td><td>Name</td></tr>
+<tr><td>0:</td><td>0000000000000000</td><td>0</td><td>NOTYPE</td><td>LOCAL</td><td>DEFAULT</td><td>UND</td><td></td></tr>
+<tr><td>1:</td><td>0000000000000000</td><td>0</td><td>FUNC</td><td>GLOBAL</td><td>DEFAULT</td><td>UND</td><td>puts@GLIBC_2.2.5(2)</td></tr>
+<tr><td>2:</td><td>0000000000000000</td><td>0</td><td>FUNC</td><td>GLOBAL</td><td>DEFAULT</td><td>UND</td><td>__libc_start_main@GLIBC_2.2.5(2)</td></tr>
+<tr><td>3</td><td>0000000000000000</td><td>0</td><td>NOTYPE</td><td>WEAK</td><td>DEFAULT</td><td>UND</td><td>__gmon_start__</td></tr>
+</table>
+<!-- 
+  -
+  
+  ***\$ readelf --syms a.out***
+  
+  *Symbol table '.dynsym' contains 4 entries:*
+  
+    *Num:*   *Value*              *Size*   *Type*     *Bind*     *Vis*       *Ndx*   *Name*
+    -------- -- -------- - - -- ------- ---
+    *0:*     *0000000000000000*   *0*      *NOTYPE*   *LOCAL*    *DEFAULT*   *UND*   
+    *1:*     *0000000000000000*   *0*      *FUNC*     *GLOBAL*   *DEFAULT*   *UND*   *puts@GLIBC\_2.2.5(2)*
+    *2:*     *0000000000000000*   *0*      *FUNC*     *GLOBAL*   *DEFAULT*   *UND*   *__libc\_start\_main@GLIBC\_2.2.5(2)*
+    *3:*     *0000000000000000*   *0*      *NOTYPE*   *WEAK*     *DEFAULT*   *UND*   *__gmon\_start__*
+
+
+  
+ 
+  
+  *a.out: ELF 64-bit LSB executable, x86-64, version 1 (SYSV), dynamically linked, interpreter /lib64/ld-linux-x86-64.so.2, for GNU/Linux 2.6.32, BuildID\[sha1\]=c21ccd6d27df9e553a574b2be2d6d58501fa8a0b, **stripped***
+  
+  ***\$ readelf --syms a.out***
+  
+  *Symbol table '.dynsym' contains 4 entries:*
+  
+    *Num:*   *Value*              *Size*   *Type*     *Bind*     *Vis*       *Ndx*   *Name*
+    -------- -- -------- - - -- ------- ---
+    *0:*     *0000000000000000*   *0*      *NOTYPE*   *LOCAL*    *DEFAULT*   *UND*   
+    *1:*     *0000000000000000*   *0*      *FUNC*     *GLOBAL*   *DEFAULT*   *UND*   *puts@GLIBC\_2.2.5(2)*
+    *2:*     *0000000000000000*   *0*      *FUNC*     *GLOBAL*   *DEFAULT*   *UND*   *__libc\_start\_main@GLIBC\_2.2.5(2)*
+    *3:*     *0000000000000000*   *0*      *NOTYPE*   *WEAK*     *DEFAULT*   *UND*   *__gmon\_start__*
+  
+  -
+-->
+<h2 id="9656-disassembling-a-binary">▸ Disassembling a Binary</h2>
+<p>======================</p>
+<p>Now that we have seen how to compile a binary, let’s take a look at the
+contents of the object file produced in the assembly phase of
+compilation.</p>
+<h3 id="9702-looking-inside-an-object-file">◦ Looking inside an Object File.</h3>
+<hr>
+<p>Let’s use the <em><strong>objdump</strong></em> utility to show how to do all the
+disassembling</p>
+<p>Below the disassembled version of the object file
+<em><strong>compilation_example.o</strong></em> using options <strong>-s</strong> and <strong>-j</strong></p>
+<table class="view">
+   <tr><td  class="top" style="font-weight:bold;">&nbsp;</td></tr>
+   <tr><td  style="font-weight:bold;"> $ objdump -sj .rodata compilation_example.o</td></tr>
+   <tr><td  style="font-weight:bold;">&nbsp;</td></tr>
+   <tr><td  style="font-weight:bold;"> compilation_example.o:     file format elf64-x86-64</td></tr>   
+   <tr><td  style="font-weight:bold;">&nbsp;</td></tr>
+   <tr><td  style="font-weight:bold;">Contents of section .rodata:</td></tr>
+   <tr><td  class="bottom"  style="font-weight:bold;">$ 0000 48656c6c 6f2c2077 6f726c64 2100      Hello, world!.   </td></tr>
+</table>
+<p>In the above example the options used to show only the <em><strong>‘.rodata’</strong></em>
+section are:</p>
+<ul>
+<li>
+<p><strong>-s</strong>, &ndash;full-contents <strong>Display the full contents of all sections
+requested</strong></p>
+</li>
+<li>
+<p><strong>-j</strong>, &ndash;section=NAME <strong>Only display information for section NAME</strong></p>
+</li>
+</ul>
+<table class="view">
+   <tr><td  class="top" style="font-weight:bold;">Contents of section .rodata:</td></tr>
+  <tr><td  class="bottom"  style="font-weight:bold;">$ 0000 48656c6c 6f2c2077 6f726c64 2100      Hello, world!.   </td></tr>
+</table>
+<p>The content of .rodata section consists of :</p>
+<ul>
+<li>
+<p>An ASCII encoding of the string (on the left side of the output)
+**0000 48656c6c 6f2c2077 6f726c64 2100 **</p>
+</li>
+<li>
+<p>The human-readable representation of those same bytes (on the right
+side of the output) <strong>Hello, world!.</strong></p>
+</li>
+</ul>
+<p><em><strong>.rodata</strong> stands for “<strong>read-only</strong>”; it’s part of the binary where
+all constants are stored (including the “Hello, world!” string)</em></p>
+<p>Below the disassembled version of the object file
+<em><strong>compilation_example.o</strong></em> using option/switch <strong>-M</strong> and <strong>-d</strong></p>
+<table class="view">
+  <tr><td colspan="4" class="top" style="font-weight:bold;">$ objdump -M intel -d compilation_example.o</td></tr>
+  <tr><td colspan="4"  style="font-weight:bold;">&nbsp;</td></tr>
+  <tr><td colspan="4"  style="font-style:italic"> compilation_example.o: file format elf64-x86-64</td></tr>
+  <tr><td colspan="4"  style="font-weight:bold;">&nbsp;</td></tr>
+  <tr><td colspan="4"  style="font-style:italic"> Disassembly of section .text:</td></tr>
+  <tr><td colspan="4"  style="font-weight:bold;">&nbsp;</td></tr>
+  <tr><td colspan="4"  style="font-style:italic">0000000000000000 &lt;main&gt; </td></tr>
+  <tr><td colspan="4"  style="font-weight:bold;">&nbsp;</td></tr>
+  <tr><td>&nbsp;</td><td>	0:	</td><td>	55	              </td><td>	mov	rbp</td>	</tr>	
+  <tr><td>&nbsp;</td><td>	1:	</td><td>48 89	e5	        </td><td>	mov	rbp,rsp	  </td></tr>
+  <tr><td>&nbsp;</td><td>4:	  </td><td>48 83	ec 10	      </td><td>	sub	rsp,0x10	</td></tr>
+  <tr><td>&nbsp;</td><td>	8:	</td><td>89 7d	fc        	</td><td>	mov	DWORD	PTR	[rbp-0x4],edi	</td></tr>
+  <tr><td>&nbsp;</td><td>b:	  </td><td>48 89	75 f0	      </td><td>	mov	QWORD	PTR	[rbp-0x10],rsi	</td></tr>
+  <tr><td>&nbsp;</td><td>	f:	</td><td>bf 00 00 00 00	    </td><td>	mov	edi,0x0	</td></tr>
+  <tr><td>&nbsp;</td><td>	14:	</td><td>e8 00	00 00	00	  </td><td>	call 19 &lt;main+0x19&gt;</td></tr>
+  <tr><td>&nbsp;</td><td>19:	</td><td>b8 00	00 00	00	  </td><td>	mov	eax,0x0	</td></tr>
+  <tr><td>&nbsp;</td><td>	1e:	</td><td>c9                 </td><td>	leave	</td>		
+  <tr><td>&nbsp;</td><td>	1f:	</td><td>c3	                </td><td>	ret	</td>
+  <tr><td colspan="4" class="bottom" style="font-weight:bold;">&nbsp;</td></tr>
+</table>
+<p>In the above example the options used are:</p>
+<ul>
+<li>
+<p><strong>-M,</strong> &ndash;disassembler-options=OPT <strong>Pass text OPT on to the
+disassembler</strong></p>
+<ul>
+<li><strong>Intel,</strong> for usewith the -M switch <em>This option to display
+instruction in Intel syntax</em></li>
+</ul>
+</li>
+<li>
+<p><strong>-d,</strong> &ndash;disassemble <em>Display assembler contents of executable
+sections</em></p>
+</li>
+</ul>
+<p>The utility <strong><strong>objdump</strong></strong> here has been used <strong>to disassemble</strong> all
+the code in the object file <strong>compilation_example.o</strong>, in the Intel
+syntax.</p>
+<table class="view">
+  <tr><td  class="topbottom" style="font-weight:bold;border-bottom: 1px solid ;border-top: 1px solid ">$ objdump -M intel -d compilation_example.o </td></tr>  
+</table>
+<p>It contains only the code of the main function because that’s the only
+function defined in the source file.</p>
+<table class="view">
+  <tr><td colspan="4" class="top" style="font-weight:bold;">$ objdump -M intel -d compilation_example.o</td></tr>
+  <tr><td colspan="4"  style="font-weight:bold;">&nbsp;</td></tr>
+  <tr><td colspan="4"  style="font-style:italic"> compilation_example.o: file format elf64-x86-64</td></tr>
+  <tr><td colspan="4"  style="font-weight:bold;">&nbsp;</td></tr>
+  <tr><td colspan="4"  style="font-style:italic"> Disassembly of section .text:</td></tr>
+  <tr><td colspan="4"  style="font-weight:bold;">&nbsp;</td></tr>
+  <tr><td colspan="4"  style="font-style:italic">0000000000000000 &lt;main&gt; </td></tr>
+  <tr><td colspan="4"  style="font-weight:bold;">&nbsp;</td></tr>
+  <tr><td>&nbsp;</td><td>	0:	</td><td>	55	              </td><td>	mov	rbp</td>	</tr>	
+  <tr><td>&nbsp;</td><td>	1:	</td><td>48 89	e5	        </td><td>	mov	rbp,rsp	  </td></tr>
+  <tr><td>&nbsp;</td><td>4:	  </td><td>48 83	ec 10	      </td><td>	sub	rsp,0x10	</td></tr>
+  <tr><td>&nbsp;</td><td>	8:	</td><td>89 7d	fc        	</td><td>	mov	DWORD	PTR	[rbp-0x4],edi	</td></tr>
+  <tr><td>&nbsp;</td><td>b:	  </td><td>48 89	75 f0	      </td><td>	mov	QWORD	PTR	[rbp-0x10],rsi	</td></tr>
+  <tr><td>&nbsp;</td><td>	f:	</td><td>bf 00 00 00 00	    </td><td>	mov	edi,0x0	</td></tr>
+  <tr><td>&nbsp;</td><td>	14:	</td><td>e8 00	00 00	00	  </td><td>	call 19 &lt;main+0x19&gt;</td></tr>
+  <tr><td>&nbsp;</td><td>19:	</td><td>b8 00	00 00	00	  </td><td>	mov	eax,0x0	</td></tr>
+  <tr><td>&nbsp;</td><td>	1e:	</td><td>c9                 </td><td>	leave	</td>		
+  <tr><td>&nbsp;</td><td>	1f:	</td><td>c3	                </td><td>	ret	</td>
+  <tr><td colspan="4" class="bottom" style="font-weight:bold;">&nbsp;</td></tr>
+</table>
+<p>For the most part, the output conforms pretty closely to the assembly
+code previously produced by the compilation phase (give or take few
+assembly level macros)</p>
+<p><em>What is interesting here</em> is that the pointer to the “Hello, world!”
+<em><strong>string is set to zero</strong></em>.</p>
+<table class="view">
+  <tr><td colspan="4" class="top" style="font-weight:bold;">$ objdump -M intel -d compilation_example.o</td></tr>
+  <tr><td colspan="4"  style="font-weight:bold;">&nbsp;</td></tr>
+  <tr><td colspan="4"  style="font-style:italic"> compilation_example.o: file format elf64-x86-64</td></tr>
+  <tr><td colspan="4"  style="font-weight:bold;">&nbsp;</td></tr>
+  <tr><td colspan="4"  style="font-style:italic"> Disassembly of section .text:</td></tr>
+  <tr><td colspan="4"  style="font-weight:bold;">&nbsp;</td></tr>
+  <tr><td colspan="4"  style="font-style:italic">0000000000000000 &lt;main&gt; </td></tr>
+  <tr><td colspan="4"  style="font-weight:bold;">&nbsp;</td></tr>
+  <tr><td>&nbsp;</td><td>	0:	</td><td>	55	              </td><td>	mov	rbp</td>	</tr>	
+  <tr><td>&nbsp;</td><td>	1:	</td><td>48 89	e5	        </td><td>	mov	rbp,rsp	  </td></tr>
+  <tr><td>&nbsp;</td><td>4:	  </td><td>48 83	ec 10	      </td><td>	sub	rsp,0x10	</td></tr>
+  <tr><td>&nbsp;</td><td>	8:	</td><td>89 7d	fc        	</td><td>	mov	DWORD	PTR	[rbp-0x4],edi	</td></tr>
+  <tr><td>&nbsp;</td><td>b:	  </td><td>48 89	75 f0	      </td><td>	mov	QWORD	PTR	[rbp-0x10],rsi	</td></tr>
+  <tr><td>&nbsp;</td><td>	f:	</td><td>bf 00 00 00 00	    </td><td>	mov	edi,0x0	</td></tr>
+  <tr><td>&nbsp;</td><td>	14:	</td><td>e8 00	00 00	00	  </td><td>	call 19 &lt;main+0x19&gt;</td></tr>
+  <tr><td>&nbsp;</td><td>19:	</td><td>b8 00	00 00	00	  </td><td>	mov	eax,0x0	</td></tr>
+  <tr><td>&nbsp;</td><td>	1e:	</td><td>c9                 </td><td>	leave	</td>		
+  <tr><td>&nbsp;</td><td>	1f:	</td><td>c3	                </td><td>	ret	</td>
+  <tr><td colspan="4" class="bottom" style="font-weight:bold;">&nbsp;</td></tr>
+</table>
+<p>The subsequent call that should print the string to the screen using
+puts also points to non sensical location (<strong><strong>offset 19, in the middle
+of the main</strong></strong>).</p>
+<table class="view">
+  <tr><td colspan="4" class="top" style="font-weight:bold;">$ objdump -M intel -d compilation_example.o</td></tr>
+  <tr><td colspan="4"  style="font-weight:bold;">&nbsp;</td></tr>
+  <tr><td colspan="4"  style="font-style:italic"> compilation_example.o: file format elf64-x86-64</td></tr>
+  <tr><td colspan="4"  style="font-weight:bold;">&nbsp;</td></tr>
+  <tr><td colspan="4"  style="font-style:italic"> Disassembly of section .text:</td></tr>
+  <tr><td colspan="4"  style="font-weight:bold;">&nbsp;</td></tr>
+  <tr><td colspan="4"  style="font-style:italic">0000000000000000 &lt;main&gt; </td></tr>
+  <tr><td colspan="4"  style="font-weight:bold;">&nbsp;</td></tr>
+  <tr><td>&nbsp;</td><td>	0:	</td><td>	55	              </td><td>	mov	rbp</td>	</tr>	
+  <tr><td>&nbsp;</td><td>	1:	</td><td>48 89	e5	        </td><td>	mov	rbp,rsp	  </td></tr>
+  <tr><td>&nbsp;</td><td>4:	  </td><td>48 83	ec 10	      </td><td>	sub	rsp,0x10	</td></tr>
+  <tr><td>&nbsp;</td><td>	8:	</td><td>89 7d	fc        	</td><td>	mov	DWORD	PTR	[rbp-0x4],edi	</td></tr>
+  <tr><td>&nbsp;</td><td>b:	  </td><td>48 89	75 f0	      </td><td>	mov	QWORD	PTR	[rbp-0x10],rsi	</td></tr>
+  <tr><td>&nbsp;</td><td>	f:	</td><td>bf 00 00 00 00	    </td><td>	mov	edi,0x0	</td></tr>
+  <tr><td>&nbsp;</td><td>	14:	</td><td>e8 00	00 00	00	  </td><td>	call 19 &lt;main+0x19&gt;</td></tr>
+  <tr><td>&nbsp;</td><td>19:	</td><td>b8 00	00 00	00	  </td><td>	mov	eax,0x0	</td></tr>
+  <tr><td>&nbsp;</td><td>	1e:	</td><td>c9                 </td><td>	leave	</td>		
+  <tr><td>&nbsp;</td><td>	1f:	</td><td>c3	                </td><td>	ret	</td>
+  <tr><td colspan="4" class="bottom" style="font-weight:bold;">&nbsp;</td></tr>
+</table>
+<p>But why does the call, that should reference puts, point instead into
+the middle main?</p>
+<p>Let’s having in mind that data and code references from object files are
+not yet fully resolved because the compiler does not know at what base
+address the file will eventually be loaded. <strong>That’s why the call to
+puts is not yet correctly resolved in the object file.</strong></p>
+<p><em><strong>The object file is waiting for the linker to fill in the correct
+value for this reference.</strong></em></p>
+<p>Let’s use the command readelf to show all the relocation symbols:</p>
+<table class="view">
+<tr><td colspan="8" class="top" style="font-weight:bold;">$ readelf --relocs compilation_example.o</td></tr>
+<tr><td colspan="8"  style="font-weight:bold;">&nbsp;</td></tr>
+<tr><td colspan="8"  style="font-style:italic">Relocation section '.rela.text' at offset 0x210 contains 2 entries:</td></tr>
+<tr><td colspan="8"  style="font-weight:bold;">&nbsp;</td></tr>
+<tr><td></td><td>	Offset	</td><td>	Info	</td><td>	Type	</td><td>	Sym. Value	</td><td >Sym. Name</td><td style="text-align:center;">+</td>	<td style="text-align:center;">Addend</td>	</tr>	
+<!-- <tr><td></td><td>	------	</td><td>	-----	</td><td>-----	</td><td>	----------	</td><td >---------</td><td >---</td>	<td >-------</td></tr>	-->
+<tr><td>&nbsp;</td><td>	000000000010	</td><td>	00050000000a	</td><td >	R_X86_64_32	</td><td>	0000000000000000	</td><td >.rodata</td><td style="text-align:center;">+</td>	<td style="text-align:center;">0</td>	</tr>	
+<tr><td>&nbsp;</td><td>	000000000015	</td><td>	000a00000002	</td><td > R_X86_64_PC32	</td><td>	0000000000000000	</td><td >puts</td><td style="text-align:center;">-</td>	<td style="text-align:center;">4</td></tr>	
+<tr><td colspan="8"  class="bottom" style="font-weight:bold;">&nbsp;</td></tr>
+ </table>
+<p>The relocation symbol at offset <em><strong>000000000010</strong></em> tells the linker that
+it should resolve the reference to the string <strong>to point</strong> to whatever
+address it ends up at in the <em><strong>.rodata</strong></em> section.</p>
+<table class="view">
+<tr><td colspan="8" class="top" style="font-weight:bold;">$ readelf --relocs compilation_example.o</td></tr>
+<tr><td colspan="8"  style="font-weight:bold;">&nbsp;</td></tr>
+<tr><td colspan="8"  style="font-style:italic">Relocation section '.rela.text' at offset 0x210 contains 2 entries:</td></tr>
+<tr><td colspan="8"  style="font-weight:bold;">&nbsp;</td></tr>
+<tr><td></td><td>	Offset	</td><td>	Info	</td><td>	Type	</td><td>	Sym. Value	</td><td >Sym. Name</td><td style="text-align:center;">+</td>	<td style="text-align:center;">Addend</td>	</tr>	
+<!-- <tr><td></td><td>	------	</td><td>	-----	</td><td>-----	</td><td>	----------	</td><td >---------</td><td >---</td>	<td >-------</td></tr>	-->
+<tr><td>&nbsp;</td><td>	000000000010	</td><td>	00050000000a	</td><td >	R_X86_64_32	</td><td>	0000000000000000	</td><td >.rodata</td><td style="text-align:center;">+</td>	<td style="text-align:center;">0</td>	</tr>	
+<tr><td>&nbsp;</td><td>	000000000015	</td><td>	000a00000002	</td><td > R_X86_64_PC32	</td><td>	0000000000000000	</td><td >puts</td><td style="text-align:center;">-</td>	<td style="text-align:center;">4</td></tr>	
+<tr><td colspan="8"  class="bottom" style="font-weight:bold;">&nbsp;</td></tr>
+ </table>
+<p>Similarly, the relocation symbol at offset <em><strong>000000000015</strong></em> tells the
+linker how <strong>to resolve the call</strong> to <em><strong>puts</strong></em>.</p>
+<p>The value in the offset “column” is the offset in the object file where
+the resolved reference must be filled in. If we go back and check the
+offset generated with the utility objdump we can see that the offset is
+0x14.</p>
+<table class="view">
+<tr><td colspan="4"  class="top"  style="font-style:italic;font-weight:bold;"> $ objdump -M intel -d compilation_example.o</td></tr>
+<tr><td colspan="4"  style="font-style:italic">  /* …. */</td></tr>
+<tr><td>&nbsp;</td><td>f:</td><td>	bf 00 00 00 00	</td><td>	mov       edi,0x0 </td></tr>
+<tr><td>&nbsp;</td><td>14:</td><td>	e8 00 00 00 00	</td><td>	call      19 &lt;main+0x19&gt; 	</td></tr>
+<tr><td colspan="4"  style="font-style:italic">/* …. */ </td></tr>
+<tr ><td class="bottom">&nbsp;</td> <td class="bottom">1f:</td><td class="bottom">	c3	</td><td class="bottom">	ret</td></tr>
+</table>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">  --------
+  ***\$ objdump -M intel -d compilation_example.o***
+  
+  */\* …. \*/*
+  
+    *f:*           *bf 00 00 00 00 *   *mov *    *edi,0x0*
+    ----- -  ------
+    *14:*          *e8 00 00 00 00 *   *call *   *19 &amp;lt;main+0x19&amp;gt;*
+    */\* …. \*/*                                 
+    *1f:*          *c3 *               *ret *    
+                                                 
+  
+  --------
+</code></pre></td></tr></table>
+</div>
+</div><p>We can notice that the relocation symbol points to offset <strong>0x15</strong>
+instead, this is because only the operand (at position <strong>0x15</strong>) of the
+instruction needs to be overwritten, not the opcode of the instruction
+at <strong>0x14</strong> (e8).</p>
+<p><em>It is just to happen that for both instructions that need fixing up,
+<em>the opcode is 1 byte long</em>, so to point to the instruction’s operand,
+<em>the relocation symbol needs to skip past the opcode byte</em>.</em></p>
+<h3 id="9702-examining-a-complete-binary-executable">◦ Examining a complete binary executable</h3>
+<p>It’s now time to examine a complete binary executable.</p>
+<p>Let’s start with a binary with symbols (<em><strong>a.out</strong></em>) and then move on to
+the stripped equivalent <em>(<strong>a.out.stripped</strong></em>) to see the difference in
+disassembly output.</p>
+<table class="view">
+<tr><td colspan="10"  class="top"  style="font-style:italic"> $ ls -la</td></tr>
+<tr><td colspan="10"  style="font-weight:bold;">......</td></tr>
+<tr><td>&nbsp;</td><td>-rwxrwxr-x	</td><td>	1	</td><td>	binary	</td><td>	binary	</td><td>	8616	</td><td>	dec	</td><td>	12	</td><td>	16:49	</td><td>	a.out	</td></tr>
+<tr><td>&nbsp;</td><td>-rwxrwxr-x	</td><td>	1	</td><td>	binary	</td><td>	binary	</td><td>	6312	</td><td>	dec	</td><td>	12	</td><td>	16:48	</td><td>	a.out.stripped</td></tr>
+<tr><td colspan="10" class="bottom"  style="font-weight:bold;">......</td></tr>
+</table>
+<p>Let’s disassemble the <em><strong>non-stripped version</strong></em> of the binary file
+<em>“<strong>a.out”</strong></em></p>
+<table class="view">
+<tr><td colspan="5"   class="top"  style="font-style:italic"> $ objdump -M intel -d a.out</td></tr>
+<tr><td colspan="5"   style="font-weight:bold;">&nbsp;</td></tr>
+<tr><td colspan="5"   style="font-style:italic">a.out: file format elf64-x86-64</td></tr>
+<tr><td colspan="5"   style="font-weight:bold;">&nbsp;</td></tr>
+<tr><td colspan="5">00000000004003c8 <span   style="font-weight:bold;">.init<span>:1</td></tr>
+<tr><td>&nbsp;</td><td>4003c8:</td><td>48 83 ec 08 </td><td>sub rsp,0x8</td><td>	&nbsp; </td>
+<tr><td>&nbsp;</td><td>4003cc:</td><td>48 8b 05 25 0c 20 00</td><td>mov rax,QWORD PTR [rip+0x200c25] </td><td># 600ff8 &lt;_DYNAMIC+0x1d0&gt;</td></tr>	
+<tr><td>&nbsp;</td><td>	  4003d3:	</td><td>	48 85 c0       	</td><td>	      test   rax,rax	</td></tr>
+<tr><td>&nbsp;</td><td>	  4003d6:	</td><td>	74 05          	</td><td>	      je      4003dd <_init+0x15>	</td></tr>
+<tr><td>&nbsp;</td><td>	  4003d8:	</td><td>	e8 43 00 00 00 	</td><td>	      call   400420 <__libc_start_main@plt+0x10>	</td></tr>
+<tr><td>&nbsp;</td><td>	  4003dd:	</td><td>	48 83 c4 08    	</td><td>	      add    rsp,0x8	</td></tr>
+<tr><td>&nbsp;</td><td>	  4003e1:	</td><td>	c3             	</td><td>	      ret    	</td></tr>
+<tr><td colspan="5"   style="font-weight:bold;">&nbsp;</td></tr>
+<tr><td colspan="5">Disassembly of section<span   style="font-weight:bold;">.plt <span>:2</td></tr>
+<tr><td colspan="5"   style="font-weight:bold;">&nbsp;</td></tr>
+<tr><td colspan="5">00000000004003f0 &lt;puts@plt-0x10&gt;:</td></tr>
+<tr><td>&nbsp;</td><td>	 4003f0:	</td><td>	ff 35 12 0c 20 00 </td><td>	push   QWORD PTR [rip+0x200c12] </td><td># 601008 &lt;_GLOBAL_OFFSET_TABLE_+0x8&gt;</td></tr>
+<tr><td>&nbsp;</td><td>	 4003f6:	</td><td>	ff 25 14 0c 20 00 </td><td>	jmp    QWORD PTR [rip+0x200c14] </td><td># 601010 &lt;_GLOBAL_OFFSET_TABLE_+0x10&gt;</td></tr>
+<tr><td>&nbsp;</td><td>	 4003fc:	</td><td>	0f 1f 40 00       </td><td>	nop    DWORD PTR [rax+0x0] 	    </td><td>&nbsp;</td></tr>
+<tr><td colspan="5"   style="font-weight:bold;">&nbsp;</td></tr>
+<tr><td colspan="5">00000000004003f0 &lt;puts@plt&gt;:</td></tr>
+<tr><td>&nbsp;</td><td>	400400:	</td><td>	ff 25 12 0c 20 00 	</td><td>	jmp    QWORD PTR [rip+0x200c12] 	</td><td>	# 601018 <_GLOBAL_OFFSET_TABLE_+0x18> </td></tr>	
+<tr><td>&nbsp;</td><td>	400406:	</td><td>	68 00 00 00 00    	</td><td>	push   0x0                      	</td><td>	&nbsp;</td></tr>	
+<tr><td>&nbsp;</td><td>	40040b:	</td><td>	e9 e0 ff ff ff    	</td><td>	jmp    4003f0 <_init+0x28>      	</td><td>	&nbsp;</td></tr>	
+<tr><td colspan="5"   style="font-weight:bold;">&nbsp;</td></tr>
+<tr><td colspan="5"  style="font-weight:bold;">......</td></tr>
+<tr><td colspan="5"   style="font-style:italic">
+       <table class="view" style="border: 1px dotted red;">
+              <tr><td colspan="3"   style="font-weight:bold;">Disassembly of section text: 3</td><td style="text-align:right;color:red">section <span style="font-weight:bold">.text</td></tr>	
+              <tr><td colspan="4"  style="font-style:italic;">0000000000400430 &lt;_start&gt;:</td></tr>
+              <tr><td>&nbsp;</td><td>	400430: 	</td><td> 	31 ed                	</td><td> 	xor   ebp,ebp	</td><tr> 
+              <tr><td>&nbsp;</td><td>	400432: 	</td><td> 	49 89 d1             	</td><td> 	mov   r9,rdx	</td><tr> 
+              <tr><td>&nbsp;</td><td>	400435: 	</td><td> 	5e                   	</td><td> 	pop   rsi 	</td><tr> 
+              <tr><td>&nbsp;</td><td>	400436: 	</td><td> 	48 89 e2             	</td><td> 	mov   rdx,rsp 	</td><tr> 
+              <tr><td>&nbsp;</td><td>	400439: 	</td><td> 	48 83 e4 f0          	</td><td> 	and   rsp,0xfffffffffffffff0 	</td><tr> 
+              <tr><td>&nbsp;</td><td>	40043d: 	</td><td> 	50                   	</td><td> 	push  rax 	</td><tr> 
+              <tr><td>&nbsp;</td><td>	40043e: 	</td><td> 	54                   	</td><td> 	push  rsp   	</td><tr> 
+              <tr><td>&nbsp;</td><td>	40043f: 	</td><td> 	49 c7 c0 c0 05 40 00 	</td><td> 	mov   r8,0x4005c0   	</td><tr> 
+              <tr><td>&nbsp;</td><td>	400446: 	</td><td> 	48 c7 c1 50 05 40 00 	</td><td> 	mov   rcx,0x400550 	</td><tr> 
+              <tr><td>&nbsp;</td><td>	40044d: 	</td><td> 	48 c7 c7 26 05 40 00 	</td><td> 	mov   rdi,0x400526 	</td><tr> 
+              <tr><td>&nbsp;</td><td>	400454: 	</td><td> 	e8 b7 ff ff ff       	</td><td> 	call  400410 <__libc_start_main@plt> 	</td><tr> 
+              <tr><td>&nbsp;</td><td>	400459: 	</td><td> 	f4                   	</td><td> 	hlt   	</td><tr> 
+              <tr><td>&nbsp;</td><td>	40045a: 	</td><td> 	66 0f 1f 44 00 00    	</td><td> 	nop   WORD PTR [rax+rax*1+0x0] 	</td><tr> 
+              <tr><td colspan="4"   style="font-weight:bold;">&nbsp;</td></tr>
+              <tr><td colspan="4">0000000000400460 &lt;deregister_tm_clones&gt;:</td></tr>
+              <tr><td>&nbsp;</td><td>400460:</td><td>b8 3f 10 60 00 </td><td>mov eax,0x60103f</td><tr> 
+              <tr><td>&nbsp;</td><td>400465:</td><td>55 </td><td>push rbp</td><tr> 
+              <tr><td colspan="4"  style="font-weight:bold;">......</td></tr>
+              <tr><td colspan="4"   style="font-weight:bold;">&nbsp;</td></tr>
+              <tr><td colspan="4"   style="font-weight:bold;">0000000000400526 &lt;main&gt;: 4</td></tr>
+              <tr><td>&nbsp;</td><td>  	400526:	</td><td>	55                   	</td><td>	push   rbp	</td></tr>
+              <tr><td>&nbsp;</td><td>  	400527:	</td><td>	48 89 e5             	</td><td>	mov    rbp,rsp	</td></tr>
+              <tr><td>&nbsp;</td><td>  	40052a:	</td><td>	48 83 ec 10          	</td><td>	sub    rsp,0x10	</td></tr>
+              <tr><td>&nbsp;</td><td>  	40052e:	</td><td>	89 7d fc             	</td><td>	mov    DWORD PTR [rbp-0x4],edi	</td></tr>
+              <tr><td>&nbsp;</td><td>  	400531:	</td><td>	48 89 75 f0           </td><td>	mov    QWORD PTR [rbp-0x10],rsi	</td></tr>
+              <tr><td>&nbsp;</td><td>  	400535:	</td><td>	bf d4 05 40 00        </td><td>	mov    edi,0x4005d4	</td></tr>
+              <tr><td>&nbsp;</td><td>  	40053a:	</td><td>	e8 c1 fe ff ff       	</td><td>	call 400400 **&lt;puts@plt&gt;** **5***	</td></tr>
+              <tr><td>&nbsp;</td><td>  	40053f:	</td><td>	b8 00 00 00 00        </td><td>	mov    eax,0x0	</td></tr>
+              <tr><td>&nbsp;</td><td>  	400544:	</td><td>	c9                   	</td><td>	leave  	</td></tr>
+              <tr><td>&nbsp;</td><td>  	400545:	</td><td>	c3                   	</td><td>	ret    	</td></tr>
+              <tr><td>&nbsp;</td><td>  	400546:	</td><td>	66 2e 0f 1f 84 00 00   </td><td>	nop    WORD PTR cs:[rax+rax*1+0x0]	</td></tr>
+              <tr><td colspan="4"   style="font-weight:bold;">&nbsp;</td></tr>              <tr><td>&nbsp;</td><td>  	40054d:	</td><td>	00 00 00 	</td><td>&nbsp;</td></tr>
+              <tr><td colspan="4" >0000000000400550 &lt;__libc_csu_init&gt;:</td></tr>
+              <tr><td colspan="4"  style="font-weight:bold;">......</td></tr>
+        </table>
+</td></tr>
+<tr><td colspan="5">Disassembly of section .fini:</td></tr>
+<tr><td colspan="5">&nbsp;</td></tr>
+<tr><td colspan="5">00000000004005c4 &lt;_fini&gt;:</td></tr>
+<tr><td>&nbsp;</td><td>	4005c4:	</td><td>	48 83 ec 08  </td><td>	sub rsp,0x8	</td><td>	&nbsp;</td></tr>	
+<tr><td>&nbsp;</td><td>	4005c8:	</td><td>	48 83 c4 08  </td><td>	add rsp,0x8 </td><td>	&nbsp;</td></tr>	
+<tr><td class="bottom" >&nbsp;</td><td class="bottom" >	4005cc:	</td><td class="bottom" >	c3    	     </td><td class="bottom" >	ret         </td><td class="bottom" >	&nbsp;</td></tr>
+</table>
+<p>We can see that the binary has a lot more code than the object file.</p>
+<p>It’s no longer just the main function or even just a single code
+section.</p>
+<p>There are multiple sections now, with names like :</p>
+<ol>
+<li>
+<p><em><strong>.init</strong></em></p>
+</li>
+<li>
+<p><em><strong>.plt</strong></em></p>
+</li>
+<li>
+<p><em><strong>.text</strong></em></p>
+</li>
+</ol>
+<p>These sections contain code serving different function, such as program
+initialization or stubs for calling shared libraries.</p>
+<p>The <em><strong>.text</strong></em> section (<strong>3</strong>) is the main code section, and it
+<em>contains</em>:</p>
+<ul>
+<li>
+<p>The <em><strong>main</strong></em> (<strong>4</strong>) function.</p>
+</li>
+<li>
+<p>Other functions, such, as <em><strong>_start</strong></em>, that are responsible for
+tasks such as <em>setting up the command line arguments</em> and <em>runtime
+environment</em> for <em><strong>main</strong></em> and <em>cleaning up</em> after <em><strong>main</strong></em>.
+(<em>These extra functions are standards functions, present in any ELF
+file produced by gcc).</em></p>
+</li>
+</ul>
+<p>We can also see that the previously incomplete code and data references
+have now been resolved by the linker.</p>
+<!-- 
+
+```
+  -
+  ***\$ objdump -M intel -d compilation\_example.o***
+  
+  *compilation\_example.o: file format elf64-x86-64*
+  
+  *Disassembly of section .text:*
+  
+  *0000000000000000 **&lt;main&gt;:***
+  
+    *0:*        *55 *               *push *    *rbp *
+    -- - - ---
+    *1:*        *48 89 e5 *         *mov *     *rbp,rsp*
+    *4:*        *48 83 ec 10 *      *sub *     *rsp,0x10*
+    *8:*        *89 7d fc *         *mov *     *DWORD PTR \[rbp-0x4\],edi*
+    *b:*        *48 89 75 f0 *      *mov *     *QWORD PTR \[rbp-0x10\],rsi*
+    *f:*        *bf 00 00 00 00 *   *mov *     *edi,**0x0***
+    ***14:***   *e8 00 00 00 00 *   *call *    ***19 &lt;main+0x19&gt;***
+    *19:*       *b8 00 00 00 00*    *mov *     *eax,0x0*
+    *1e:*       *c9 *               *leave *   
+    *1f:*       *c3 *               *ret *     
+                                               
+  
+  -
+```-->
+<table class="view">
+  <tr><td colspan="10" class="top" style="font-weight:bold;">$ objdump -M intel -d compilation_example.o</td></tr>
+  <tr><td colspan="10"  style="font-weight:bold;">&nbsp;</td></tr>
+  <tr><td colspan="10"  style="font-style:italic"> compilation_example.o: file format elf64-x86-64</td></tr>
+  <tr><td colspan="10"  style="font-weight:bold;">&nbsp;</td></tr>
+  <tr><td colspan="10"  style="font-style:italic"> Disassembly of section .text:</td></tr>
+  <tr><td colspan="10"  style="font-weight:bold;">&nbsp;</td></tr>
+  <tr><td colspan="10"  style="font-style:italic">0000000000000000 &lt;main&gt; </td></tr>
+  <tr><td colspan="10"  style="font-weight:bold;">&nbsp;</td></tr>
+  <tr><td></td><td>	0:	</td><td>&nbsp;</td><td colspan="5">	55	</td><td>	mov	</td><td colspan="2">	rbp</td>	</tr>	
+  <tr><td></td><td>	1:	</td><td>&nbsp;</td><td colspan="5">48 89	e5	        </td><td>	mov	</td><td colspan="2">	rbp,rsp	  </td></tr>
+  <tr><td></td><td>	4:	</td><td>&nbsp;</td><td colspan="5">48 83	ec 10	      </td><td>	sub	</td><td colspan="2">	rsp,0x10	</td></tr>
+  <tr><td></td><td>	8:	</td><td>&nbsp;</td><td colspan="5">89 7d	fc        	</td><td>	mov	</td><td colspan="2">	DWORD	PTR	[rbp-0x4],edi	</td></tr>
+  <tr><td></td><td>	b:	</td><td>&nbsp;</td><td colspan="5">48 89	75 f0	      </td><td>	mov	</td><td colspan="2">	QWORD	PTR	[rbp-0x10],rsi	</td></tr>
+  <tr><td></td><td>	f:	</td><td>&nbsp;</td><td colspan="5">bf 00 00 00 00	  </td><td>	mov	</td><td colspan="2">	edi,0x0	</td></tr>
+  <tr><td></td><td>	14:	</td><td>&nbsp;</td><td colspan="5">e8 00	00 00	00	  </td><td>	call	</td><td colspan="2">19 &lt;main+0x19&gt;</td></tr>
+  <tr><td></td><td>	19:	</td><td>&nbsp;</td><td colspan="5">b8 00	00 00	00	  </td><td>	mov	</td><td colspan="2">	eax,0x0	</td></tr>
+  <tr><td></td><td>	1e:	</td><td>&nbsp;</td><td colspan="5">c9                </td><td colspan="3">		leave	</td>		
+  <tr><td></td><td>	1f:	</td><td>&nbsp;</td><td colspan="5">c3	              </td><td colspan="3">	ret	</td>
+</table>
+Below the relocation symbols shown by the command using ***readelf*** and the option ***--relocs***
+<table class="view">
+<tr><td colspan="10" class="top" style="font-weight:bold;">$ readelf --relocs compilation_example.o</td></tr>
+<tr><td colspan="10"  style="font-weight:bold;">&nbsp;</td></tr>
+<tr><td colspan="10"  style="font-style:italic">Relocation section '.rela.text' at offset 0x210 contains 2 entries:</td></tr>
+<tr><td colspan="10"  style="font-weight:bold;">&nbsp;</td></tr>
+<tr><td></td><td>	Offset	</td><td>	Info	</td><td>	Type	</td><td>	Sym. Value	</td><td >Sym. Name</td><td style="text-align:center;">+</td>	<td style="text-align:center;">Addend</td>	</tr>	
+<!-- <tr><td></td><td>	------	</td><td>	-----	</td><td>-----	</td><td>	----------	</td><td >---------</td><td >---</td>	<td >-------</td></tr>	-->
+<tr><td></td><td>	000000000010	</td><td>	00050000000a	</td><td >	R_X86_64_32	</td><td>	0000000000000000	</td><td >.rodata</td><td style="text-align:center;">+</td>	<td style="text-align:center;">0</td>	</tr>	
+<tr><td></td><td>	000000000015	</td><td>	000a00000002	</td><td > R_X86_64_PC32	</td><td>	0000000000000000	</td><td >puts</td><td style="text-align:center;">-</td>	<td style="text-align:center;">4</td></tr>	
+<tr><td colspan="10"  class="bottom" style="font-weight:bold;">&nbsp;</td></tr>
+ </table>
+<p>For instance, the call to “puts” now points to the proper stub (in the
+<em><strong>.plt</strong></em> section) for the shared library that contains puts.</p>
+<table class="view">
+<tr><td colspan="5"   class="top"  style="font-style:italic"> Disassembly of section .plt:</td></tr>
+<tr><td colspan="5"   style="font-weight:bold;">&nbsp;</td></tr>
+<tr><td colspan="5"   style="font-style:italic">00000000004003f0 &lt;puts@plt-0x10&gt;:</td></tr>
+<tr><td>&nbsp;</td><td>	4003f0:	</td><td>	ff 35 12 0c 20 00	</td><td>	push   QWORD PTR [rip+0x200c12]        </td><td>	# 601008 &lt;_GLOBAL_OFFSET_TABLE_+0x8&gt; </td>	</tr>	
+<tr><td colspan="5"  style="font-weight:bold;">......</td></tr>
+<tr><td colspan="5"   style="font-weight:bold;">&nbsp;</td></tr>
+<tr><td colspan="5"   style="font-style:italic">0000000000400400 &lt;**puts@plt**&gt;:</td></tr>
+<tr><td>&nbsp;</td><td>	400400:	</td><td>	ff 25 12 0c 20 00	</td><td>	jmp    QWORD PTR [rip+0x200c12]               </td><td>	# 601008 &lt;_GLOBAL_OFFSET_TABLE_+0x18&gt; </td>	
+<tr><td>&nbsp;</td><td>	400406:	</td><td>	68 00 00 00 00 	</td><td>	jmp    0x0              </td><td>	&nbsp; </td>	
+<tr><td>&nbsp;</td><td>	40040b:	</td><td>	e9 e0 ff ff ff 	</td><td>	jmp 4003f0 &lt;_init+0x28&gt;</td><td>&nbsp;</td></tr>	
+<tr><td colspan="5"   style="font-weight:bold;">&nbsp;</td></tr>
+<tr><td colspan="5"  style="font-weight:bold;">......</td></tr>
+<tr><td colspan="5"  style="font-style:italic">0000000000000000 &lt;main&gt; </td></tr>
+<tr><td colspan="5"  style="font-weight:bold;">......</td></tr>
+<tr><td>&nbsp;</td><td>	40053a:	</td><td>	e8 c1 fe ff ff	</td><td>	call 400400 &lt;puts@plt&gt;</td><td>&nbsp;</td></tr>
+<tr><td colspan="5"  style="font-weight:bold;">......</td></tr>
+</table>
+<!-- 
+```
+  
+  *Disassembly of section **.plt**: *
+  
+  *00000000004003f0 &lt;puts@plt-0x10&gt;:*
+  
+  *4003f0: ff 35 12 0c 20 00 push QWORD PTR \[rip+0x200c12\] \# 601008 &lt;\_GLOBAL\_OFFSET\_TABLE\_+0x8&gt;*
+  
+  *…..*
+  
+  *0000000000400400 &lt;**puts@plt**&gt;:*
+  
+  ***400400**: ff 25 12 0c 20 00 jmp QWORD PTR \[rip+0x200c12\] \# 601018 &lt;\_GLOBAL\_OFFSET\_TABLE\_+0x18&gt;*
+  
+  *400406: 68 00 00 00 00 push 0x0*
+  
+  *40040b: e9 e0 ff ff ff jmp 4003f0 &lt;_init+0x28&gt;*
+  
+  *….*
+  
+  *0000000000400526 **&lt;main**&gt;: *
+  
+  *….*
+  
+  *40053a: e8 c1 fe ff ff call **400400** **&lt;puts@plt&gt;** *
+  
+  *…..*
+  
+```
+-->
+<p>Let’s try now to disassemble the stripped filed version
+<em><strong>a.out.stripped</strong></em></p>
+<!-- >
+```
+  -------
+  ***\$ objdump -M intel -d a.out.stripped***
+  
+  *a.out.stripped: file format elf64-x86-64*
+  
+  *Disassembly of section .init:*
+  
+  *00000000004003c8 &lt;**.init**&gt;: **1***
+  
+  *4003c8: 48 83 ec 08 sub rsp,0x8*
+  
+  *4003cc: 48 8b 05 25 0c 20 00 mov rax,QWORD PTR \[rip+0x200c25\] \# 600ff8 &lt;__libc\_start\_main@plt+0x200be8&gt;*
+  
+  *4003d3: 48 85 c0 test rax,rax*
+  
+  *4003d6: 74 05 je 4003dd &lt;puts@plt-0x23&gt;*
+  
+  *4003d8: e8 43 00 00 00 call 400420 &lt;__libc\_start\_main@plt+0x10&gt;*
+  
+  *4003dd: 48 83 c4 08 add rsp,0x8*
+  
+  *4003e1: c3 ret *
+  
+  *Disassembly of section **.plt**: **2***
+  
+  *….*
+  
+  *Disassembly of section **.text**: **3***
+  
+  *0000000000400430 &lt;.text&gt;:*
+  
+  ***400430: 31 ed xor ebp,ebp** begin of function **&lt;\_start&gt;** *
+  
+  *400432: 49 89 d1 mov r9,rdx*
+  
+  *400435: 5e pop rsi*
+  
+  *400436: 48 89 e2 mov rdx,rsp*
+  
+  *400439: 48 83 e4 f0 and rsp,0xfffffffffffffff0*
+  
+  *40043d: 50 push rax*
+  
+  *40043e: 54 push rsp*
+  
+  *40043f: 49 c7 c0 c0 05 40 00 mov r8,0x4005c0*
+  
+  *400446: 48 c7 c1 50 05 40 00 mov rcx,0x400550*
+  
+  *40044d: 48 c7 c7 26 05 40 00 mov rdi,0x400526*
+  
+  *400454: e8 b7 ff ff ff call 400410 &lt;__libc\_start\_main@plt&gt;*
+  
+  *400459: f4 hlt *
+  
+  ***40045a: 66 0f 1f 44 00 00 nop WORD PTR \[rax+rax\*1+0x0\]** end of function **&lt;\_start&gt;** *
+  
+  ***400460**: **b8 3f 10 60 00 mov eax,0x60103f** begin of function **‘deregister\_tm\_clones’ ***
+  
+  *....*
+  
+  *400520: 5d pop rbp*
+  
+  *400521: e9 7a ff ff ff jmp 4004a0 &lt;__libc\_start\_main@plt+0x90&gt;*
+  
+  ***400526**: **55 push rbp** begin of function **&lt;main&gt; ***
+  
+  *400527: 48 89 e5 mov rbp,rsp*
+  
+  *40052a: 48 83 ec 10 sub rsp,0x10*
+  
+  *40052e: 89 7d fc mov DWORD PTR \[rbp-0x4\],edi*
+  
+  *400531: 48 89 75 f0 mov QWORD PTR \[rbp-0x10\],rsi*
+  
+  *400535: bf d4 05 40 00 mov edi,0x4005d4*
+  
+  *40053a: e8 c1 fe ff ff call 400400 &lt;puts@plt&gt;*
+  
+  *40053f: b8 00 00 00 00 mov eax,0x0*
+  
+  *400544: c9 leave *
+  
+  ***400545**: **c3 ret** end of function **&lt;main&gt;***
+  
+  *400546: 66 2e 0f 1f 84 00 00 nop WORD PTR cs:\[rax+rax\*1+0x0\]*
+  
+  *40054d: 00 00 00 *
+  
+  *400550: 41 57 push r15*
+  
+  *400552: 41 56 push r14*
+  
+  *…….*
+  
+  *Disassembly of section .fini:*
+  
+  *00000000004005c4 &lt;.fini&gt;:*
+  
+  *4005c4: 48 83 ec 08 sub rsp,0x8*
+  
+  *4005c8: 48 83 c4 08 add rsp,0x8*
+  
+  *4005cc: c3 ret *
+  -------
+#0C14F7
+  -------
+```
+-->
+<table class="view" style="font-style:italic;border 1px solid black;border-collapse: collapse;">
+<tr><td colspan="5" class="top" style="font-weight:bold;">$ objdump -M intel -d a.out.stripped</td></tr>
+<tr><td colspan="5">a.out.stripped: file format elf64-x86-64</td></tr>
+<tr><td colspan="5" height="1px">&nbsp;</td></tr>
+<tr><td colspan="5"  style="font-style:italic;">Disassembly of section <b>.init</b>:</td></tr>
+<tr><td colspan="5" height="3px">&nbsp;</td></tr>
+<tr><td colspan="5"  style="font-style:italic;">00000000004003c8 &lt;<span style="background-color:#073BCA;color:white;font-weight:bold;">.init</span>&gt;&nbsp;: <span style="color:red;font-weight:bold;">1</span></td></tr>
+<tr><td >&nbsp;</td><td>4003c8:	</td><td>	48 83 ec 08          	</td><td>	sub    rsp,0x8	</td><td>		</td></tr>
+<tr><td >&nbsp;</td><td>4003cc:	</td><td>	48 8b 05 25 0c 20 00 	</td><td>	mov    rax,QWORD PTR [rip+0x200c25] </td><td>	# 600ff8 &lt;__libc_start_main@plt+0x200be8>	</td></tr>
+<tr><td >&nbsp;</td><td>4003d3:	</td><td>	48 85 c0             	</td><td>	test   rax,rax	</td><td>		</td></tr>
+<tr><td >&nbsp;</td><td>4003d6:	</td><td>	74 05                	</td><td>	je     4003dd &lt;puts@plt-0x23&gt;	</td><td>		</td></tr>
+<tr><td >&nbsp;</td><td>4003d8:	</td><td>	e8 43 00 00 00       	</td><td>	call   400420 &lt;__libc_start_main@plt+0x10&gt;	</td><td>		</td></tr>
+<tr><td >&nbsp;</td><td>4003dd:	</td><td>	48 83 c4 08          	</td><td>	 add    rsp,0x8	</td><td>		</td></tr>
+<tr><td >&nbsp;</td><td>4003e1:	</td><td>	c3                   	</td><td>	 ret    	</td><td>		</td></tr>
+<tr><td colspan="5" height="3px">&nbsp;</td></tr>
+<tr><td colspan="5"  style="font-style:italic">Disassembly of section <span style="background-color:#073BCA;color:white;font-weight:bold;">.plt</span>:&nbsp;<span style="color:red;font-weight:bold;">2</span></td></tr>
+<tr><td colspan="5"  style="font-style:italic;">.......</td></tr>
+<tr><td colspan="5" height="3px">&nbsp;</td></tr>
+<tr><td colspan="5"  style="font-style:italic">Disassembly of section <span style="background-color:#073BCA;color:white;font-weight:bold;">text</span>:&nbsp;<span style="color:red;font-weight:bold;">3</span></td></tr>
+<tr><td colspan="5">
+              <table class="view" style="border: 1px dotted green;">
+                              <tr><td colspan="5"  style="font-style:italic;">0000000000400430 &lt;.text&gt;:</td></tr>
+                              <tr><td>&nbsp;</td><td><span style="background-color:green;font-weight:bold;color:white;">400430:</span></td><td style="font-weight:bold;"> 31 ed                	</td><td style="font-weight:bold;"> 	xor    ebp,ebp </td><td style="text-align:right;color:green;font-weight:bold;">	begin of function &lt;start&gt;      	
+                              </td><tr>
+                              <tr><td>&nbsp;</td><td>	400432:	</td><td>	49 89 d1             	</td><td>	mov    r9,rdx	</td><td>&nbsp;</td><tr>
+                              <tr><td>&nbsp;</td><td>	400435:	</td><td>	5e                   	</td><td>	pop    rsi	</td><td>&nbsp;</td><tr>
+                              <tr><td>&nbsp;</td><td>	400436:	</td><td>	48 89 e2             	</td><td>	mov    rdx,rsp	</td><td>&nbsp;</td><tr>
+                              <tr><td>&nbsp;</td><td>	400439:	</td><td>	48 83 e4 f0          	</td><td>	and    rsp,0xfffffffffffffff0	</td><td>&nbsp;</td><tr>
+                              <tr><td>&nbsp;</td><td>	40043d:	</td><td>	50                   	</td><td>	push   rax	</td><td>&nbsp;</td><tr>
+                              <tr><td>&nbsp;</td><td>	40043e:	</td><td>	54                   	</td><td>	push   rsp	</td><td>&nbsp;</td><tr>
+                              <tr><td>&nbsp;</td><td>	40043f:	</td><td>	49 c7 c0 c0 05 40 00 	</td><td>	mov    r8,0x4005c0	</td><td>&nbsp;</td><tr>
+                              <tr><td>&nbsp;</td><td>	400446:	</td><td>	48 c7 c1 50 05 40 00 	</td><td>	mov    rcx,0x400550	</td><td>&nbsp;</td><tr>
+                              <tr><td>&nbsp;</td><td>	40044d:	</td><td>	48 c7 c7 26 05 40 00 	</td><td>	mov    rdi,0x400526	</td><td>&nbsp;</td><tr>
+                              <tr><td>&nbsp;</td><td>	400454:	</td><td>	e8 b7 ff ff ff       	</td><td>	call   400410 &lt;_libc_start_main@plt&gt;</td><td>&nbsp;</td><tr>
+                              <tr><td>&nbsp;</td><td>	400459:	</td><td>	f4                   	</td><td>	hlt    </td><td>&nbsp;</td><tr>
+                              <tr><td>&nbsp;</td><td><span style="background-color:green;font-weight:bold;;color:white;">	40045a:	</span></td><td style="font-weight:bold;"> 	66 0f 1f 44 00 00    	</td><td style="font-weight:bold;"> nop    WORD PTR [rax+rax*1+0x0] </td><td style="text-align:right;color:green;font-weight:bold;font-weight:bold;">	end of function &lt;_start&gt; 	</td><tr>
+                              <tr><td colspan="5">aaaaaaaaaaaaaaaaaaaa</tr></td>
+                </table>
+<tr><td colspan="5">
+<table class="view" style="border: 1px dotted #F98B41;">
+<tr><td>&nbsp;</td><td><span style="background-color:#F98B41;font-weight:bold;;color:white;">400460:</span>	</td><td style="font-weight:bold;"> 	b8 3f 10 60 00 </td><td style="font-weight:bold;text-align:center;"> mov    eax,0x60103f </td><td style="text-align:right;color:#F98B41;font-weight:bold;">begin of function ‘deregister_tm_clones’</td><tr>
+</table>    
+</td></tr>
+<tr><td colspan="5">
+<!-- -->
+        <table class="view">
+            <tr><td colspan="5">.......</td></tr>
+            <tr><td>&nbsp;</td><td>	400520:	</td><td>	5d        </td><td> pop    rbp</td><td>&nbsp;</td><tr>
+            <tr><td>&nbsp;</td><td>	400521:	</td><td>	e9 7a ff ff ff </td><td> jmp    4004a0 &lt;__libc_start_main@plt+0x90&gt;</td><td>&nbsp;</td><tr>
+        </table>
+<!-- -->
+</td></tr>
+<tr><td colspan="5">
+            <table class="view" style="border: 1px dotted #E27EA4">
+                <tr><td>&nbsp;</td><td>	<span style="background-color:#E27EA4;font-weight:bold;;color:white;">400526:</span>	</td><td style="font-weight:bold">55 </td><td style="font-weight:bold;">	push   rbp	</td><td style="text-align:right;color:#E27EA4;font-weight:bold">begin of function &lt;main&gt; </td><tr>
+                <tr><td>&nbsp;</td><td>	400527:	</td><td>	48 89 e5             	</td><td>	mov    rbp,rsp	</td><td>&nbsp;</td><tr>
+                <tr><td>&nbsp;</td><td>	40052a:	</td><td>	48 83 ec 10           </td><td>	sub    rsp,0x10	</td><td>&nbsp;</td><tr>
+                <tr><td>&nbsp;</td><td>	40052e:	</td><td>	89 7d fc             	</td><td>	mov    DWORD PTR [rbp-0x4],edi	</td><td>&nbsp;</td><tr>
+                <tr><td>&nbsp;</td><td>	400531:	</td><td>	48 89 75 f0          	</td><td>	mov    QWORD PTR [rbp-0x10],rsi	</td><td>&nbsp;</td><tr>
+                <tr><td>&nbsp;</td><td>	400535:	</td><td>	bf d4 05 40 00       	</td><td>	mov    edi,0x4005d4	</td><td>&nbsp;</td><tr>
+                <tr><td>&nbsp;</td><td>	40053a:	</td><td>	e8 c1 fe ff ff       	</td><td>	call   400400 &lt;puts@plt&gt;	</td><td>&nbsp;</td><tr>
+                <tr><td>&nbsp;</td><td>	40053f:	</td><td>	b8 00 00 00 00        </td><td>	mov    eax,0x0	</td><td>&nbsp;</td><tr>
+                <tr><td>&nbsp;</td><td>	400544:	</td><td>	c9                   	</td><td>	leave  	</td><td>&nbsp;</td><tr>
+                <tr><td>&nbsp;</td><td>	<span style="background-color:#E27EA4;font-weight:bold;color:white;">400545:</span>	</td><td  style="font-weight:bold;">	c3                   	</td><td >	ret    	</td><td style="text-align:right;color:#E27EA4;font-weight:bold;">end of function &lt;main&gt;</td><tr>
+            </table>
+ <!-- -->
+</td></tr>
+<tr><td colspan="5">
+<!-- -->           
+            <table class="view">
+                <tr><td>&nbsp;</td><td>	400546:	</td><td>	00 00 00               </td><td>nop    WORD PTR cs:[rax+rax*1+0x0]</td><td>&nbsp;</td><tr>
+                <tr><td>&nbsp;</td><td>	40054d:	</td><td>	41 57                  </td><td>push r15</td><td>&nbsp;</td><tr>
+                <tr><td>&nbsp;</td><td>	400550:	</td><td>	41 56                  </td><td>push r14</td><td>&nbsp;</td><tr>
+                <tr><td colspan="5"  style="font-style:italic;">.......</td></tr>
+                <tr><td colspan="5"  style="font-style:italic">Disassembly of section <b>.fini</b>:</td></tr>
+                <tr><td colspan="5" height="3px">&nbsp;</td></tr>
+                <tr><td>&nbsp;</td><td>	4005c4:	</td><td>	48 83 ec 08            </td><td>sub    rsp,0x8</td><td>&nbsp;</td><tr>
+                <tr><td>&nbsp;</td><td>	4005c8:	</td><td>	48 83 c4 08            </td><td>add    rsp,0x8</td><td>&nbsp;</td><tr>
+                <tr><td>&nbsp;</td><td>	4005cc:	</td><td>	c3  </td><td>ret</td><td>&nbsp;</td><tr>
+            </table>
+ <!-- -->
+</td></tr>
+</table>
+*The main takeaways from the above example is that:*
+<ul>
+<li>While the difference sections are still clearly distinguishable (
+<em><strong>1</strong></em>.<em><strong>init</strong></em>, <em><strong>2.plt</strong></em> ,<em><strong>3.tex t</strong></em>) <strong>BUT</strong> <em>the
+functions are not!</em></li>
+</ul>
+<p><strong>Now all the functions have been merged into one big blob of code:</strong></p>
+<ul>
+<li>
+<p>The <strong>&lt;<em>_start&gt;</em></strong> function begins at address <em><strong>400430</strong></em>
+and ends at <em><strong>40045a</strong></em></p>
+</li>
+<li>
+<p>The **&lt;*deregister_tm_clones&gt; ***function begins at address
+<em><strong>40046</strong></em></p>
+</li>
+<li>
+<p>The <em><strong>&lt;main&gt;</strong></em> function begins at address <em><strong>400526</strong></em> and
+ends at <em><strong>400545</strong></em></p>
+</li>
+</ul>
+<p>As we can see above, there is not anything special to indicate that the
+instructions at these markers represent function starts.</p>
+<p>The only exception are the functions in the <em><strong>.plt</strong></em> section, which
+still have their names as before.</p>
+<table class="view" style="font-style:italic;">
+<tr><td colspan="5" class="top" style="font-weight:bold;">$ objdump -M intel -d a.out.stripped</td></tr>
+<tr><td colspan="5">a.out.stripped: file format elf64-x86-64</td></tr>
+<tr><td colspan="5" height="1px">&nbsp;</td></tr>
+<tr><td colspan="5"  style="font-style:italic;">Disassembly of section <b>.init</b>:</td></tr>
+<tr><td colspan="5" height="3px">&nbsp;</td></tr>
+<tr><td colspan="5"  style="font-style:italic;">00000000004003c8 <.init>:</td></tr>
+<tr><td >&nbsp;</td><td  style="width:30px;">4003c8:</td><td >48 83 ec 08</td><td >sub    rsp,0x8</td><td >&nbsp;</td></tr>
+<tr><td colspan="5"  style="font-style:italic">.......</td></tr>
+<tr><td colspan="5"  style="font-style:italic">Disassembly of section <b>.plt</b>:</td></tr>
+<tr><td >&nbsp;</td><td  >4003f0:</td><td >ff 35 12 0c 20 00</td><td >push   QWORD PTR [rip+0x200c12]</td><td ># 601008 &lt;_GLOBAL_OFFSET_TABLE_+0x8&gt;</td></tr>
+<tr><td >&nbsp;</td><td  >4003f6:</td><td >ff 25 14 0c 20 00</td><td >jmp    QWORD PTR [rip+0x200c14]</td><td ># 601010 &lt;_GLOBAL_OFFSET_TABLE_+0x10&gt;</td><tr>
+<tr><td >&nbsp;</td><td  >4003fc:</td><td >0f 1f 40 00</td><td >nop    DWORD PTR [rax+0x0]</td><td >&nbsp;</td></tr>
+<tr><td colspan="5" height="3px">&nbsp;</td></tr>
+<tr><td colspan="5"  style="font-style:italic;">0000000000400400 &lt;puts@plt&gt;:</td></tr>
+<tr><td colspan="5"  style="font-style:italic;">.......</td></tr>
+<tr><td colspan="5"  style="font-style:italic;">0000000000400410 <__libc_start_main@plt>:</td></tr>
+<tr><td >&nbsp;</td><td >400410:</td><td >ff 25 0a 0c 20 00</td><td >jmp    QWORD PTR [rip+0x200c0a]</td><td ># 601020 <_GLOBAL_OFFSET_TABLE_+0x20></td><tr>
+<tr><td colspan="5"  style="font-style:italic;">.......</td></tr>
+<tr><td colspan="5"  style="font-style:italic;">.......</td></tr>
+<tr><td >&nbsp;</td><td >400454:</td><td >e8 b7 ff ff ff</td><td >call   400410 &lt;__libc_start_main@plt&gt;</td><td >function &lt;main&gt;</td><tr>
+<tr><td >&nbsp;</td><td >400459:</td><td >f4</td><td >hlt  g</td><td>&nbsp;</td><tr>
+<tr><td colspan="5" class="bottom" style="font-weight:bold;">&nbsp;</td></tr>
+</table>
+<!-- 
+```00000000004003c8 <_init>:		
+  4003c8:	48 83 ec 08                            	sub    rsp,0x8
+  4003cc:	48 8b 05 25 0c 20 00 	mov    rax,QWORD PTR [rip+0x200c25]        # 600ff8 <_DYNAMIC+0x1d0>
+  4003d3:	48 85 c0             	test   rax,rax
+  4003d6:	74 05                	je      4003dd <_init+0x15>
+  4003d8:	e8 43 00 00 00       	call   400420 <__libc_start_main@plt+0x10>
+  4003dd:	48 83 c4 08          	add    rsp,0x8
+  4003e1:	c3                   	 ret    
+```
+-->
+<h2 id="9656-loading-and-executing-a-binary">▸ Loading and Executing a Binary</h2>
+<p>==============================</p>
+<p>What really happens when a binary file is loaded and executed?</p>
+<p>The figure below shows how a loaded ELF binary is represented in memory
+on a Linux-based platform.</p>
+<p>(<em>At a high level, loading a PE binary on Windows is quite similar).</em></p>
+<p><img
+        width="200"
+        height="200"
+        class=" lazyload"
+        src="/svg/loading.min.svg"
+        data-src="fig09.jpeg"
+        data-srcset="/practicalbinaryanalysis_part1/fig09.jpeg, fig09.jpeg 1.5x, /practicalbinaryanalysis_part1/fig09.jpeg 2x"
+        data-sizes="auto"
+        alt="/practicalbinaryanalysis_part1/fig09.jpeg"
+        title="WhatsApp Image 2019-12-14 at 12"
+        style="width: 100%;object-fit: cover;margin: 0pt;"/></p>
+<p>Loading a binary is a complicated process that involves a lot of work by
+the operating system. It is also important to note a binary’s
+representation in memory does not necessarily correspond one to one with
+its on-disk representation.</p>
+<p>For instance, large amount of zero-initialized data may be collapsed in
+the on-disk binary (to save disk space), while all those zeros will be
+expanded in memory or not loaded into memory at all.</p>
+<p>When we decide to run a binary, the operating system starts by setting
+up a new process for the program to run in, including a virtual address
+space.</p>
+<p>Subsequently, the operating system maps an interpreter into the
+process’s virtual memory</p>
+<p>This is a user space program that knows how to load the binary and
+perform the necessary relocations:</p>
+<ul>
+<li>
+<p><em><strong>On Linux</strong></em> the interpreter is typically a shared library called
+<em><strong>ld-linux.so.</strong></em></p>
+</li>
+<li>
+<p><em><strong>On Windows</strong></em> the interpreter functionality is implemented as
+part of ***ntdll.dll. ***</p>
+</li>
+</ul>
+<p><em>After loading the interpreter</em>, the kernel transfers control to it, and
+<em>the interpreter starts its work in user space</em>.</p>
+<p>Linux ELF binaries comes with a special section called <em><strong>.interp</strong></em>
+that specifies the path to the interpreter that is to be used to load
+the binary.</p>
+<p>The command below shows the <em><strong>.interp</strong></em> section of the file a.out:</p>
+<ul>
+<li>
+<p><strong>-p</strong> &ndash;string-dump=&lt;number|name&gt; <strong>Dump the contents of
+section &lt;number|name&gt; as strings</strong>.</p>
+</li>
+<li>
+<p><strong>.interp</strong> <strong>Is the section name</strong>.</p>
+</li>
+</ul>
+<table class="view">
+<tr><td  class="top" style="font-weight:bold;">$ readelf -p .interp a.out</td></tr>
+<tr><td  style="font-weight:bold;">&nbsp;</td></tr>
+<tr><td  style="font-style:italic">String dump of section '.interp':</td></tr>
+<tr><td  class="bottom" style="font-style:italic;">[0] /lib64/ld-linux-x86-64.so.2</td></tr>
+</table>
+<ol>
+<li>
+<p>Here the interpreter loads the binary into its virtual address space
+(the same space in which the interpreter is loaded).</p>
+</li>
+<li>
+<p>It then parses the binary to find put (among other things) which
+dynamic libraries the binary uses.</p>
+</li>
+<li>
+<p>The interpreter maps these into the virtual address space ( using
+<em><strong>mmap</strong></em> or equivalent function) and then performs any necessary
+last-minute relocations in the binary’s code sections to fill in
+the correct address for references to the dynamic libraries.</p>
+</li>
+</ol>
+<p><img
+        width="200"
+        height="200"
+        class=" lazyload"
+        src="/svg/loading.min.svg"
+        data-src="fig10.jpeg"
+        data-srcset="/practicalbinaryanalysis_part1/fig10.jpeg, fig10.jpeg 1.5x, /practicalbinaryanalysis_part1/fig10.jpeg 2x"
+        data-sizes="auto"
+        alt="/practicalbinaryanalysis_part1/fig10.jpeg"
+        title="WhatsApp Image 2019-12-14 at 12"
+        style="width: 100%;object-fit: cover;margin: 0pt;"/></p>
+<ol>
+<li>
+<p>In reality, instead of resolving these references immediately at
+load time, the interpreter resolves references only when they are
+invoked for the first time. <em>This is known as lazy
+<strong>bindings</strong></em>**.**</p>
+</li>
+<li>
+<p>After relocation is complete, the interpreter looks up the entry
+point of the binary and transfers control to it, beginning normal
+execution of the binary.</p>
+</li>
+</ol>
+<h2 id="9656-summary">▸ Summary</h2>
+<table class="text1">
+<tr><td>
+ELF binaries are divides into sections. Some sections contain code, and
+others contain data.   
+</td></tr>
+<tr><td>
+**Why do you think the distinction between code and data sections
+exists?**  
+</td></tr>
+<tr><td>
+**Symbols are organized into sections** – code lives in one section
+(.text), and data in another (.data, .rodata) 
+</td></tr>
+<tr><td>
+<ul style="list-style-type: circle;">
+      <li>***The CODE section*** refers to *the executable information* (the
+    assembly)</li>
+      <li>***The DATA section*** refers to the *information used by the code*
+    (the strings)</li></ul>
+</td></tr>
+<tr><td>
+Separating them allows them to be given different permissions. Variables
+(i.e. data) need to be writeable, but executable sections (i.e. code)
+should normally be read-only in order to prevent an attacker from
+overwriting them and changing their behavior.
+</td></tr>
+<tr><td>
+**How do you think the loading process differs for code and data
+sections?**
+<p><em>At a high level:</em></p>
+</td></tr>
+<tr><td>
+<ul style="list-style-type: circle;">
+      <li>**Symbols are like function names,** e.g. “If I call printf and it’s
+    defined somewhere else, how do I find it?”</li>
+      <li>*Symbols are organized into sections* – code lives in one section
+    (.text), and data in another (.data, .rodata)</li>
+       <li>*Sections are organized into segments*</li>   
+    </ul>
+</td></tr>
+<tr><td>
+Linux loads the .text section into memory only once, no matter how many
+times an application is loaded. This reduces memory usage and launch
+time and is safe because the code doesn't change. For that reason, the
+.rodata section, which contains read-only initialized data, is packed
+into the same segment that contains the .text section. The .data section
+contains information that could be changed during application execution,
+so this section must be copied for every instance.
+</td></tr>
+<tr><td>
+The main code is stored in .text (flagged read-only and executable).
+Constants are stored in .rodata/.rdata (read-only), although Windows
+compilers often mix them into .text. Default values of initialized
+variables are stored in .data (writeable). Uninitialized variables have
+space reserved by .bss (writeable) when the process is set up, but do
+not take up any bytes in the binary on disk.
+</td></tr>
+<tr><td>
+**Is it necessary to copy all sections into memory when a binary is
+loaded for executions?**
+</td></tr>
+<tr><td>
+Loading a binary is a process that involves a lot of work by the
+operating system
+</td></tr>
+</table>
+<p>When we decide to run a binary, the operating system starts by setting
+up a new process for the program to run in, including a virtual address
+space.</p>
+<ul>
+<li>
+<p>Here the interpreter loads the binary into its virtual address space
+(the same space in which the interpreter is loaded).</p>
+</li>
+<li>
+<p>It then parses the binary to find put (among other things) which
+dynamic libraries the binary uses.</p>
+</li>
+<li>
+<p>The interpreter maps these into the virtual address space ( using
+<em><strong>mmap</strong></em> or equivalent function) and then performs any necessary
+last-minute relocations in the binary’s <strong>code sections</strong> to fill in
+the correct address for references to the dynamic libraries. In
+reality, instead of resolving these references immediately at load
+time, the interpreter resolves references only when they are invoked
+for the first time. <em>This is known as lazy <strong>bindings</strong></em>**.**</p>
+</li>
+<li>
+<p>After relocation is complete, the interpreter looks up the entry
+point of the binary and transfers control to it, beginning normal
+execution of the binary.</p>
+</li>
+</ul>
+<p>No. The division of the binary into sections is a convenient
+organization set up to be parseable by the linker. Some sections contain
+only data intended for the linker at link time, such as symbolic or
+relocation information. Much linking occurs before execution time, so
+some such sections do not need to be loaded into the process&rsquo;s virtual
+memory for execution - although with lazy binding, many relocations can
+occur <em>during</em> execution (the .plt and .got.plt sections are used for
+this, and do need to be loaded). Sections are organized into groups
+called <em>segments</em>. Segments of type PT_LOAD are intended to be loaded
+into memory. The executable&rsquo;s <em>program headers</em> describe the segments.</p>
+</div><div class="post-footer" id="post-footer">
+    <div class="post-info">
+        <div class="post-info-line">
+            <div class="post-info-mod">
+                <span>Updated on 16 Nov 2021</span>
+            </div>
+            <div class="post-info-license"></div>
+        </div>
+        <div class="post-info-line">
+            <div class="post-info-md"><span>
+                            <a class="link-to-markdown" href="/practicalbinaryanalysis_part1/index.md" target="_blank">Read Markdown</a>
+                        </span></div>
+            <div class="post-info-share">
+                <span><a href="javascript:void(0);" title="Share on Twitter" data-sharer="twitter" data-url="https://pasqnix.github.io/practicalbinaryanalysis_part1/" data-title="[Practical Binary Analysis]  Part.1 (Chapter.1)" data-via="xxxx" data-hashtags="ReverseEngineering,Assembly,Hacking,Debugging,Binary Analysis"><i class="fab fa-twitter fa-fw"></i>&nbsp;</a><a href="javascript:void(0);" title="Share on Facebook" data-sharer="facebook" data-url="https://pasqnix.github.io/practicalbinaryanalysis_part1/" data-hashtag="ReverseEngineering"><i class="fab fa-facebook-square fa-fw"></i>&nbsp;</a><a href="javascript:void(0);" title="Share on Hacker News" data-sharer="hackernews" data-url="https://pasqnix.github.io/practicalbinaryanalysis_part1/" data-title="[Practical Binary Analysis]  Part.1 (Chapter.1)"><i class="fab fa-hacker-news fa-fw"></i>&nbsp;</a><a href="javascript:void(0);" title="Share on Line" data-sharer="line" data-url="https://pasqnix.github.io/practicalbinaryanalysis_part1/" data-title="[Practical Binary Analysis]  Part.1 (Chapter.1)"><i data-svg-src="/lib/simple-icons/icons/line.min.svg"></i></a><a href="javascript:void(0);" title="Share on 微博" data-sharer="weibo" data-url="https://pasqnix.github.io/practicalbinaryanalysis_part1/" data-title="[Practical Binary Analysis]  Part.1 (Chapter.1)"><i class="fab fa-weibo fa-fw"></i>&nbsp;</a></span>
+            </div>
+        </div>
+    </div>
+
+    <div class="post-info-more">
+        <section class="post-tags"><i class="fas fa-tags fa-fw"></i>&nbsp;<a href="/tags/reverseengineering/">ReverseEngineering</a>,&nbsp;<a href="/tags/assembly/">Assembly</a>,&nbsp;<a href="/tags/hacking/">Hacking</a>,&nbsp;<a href="/tags/debugging/">Debugging</a>,&nbsp;<a href="/tags/binary-analysis/">Binary Analysis</a></section>
+        <section>
+            <span><a href="javascript:void(0);" onclick="window.history.back();">Back</a></span>&nbsp;|&nbsp;<span><a href="/">Home</a></span>
+        </section>
+    </div>
+
+    <div class="post-nav"><a href="/practicalbinaryanalysis_intro/" class="prev" rel="prev" title="[Practical Binary Analysis] Introduction"><i class="fas fa-angle-left fa-fw"></i>[Practical Binary Analysis] Introduction</a>
+            <a href="/reveringhero/" class="next" rel="next" title="Reversing Hero">Reversing Hero<i class="fas fa-angle-right fa-fw"></i></a></div>
+</div>
+
+
+        <div style="height: 80px;position:absolute;">&nbsp;</div>
+    </article></div>
+            </main><footer class="footer">
+        <div class="footer-container"><div class="footer-line">Powered by <a href="https://gohugo.io/" target="_blank" rel="noopener noreffer" title="Hugo 0.92.2">Hugo</a> | Theme - <a href="https://github.com/dillonzq/LoveIt" target="_blank" rel="noopener noreffer" title="LoveIt 0.2.10"><i class="far fa-kiss-wink-heart fa-fw"></i> LoveIt</a>&nbsp;|&nbsp;<span class="license"><a rel="license external nofollow noopener noreffer" href="https://creativecommons.org/licenses/by-nc/4.0/" target="_blank">CC BY-NC 4.0</a></span></div>
+        </div>
+    </footer></div>
+
+        <div id="fixed-buttons"><a href="#" id="back-to-top" class="fixed-button" title="Back to Top">
+                <i class="fas fa-arrow-up fa-fw"></i>
+            </a><a href="#" id="view-comments" class="fixed-button" title="View Comments">
+                <i class="fas fa-comment fa-fw"></i>
+            </a>
+        </div><link rel="stylesheet" href="/lib/lightgallery/lightgallery.min.css"><script type="text/javascript" src="/lib/smooth-scroll/smooth-scroll.min.js"></script><script type="text/javascript" src="/lib/autocomplete/autocomplete.min.js"></script><script type="text/javascript" src="/lib/lunr/lunr.min.js"></script><script type="text/javascript" src="/lib/lazysizes/lazysizes.min.js"></script><script type="text/javascript" src="/lib/lightgallery/lightgallery.min.js"></script><script type="text/javascript" src="/lib/lightgallery/lg-thumbnail.min.js"></script><script type="text/javascript" src="/lib/lightgallery/lg-zoom.min.js"></script><script type="text/javascript" src="/lib/clipboard/clipboard.min.js"></script><script type="text/javascript" src="/lib/sharer/sharer.min.js"></script><script type="text/javascript">window.config={"code":{"copyTitle":"Copy to clipboard","maxShownLines":10},"comment":{},"lightGallery":{"actualSize":false,"exThumbImage":"data-thumbnail","hideBarsDelay":2000,"selector":".lightgallery","speed":400,"thumbContHeight":80,"thumbWidth":80,"thumbnail":true},"search":{"highlightTag":"em","lunrIndexURL":"/index.json","maxResultLength":20,"noResultsFound":"No results found","snippetLength":30,"type":"lunr"}};</script><script type="text/javascript" src="/js/theme.min.js"></script></body>
+</html>

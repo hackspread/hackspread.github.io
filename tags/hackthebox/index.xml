@@ -1,0 +1,18 @@
+<rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0">
+    <channel>
+        <title>hackthebox - Tag - HackSpread.com</title>
+        <link>https://pasqnix.github.io/tags/hackthebox/</link>
+        <description>hackthebox - Tag - HackSpread.com</description>
+        <generator>Hugo -- gohugo.io</generator><language>en</language><copyright>This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.</copyright><lastBuildDate>Mon, 14 Dec 2020 00:00:00 &#43;0000</lastBuildDate><atom:link href="https://pasqnix.github.io/tags/hackthebox/" rel="self" type="application/rss+xml" /><item>
+    <title>Starting Point on HackTheBox (2020)</title>
+    <link>https://pasqnix.github.io/startingpoint/</link>
+    <pubDate>Mon, 14 Dec 2020 00:00:00 &#43;0000</pubDate>
+    <author>Author</author>
+    <guid>https://pasqnix.github.io/startingpoint/</guid>
+    <description><![CDATA[INTRODUCTION This path is composed of 6 boxes in a way that later boxes use information (like credentials) gathered from the previous ones. ▸ ARCHTYPE ◦ About =============
+This is a Windows box where you can learn how enumeration can lead to RCE via SQL server queries.
+ Machine : Archetype  Ip: 10.10.10.27  ◦ Enumeration =============
+nmap -sC -sV 10.10.10.27
+Ports 445 and 1433 are open, which are associated with file sharing (SMB) and SQL Server.]]></description>
+</item></channel>
+</rss>

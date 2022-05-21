@@ -1,0 +1,1423 @@
+<!DOCTYPE html>
+<html lang="en" >
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="robots" content="noodp" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge, chrome=1">
+        <title>Reversing Hero - HackSpread.com</title><meta name="Description" content="ReversingHero is a 15 levels reverse engineering self learning kit.Every level the difficulty gradually increasing"><meta property="og:title" content="Reversing Hero" />
+<meta property="og:description" content="ReversingHero is a 15 levels reverse engineering self learning kit.Every level the difficulty gradually increasing" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://pasqnix.github.io/reveringhero/" /><meta property="og:image" content="https://pasqnix.github.io/reveringhero/featured-image.jpg"/><meta property="article:section" content="posts" />
+<meta property="article:published_time" content="2022-01-12T00:00:00+00:00" />
+<meta property="article:modified_time" content="2022-02-20T16:09:18-05:00" />
+
+<meta name="twitter:card" content="summary_large_image"/>
+<meta name="twitter:image" content="https://pasqnix.github.io/reveringhero/featured-image.jpg"/>
+<meta name="twitter:title" content="Reversing Hero"/>
+<meta name="twitter:description" content="ReversingHero is a 15 levels reverse engineering self learning kit.Every level the difficulty gradually increasing"/>
+<meta name="application-name" content="psqnix.github.io">
+<meta name="apple-mobile-web-app-title" content="psqnix.github.io"><meta name="theme-color" content="#ffffff"><meta name="msapplication-TileColor" content="#da532c"><link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
+        <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+        <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+        <link rel="stylesheet" href="../../../css/custom.css">
+        <link rel="stylesheet" href="../../../css/style.css"><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"><link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5"><link rel="manifest" href="/site.webmanifest"><link rel="canonical" href="https://pasqnix.github.io/reveringhero/" /><link rel="prev" href="https://pasqnix.github.io/practicalbinaryanalysis_part1/" /><link rel="stylesheet" href="/lib/normalize/normalize.min.css"><link rel="stylesheet" href="/lib/fontawesome-free/all.min.css"><link rel="stylesheet" href="/lib/animate/animate.min.css"><script type="application/ld+json">
+    {
+        "@context": "http://schema.org",
+        "@type": "BlogPosting",
+        "headline": "Reversing Hero",
+        "inLanguage": "en",
+        "mainEntityOfPage": {
+            "@type": "WebPage",
+            "@id": "https:\/\/pasqnix.github.io\/reveringhero\/"
+        },"image": [{
+                            "@type": "ImageObject",
+                            "url": "https:\/\/pasqnix.github.io\/reveringhero\/featured-image.jpg",
+                            "width":  425 ,
+                            "height":  245 
+                        }],"genre": "posts","keywords": "Reverse Engineering, Ida Pro, Assembly, Linux","wordcount":  3560 ,
+        "url": "https:\/\/pasqnix.github.io\/reveringhero\/","datePublished": "2022-01-12T00:00:00+00:00","dateModified": "2022-02-20T16:09:18-05:00","license": "This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.","publisher": {
+            "@type": "Organization",
+            "name": "xxxx","logo": {
+                    "@type": "ImageObject",
+                    "url": "https:\/\/pasqnix.github.io\/images\/mylogo.png",
+                    "width":  286 ,
+                    "height":  53 
+                }},"author": {
+                "@type": "Person",
+                "name": "xorpd"
+            },"description": "ReversingHero is a 15 levels reverse engineering self learning kit.Every level the difficulty gradually increasing"
+    }
+    </script></head>
+    <body header-desktop="fixed" header-mobile="auto" ><script type="text/javascript">(window.localStorage && localStorage.getItem('theme') ? localStorage.getItem('theme') === 'dark' : ('light' === 'auto' ? window.matchMedia('(prefers-color-scheme: dark)').matches : 'light' === 'dark')) && document.body.setAttribute('theme', 'dark');</script>
+
+        <div id="mask"></div><div class="wrapper"><header class="desktop" id="header-desktop" style="border-bottom:1px solid #E1E1E1;box-shadow: 0 0 1.5rem 0 #E1E1E1;"> 
+    
+    <div class="header-wrapper">
+        <div class="header-title" >
+            <a href="/" title="HackSpread.com"><img src="/images/mylogo.png">
+
+  
+            </a>
+        </div>
+        <div class="menu">
+            <div class="menu-inner"><a class="menu-item" href="/"> Home </a><a class="menu-item" href="/posts/"> Posts </a><a class="menu-item" href="/tags/"> Tags </a><a class="menu-item" href="/about/"> About </a><span class="menu-item delimiter"></span><span class="menu-item search" id="search-desktop">
+                        <input type="text" placeholder="Search titles or contents..." id="search-input-desktop">
+                        <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-desktop" title="Search">
+                            <i class="fas fa-search fa-fw"></i>
+                        </a>
+                        <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-desktop" title="Clear">
+                            <i class="fas fa-times-circle fa-fw"></i>
+                        </a>
+                        <span class="search-button search-loading" id="search-loading-desktop">
+                            <i class="fas fa-spinner fa-fw fa-spin"></i>
+                        </span>
+                    </span>
+            </div>
+        </div>
+    </div>
+</header><header class="mobile" id="header-mobile">
+    <div class="header-container">
+        <div class="header-wrapper">
+            <div class="header-title">
+                <a href="/" title="HackSpread.com"><img src="/images/mylogo-mobile.png">
+                    
+                </a>
+            </div>
+            <div class="menu-toggle" id="menu-toggle-mobile">
+                <span></span><span></span><span></span>
+            </div>
+        </div>
+        <div class="menu" id="menu-mobile"><div class="search-wrapper">
+                    <div class="search mobile" id="search-mobile">
+                        <input type="text" placeholder="Search titles or contents..." id="search-input-mobile">
+                        <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-mobile" title="Search">
+                            <i class="fas fa-search fa-fw"></i>
+                        </a>
+                        <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-mobile" title="Clear">
+                            <i class="fas fa-times-circle fa-fw"></i>
+                        </a>
+                        <span class="search-button search-loading" id="search-loading-mobile">
+                            <i class="fas fa-spinner fa-fw fa-spin"></i>
+                        </span>
+                    </div>
+                    <a href="javascript:void(0);" class="search-cancel" id="search-cancel-mobile">
+                        Cancel
+                    </a>
+                </div><a class="menu-item" href="/" title="">Home</a><a class="menu-item" href="/posts/" title="">Posts</a><a class="menu-item" href="/tags/" title="">Tags</a><a class="menu-item" href="/about/" title="">About</a><a href="javascript:void(0);" class="menu-item theme-switch" title="Switch Theme">
+                <i class="fas fa-adjust fa-fw"></i>
+            </a></div>
+    </div>
+</header>
+<div class="search-dropdown desktop">
+    <div id="search-dropdown-desktop"></div>
+</div>
+<div class="search-dropdown mobile">
+    <div id="search-dropdown-mobile"></div>
+</div>
+<main class="main" >
+                <div class="container" style="max-width: 100%;margin:0;padding-left:0;padding-right: 0;" ><div>
+    <img
+        width="200"
+        height="400"
+        class=" lazyload"
+        src="/svg/loading.min.svg"
+        data-src="/reveringhero/featured-image.jpg"
+        data-srcset="/reveringhero/featured-image.jpg, /reveringhero/featured-image.jpg 1.5x, /reveringhero/featured-image.jpg 2x"
+        data-sizes="auto"
+        alt="/reveringhero/featured-image.jpg"
+        title="ReversingHero is a 15 levels reverse engineering self learning kit.Every level the difficulty gradually increasing"
+        style="width: 100%;object-fit: cover;margin: 0pt;"/></div><div class="toc" id="toc-auto" style="position:relative;background-color: #E0E0E0;">
+            <table >
+                <tr style="position:relative;background-color: #E0E0E0;border: 2px solid white;border-left: none;border-right: none;">
+                    <td style="text-align:center;vertical-align: middle;" >Table of Contents</td>
+                </tr></table>
+           
+        
+
+         
+         <div class="toc-content" id="toc-content-auto"></div>
+    
+    
+            
+        </div><article class="page single" style="border:0px solid black;max-width:1400px;flex-wrap: wrap;padding:2%;"><h1 class="single-title animated flipInX">Reversing Hero</h1>
+<div class="post-meta">
+
+           
+            <div class="post-meta-line" style="padding-top: 25px;;">
+                <table ><tr>
+                <td style="border:none"><i class="far fa-calendar-alt fa-fw"></i>&nbsp;<time datetime="12 Jan 2022">12 Jan 2022</time>&nbsp;
+                <i class="far fa-clock fa-fw"></i>&nbsp;17 minutes&nbsp;
+</td><td style="border:none;text-align: right;">
+                <span><a href="javascript:void(0);" onclick="window.history.back();">Back</a></span>&nbsp;|&nbsp;<span><a href="/">Home</a></span></td>
+            </tr></table>
+            </div>
+
+
+          
+            
+
+        </div>
+<div class="details toc" id="toc-static"  kept="">
+                <div class="details-summary toc-title">
+                    <span>Contents</span>
+                    <span><i class="details-icon fas fa-angle-right"></i></span>
+                </div>
+                <div class="details-content toc-content" id="toc-content-static"><nav id="TableOfContents">
+  <ul>
+    <li><a href="#introduction">INTRODUCTION</a></li>
+    <li><a href="#9656-reversing-hero-1">▸ Reversing Hero 1</a></li>
+    <li><a href="#9656-reversing-hero-2">▸ Reversing Hero 2</a></li>
+    <li><a href="#9656-reversing-hero-3">▸ Reversing Hero 3</a></li>
+    <li><a href="#9656-reversing-hero-4">▸ Reversing Hero 4</a></li>
+    <li><a href="#9656-reversing-hero-5">▸ Reversing Hero 5</a></li>
+    <li><a href="#9656-reversing-hero-6">▸ Reversing Hero 6</a></li>
+  </ul>
+</nav></div>
+            </div><div class="content" id="content"><h2 id="introduction">INTRODUCTION</h2>
+<div class="text">
+ReversingHero is a Reverse Engineering self learning kit (x86_64 on linux) wrapped inside one binary file. It is made of 15 levels, with difficulty gradually increasing.
+<p>Created by xoprd, this course can be found here : <a href="https://gumroad.com/l/reversinghero" target="_blank" rel="noopener noreffer">Reversing Hero</a></p>
+<p>Here is just my attempt to solve  the 15 levels.</p>
+</div>
+<h2 id="9656-reversing-hero-1">▸ Reversing Hero 1</h2>
+<hr>
+<h2 id="9656-reversing-hero-2">▸ Reversing Hero 2</h2>
+<p>The following procedure shows a simple routine where there is a bit rotation.
+Basically what happens is a permutation of the inserted value, this permutation has to give as result the following number <strong>89349536319392163324855876422573</strong></p>
+<p>Exploring the binary in IDA, we can see that the program is expecting a 64 length input.
+My first lazy experiment was to insert the string : <strong>abcdefghijklmnopqrstuvwxyz123456</strong></p>
+<p>Here we get an interesting output : <strong>lfatoi2wrd5zmgbupj3xse61nhcvqk4y</strong></p>
+<p>So the permutation of <strong>abcdefghijklmnopqrstuvwxyz123456</strong> gives <strong>lfatoi2wrd5zmgbupj3xse61nhcvqk4y</strong>, we can easily assume that <strong>lfatoi2wrd5zmgbupj3xse61nhcvqk4y</strong> corresponds to <strong>89349536319392163324855876422573</strong></p>
+<table>
+<thead>
+<tr>
+<th>l</th>
+<th>f</th>
+<th>a</th>
+<th>t</th>
+<th>o</th>
+<th>i</th>
+<th>2</th>
+<th>w</th>
+<th>r</th>
+<th>d</th>
+<th>5</th>
+<th>z</th>
+<th>m</th>
+<th>g</th>
+<th>b</th>
+<th>u</th>
+<th>p</th>
+<th>j</th>
+<th>3</th>
+<th>x</th>
+<th>s</th>
+<th>e</th>
+<th>6</th>
+<th>1</th>
+<th>n</th>
+<th>h</th>
+<th>c</th>
+<th>v</th>
+<th>q</th>
+<th>k</th>
+<th>4</th>
+<th>y</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>8</td>
+<td>9</td>
+<td>3</td>
+<td>4</td>
+<td>9</td>
+<td>5</td>
+<td>3</td>
+<td>6</td>
+<td>3</td>
+<td>1</td>
+<td>9</td>
+<td>3</td>
+<td>9</td>
+<td>2</td>
+<td>1</td>
+<td>6</td>
+<td>3</td>
+<td>3</td>
+<td>2</td>
+<td>4</td>
+<td>8</td>
+<td>5</td>
+<td>5</td>
+<td>8</td>
+<td>7</td>
+<td>6</td>
+<td>4</td>
+<td>2</td>
+<td>2</td>
+<td>5</td>
+<td>7</td>
+<td>3</td>
+</tr>
+</tbody>
+</table>
+<p>Reversing the order of the string to its natural order we can then get:</p>
+<table>
+<thead>
+<tr>
+<th>a</th>
+<th>b</th>
+<th>c</th>
+<th>d</th>
+<th>e</th>
+<th>f</th>
+<th>g</th>
+<th>h</th>
+<th>i</th>
+<th>j</th>
+<th>k</th>
+<th>l</th>
+<th>m</th>
+<th>n</th>
+<th>o</th>
+<th>p</th>
+<th>q</th>
+<th>r</th>
+<th>s</th>
+<th>t</th>
+<th>u</th>
+<th>v</th>
+<th>w</th>
+<th>x</th>
+<th>y</th>
+<th>z</th>
+<th>1</th>
+<th>2</th>
+<th>3</th>
+<th>4</th>
+<th>5</th>
+<th>6</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>3</td>
+<td>1</td>
+<td>4</td>
+<td>1</td>
+<td>5</td>
+<td>9</td>
+<td>2</td>
+<td>6</td>
+<td>5</td>
+<td>3</td>
+<td>5</td>
+<td>8</td>
+<td>9</td>
+<td>7</td>
+<td>9</td>
+<td>3</td>
+<td>2</td>
+<td>3</td>
+<td>8</td>
+<td>4</td>
+<td>6</td>
+<td>2</td>
+<td>6</td>
+<td>4</td>
+<td>3</td>
+<td>3</td>
+<td>8</td>
+<td>3</td>
+<td>2</td>
+<td>7</td>
+<td>9</td>
+<td>5</td>
+</tr>
+</tbody>
+</table>
+<p>So the requested input is : <strong>31415926535897932384626433832795</strong></p>
+<p>Here the commented subroutine in assembly.</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span><span class="lnt">33
+</span><span class="lnt">34
+</span><span class="lnt">35
+</span><span class="lnt">36
+</span><span class="lnt">37
+</span><span class="lnt">38
+</span><span class="lnt">39
+</span><span class="lnt">40
+</span><span class="lnt">41
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-asm" data-lang="asm"> 
+  <span class="nl">ext:</span><span class="err">00000000004005</span><span class="nf">DC</span> <span class="no">begin</span> <span class="no">of</span> <span class="no">pwd</span> <span class="no">generator</span>
+  <span class="err">00000000004005</span><span class="nf">DC</span>
+  <span class="err">00000000004005</span><span class="nf">DC</span> <span class="no">rdi</span> <span class="c">;--&gt; x
+</span><span class="c"></span>  <span class="mi">00000000004005</span><span class="no">DC</span>
+  <span class="err">00000000004005</span><span class="nf">DC</span> <span class="c">; =============== S U B R O U T I N E ==============================
+</span><span class="c"></span>  <span class="mi">00000000004005</span><span class="no">DC</span>
+  <span class="err">00000000004005</span><span class="nf">DC</span>
+  <span class="err">00000000004005</span><span class="nf">DC</span> <span class="no">sub_4005DC</span>      <span class="no">proc</span> <span class="no">near</span>                    <span class="c">; CODE XREF: sub_400618+12↓p
+</span><span class="c"></span>  <span class="mi">00000000004005</span><span class="no">DC</span>                 <span class="no">mov</span>     <span class="no">rax</span><span class="p">,</span> <span class="no">rdi</span>		          <span class="c">; x = y 
+</span><span class="c"></span>  <span class="mi">00000000004005</span><span class="no">DF</span>                 <span class="no">add</span>     <span class="no">rax</span><span class="p">,</span> <span class="mi">1010101</span><span class="no">b</span>        <span class="c">; x = x +0x55
+</span><span class="c"></span>  <span class="mi">00000000004005</span><span class="no">E3</span>                 <span class="no">and</span>     <span class="no">rax</span><span class="p">,</span> <span class="mi">11111</span><span class="no">b</span>          <span class="c">; x= (x + 0x55) &amp; 0x1f
+</span><span class="c"></span>  <span class="mi">00000000004005</span><span class="no">E7</span>                 <span class="no">shr</span>     <span class="no">rax</span><span class="p">,</span> <span class="mi">1</span>               <span class="c">; x= x &gt;&gt; 1
+</span><span class="c"></span>  <span class="mi">00000000004005</span><span class="no">EA</span>                 <span class="no">jnb</span>     <span class="no">short</span> <span class="no">loc_4005F0</span>     <span class="c">; Jump if Not Below (CF=0)
+</span><span class="c"></span>  <span class="mi">00000000004005</span><span class="no">EC</span>  
+  <span class="mi">00000000004005</span><span class="no">EC</span> <span class="c">;if CF = 1 
+</span><span class="c"></span>  <span class="mi">00000000004005</span><span class="no">EC</span>      <span class="no">or</span>         <span class="no">rax</span><span class="p">,</span> <span class="mi">10000</span><span class="no">b</span>                  <span class="c">;x ^ 0x10000b
+</span><span class="c"></span>  <span class="mi">00000000004005</span><span class="no">F0</span> <span class="c">; if CF = 0
+</span><span class="c"></span>  <span class="mi">00000000004005</span><span class="no">F0</span> <span class="no">loc_4005F0</span><span class="p">:</span>                                  <span class="c">; CODE XREF: sub_4005DC+E↑j
+</span><span class="c"></span>  <span class="mi">00000000004005</span><span class="no">F0</span>                 <span class="no">and</span>     <span class="no">rax</span><span class="p">,</span> <span class="mi">11111</span><span class="no">b</span>          <span class="c">; x &amp; 0x1F
+</span><span class="c"></span>  <span class="mi">00000000004005</span><span class="no">F4</span>                 <span class="no">shr</span>     <span class="no">rax</span><span class="p">,</span> <span class="mi">1</span>               <span class="c">; x &gt;&gt; 1
+</span><span class="c"></span>  <span class="mi">00000000004005</span><span class="no">F7</span>                 <span class="no">jnb</span>     <span class="no">short</span> <span class="no">loc_4005FD</span>     <span class="c">; Jump if Not Below (CF=0)
+</span><span class="c"></span>  <span class="mi">00000000004005</span><span class="no">F9</span> <span class="c">; if CF=1
+</span><span class="c"></span>  <span class="mi">00000000004005</span><span class="no">F9</span>                 <span class="no">or</span>      <span class="no">rax</span><span class="p">,</span> <span class="mi">10000</span>
+  <span class="err">00000000004005</span><span class="nf">FD</span> <span class="c">; if CF = 0
+</span><span class="c"></span>  <span class="mi">00000000004005</span><span class="no">FD</span> <span class="no">loc_4005FD</span><span class="p">:</span>                                  <span class="c">; CODE XREF: sub_4005DC+1B↑j
+</span><span class="c"></span>  <span class="mi">00000000004005</span><span class="no">FD</span>                 <span class="no">and</span>     <span class="no">rax</span><span class="p">,</span> <span class="mi">11111</span><span class="no">b</span>          <span class="c">; x &amp; 0x1f
+</span><span class="c"></span>  <span class="mi">0000000000400601</span>                 <span class="no">shr</span>     <span class="no">rax</span><span class="p">,</span> <span class="mi">1</span>               <span class="c">; x= x &gt;&gt; 1
+</span><span class="c"></span>  <span class="mi">0000000000400604</span>                 <span class="no">jnb</span>     <span class="no">short</span> <span class="no">loc_40060A</span>     <span class="c">; Jump if Not Below (CF=0)
+</span><span class="c"></span>  <span class="mi">0000000000400606</span> <span class="c">; if CF = 1
+</span><span class="c"></span>  <span class="mi">0000000000400606</span>                 <span class="no">or</span>      <span class="no">rax</span><span class="p">,</span> <span class="mi">10000</span><span class="no">b</span>          <span class="c">;x ^ 0x10000b
+</span><span class="c"></span>  <span class="mi">000000000040060</span><span class="no">A</span> <span class="c">; if CF = 0
+</span><span class="c"></span>  <span class="mi">000000000040060</span><span class="no">A</span> <span class="no">loc_40060A</span><span class="p">:</span>                                  <span class="c">; CODE XREF: sub_4005DC+28↑j
+</span><span class="c"></span>  <span class="mi">000000000040060</span><span class="no">A</span>                 <span class="no">mov</span>     <span class="no">rsi</span><span class="p">,</span> <span class="no">rax</span>             <span class="c">;-&gt; x = y
+</span><span class="c"></span>  <span class="mi">000000000040060</span><span class="no">D</span>                 <span class="no">add</span>     <span class="no">rax</span><span class="p">,</span> <span class="no">rax</span>             <span class="c">;-&gt; x = 2y
+</span><span class="c"></span>  <span class="mi">0000000000400610</span>                 <span class="no">add</span>     <span class="no">rax</span><span class="p">,</span> <span class="no">rsi</span>             <span class="c">;-&gt; x = 2y + y = 3y
+</span><span class="c"></span>  <span class="mi">0000000000400613</span>                 <span class="no">and</span>     <span class="no">rax</span><span class="p">,</span> <span class="mi">11111</span><span class="no">b</span>          <span class="c">;-&gt; x &amp; 11111
+</span><span class="c"></span>  <span class="mi">0000000000400617</span>                 <span class="no">retn</span>
+  <span class="err">0000000000400617</span> <span class="nf">sub_4005DC</span>      <span class="no">endp</span>
+  <span class="err">0000000000400617</span>
+  <span class="err">0000000000400617</span> <span class="nf">end</span> <span class="no">of</span> <span class="no">generator</span>
+</code></pre></td></tr></table>
+</div>
+</div><p>Below a small python routine to get the  correct value to insert (not mine really, you can find the script @  <a href="https://www.geeksforgeeks.org/rotate-bits-of-an-integer/" target="_blank" rel="noopener noreffer">geeksforgeeks.org</a>)</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span><span class="lnt">33
+</span><span class="lnt">34
+</span><span class="lnt">35
+</span><span class="lnt">36
+</span><span class="lnt">37
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="ch">#!/usr/bin/python3</span>
+
+<span class="c1">#Size of the bits</span>
+<span class="n">BITS_SIZE</span> <span class="o">=</span> <span class="mi">5</span>
+<span class="c1">#Function rotate to right</span>
+<span class="c1">#Rotate n by d bits</span>
+
+<span class="k">def</span> <span class="nf">ROR5</span><span class="p">(</span><span class="n">n</span><span class="p">,</span><span class="n">d</span><span class="p">):</span>
+
+
+    <span class="c1">#In n&gt;&gt;d, fist d bits are seto to 0</span>
+    <span class="c1">#To put last 3 bits of at first :</span>
+    <span class="c1"># do -&gt; bitwaise OR of (n &gt;&gt; d) with (n &lt;&lt; (BITS_SIZE -d)</span>
+    <span class="k">return</span> <span class="p">((</span><span class="n">n</span> <span class="o">&gt;&gt;</span> <span class="n">d</span><span class="p">)</span> <span class="o">|</span> <span class="p">(</span><span class="n">n</span> <span class="o">&lt;&lt;</span> <span class="p">(</span><span class="n">BITS_SIZE</span> <span class="o">-</span><span class="n">d</span><span class="p">)))</span> <span class="o">&amp;</span> <span class="mh">0xFFFFFFFF</span>
+
+<span class="k">def</span> <span class="nf">iter_f</span><span class="p">(</span><span class="n">x</span><span class="p">):</span>
+
+    <span class="n">x</span> <span class="o">=</span> <span class="p">(</span><span class="n">x</span> <span class="o">+</span> <span class="mh">0x55</span><span class="p">)</span> <span class="o">&amp;</span> <span class="mh">0x1f</span>
+    <span class="s2">&#34;&#34;&#34;for num in range(1,5):&#34;&#34;&#34;</span>
+    <span class="n">x</span> <span class="o">=</span> <span class="n">ROR5</span><span class="p">(</span><span class="n">x</span><span class="p">,</span><span class="mi">3</span><span class="p">)</span>
+    <span class="n">x</span> <span class="o">=</span> <span class="p">(</span><span class="mi">3</span><span class="o">*</span><span class="n">x</span><span class="p">)</span> <span class="o">&amp;</span> <span class="mh">0x1f</span>
+    <span class="k">return</span> <span class="n">x</span>
+
+<span class="k">def</span> <span class="nf">main</span><span class="p">():</span>
+    <span class="s2">&#34;&#34;&#34;
+</span><span class="s2">    print(&#34;Hello World!&#34;)
+</span><span class="s2">    &#34;&#34;&#34;</span>
+    <span class="n">my_pass</span> <span class="o">=</span> <span class="s2">&#34;89349536319392163324855876422573&#34;</span>
+    <span class="k">for</span> <span class="n">num</span> <span class="ow">in</span> <span class="nb">range</span> <span class="p">(</span><span class="mi">32</span><span class="p">):</span>
+        <span class="nb">print</span> <span class="p">(</span><span class="n">my_pass</span><span class="p">[</span><span class="n">iter_f</span><span class="p">(</span><span class="n">num</span><span class="p">)],</span> <span class="n">end</span><span class="o">=</span><span class="s2">&#34;&#34;</span><span class="p">)</span>
+
+
+
+<span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s2">&#34;__main__&#34;</span><span class="p">:</span>
+    <span class="n">main</span><span class="p">()</span>
+
+
+</code></pre></td></tr></table>
+</div>
+</div><h2 id="9656-reversing-hero-3">▸ Reversing Hero 3</h2>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span><span class="lnt">33
+</span><span class="lnt">34
+</span><span class="lnt">35
+</span><span class="lnt">36
+</span><span class="lnt">37
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">
+  0000000000400529 ; =============== S U B R O U T I N E =========================
+  0000000000400529
+  0000000000400529 ; 1st dword = edi(rdi)= a -&gt; -8 -&gt;hex(2^32 + (-8))  = fffffff8
+  0000000000400529 ; 2nd dword = esi(rsi)= b -&gt; -3 -&gt;hex(2^32 + (-3))  = fffffffd
+  0000000000400529 ; 3rd dword = edx(rdx)= c -&gt; 13 -&gt;hex(2^32 + (+13)) =(1)0000000d
+  0000000000400529 ;
+  0000000000400529
+  0000000000400529 sub_400529 proc near       ; CODE XREF: _start+A7↑p
+  0000000000400529 lea     ecx, [edi+edx]     ; a+c
+  000000000040052D add     ecx, esi           ; (a+c)+b
+  000000000040052F add     ecx, ecx           ; 2*((a+c)+b)
+  0000000000400531 add     ecx, esi           ; (2*((a+c)+b)) + b == 1
+  0000000000400533 loop    loc_400554
+  0000000000400535 lea     ecx, [esi+edi*2]   ; b+(2*a)
+  0000000000400539 add     ecx, edx           ; (b+(a*2))+c
+  000000000040053B add     ecx, ecx           ; 2*((b+(a*2))+c)
+  000000000040053D add     ecx, edx           ; (2*((b+(a*2))+c))+c
+  000000000040053F loop    loc_400554
+  0000000000400541 lea     ecx, [edi+edx]     ; a+c
+  0000000000400545 add     ecx, esi           ; (a+c)+b
+  0000000000400547 shl     ecx, 3             ; 8*((a+c)+b) --&gt; shl,3 = 2^3
+  000000000040054A add     ecx, edi           ; (8*((a+c)+b)) + a
+  000000000040054C sub     ecx, edx           ; ((8*((a+c)+b)) + a ) - c
+  000000000040054E sub     ecx, esi           ; (((8*((a+c)+b)) + a ) - c) - b
+  0000000000400550 sub     ecx, esi           ; ((((8*((a+c)+b)) + a ) - c) - b ) - b
+  0000000000400552 loop    $+2
+  0000000000400554
+  0000000000400554 loc_400554:                ; CODE XREF: sub_400529+A↑j
+  0000000000400554                             sub_400529+16↑j ...
+  0000000000400554 mov     rax, rcx
+  0000000000400557 retn
+  0000000000400557 sub_400529 endp
+  0000000000400557
+  0000000000400558
+  0000000000400558 ; =============== S U B R O U T I N E =======================================
+
+</code></pre></td></tr></table>
+</div>
+</div><h2 id="9656-reversing-hero-4">▸ Reversing Hero 4</h2>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">  1
+</span><span class="lnt">  2
+</span><span class="lnt">  3
+</span><span class="lnt">  4
+</span><span class="lnt">  5
+</span><span class="lnt">  6
+</span><span class="lnt">  7
+</span><span class="lnt">  8
+</span><span class="lnt">  9
+</span><span class="lnt"> 10
+</span><span class="lnt"> 11
+</span><span class="lnt"> 12
+</span><span class="lnt"> 13
+</span><span class="lnt"> 14
+</span><span class="lnt"> 15
+</span><span class="lnt"> 16
+</span><span class="lnt"> 17
+</span><span class="lnt"> 18
+</span><span class="lnt"> 19
+</span><span class="lnt"> 20
+</span><span class="lnt"> 21
+</span><span class="lnt"> 22
+</span><span class="lnt"> 23
+</span><span class="lnt"> 24
+</span><span class="lnt"> 25
+</span><span class="lnt"> 26
+</span><span class="lnt"> 27
+</span><span class="lnt"> 28
+</span><span class="lnt"> 29
+</span><span class="lnt"> 30
+</span><span class="lnt"> 31
+</span><span class="lnt"> 32
+</span><span class="lnt"> 33
+</span><span class="lnt"> 34
+</span><span class="lnt"> 35
+</span><span class="lnt"> 36
+</span><span class="lnt"> 37
+</span><span class="lnt"> 38
+</span><span class="lnt"> 39
+</span><span class="lnt"> 40
+</span><span class="lnt"> 41
+</span><span class="lnt"> 42
+</span><span class="lnt"> 43
+</span><span class="lnt"> 44
+</span><span class="lnt"> 45
+</span><span class="lnt"> 46
+</span><span class="lnt"> 47
+</span><span class="lnt"> 48
+</span><span class="lnt"> 49
+</span><span class="lnt"> 50
+</span><span class="lnt"> 51
+</span><span class="lnt"> 52
+</span><span class="lnt"> 53
+</span><span class="lnt"> 54
+</span><span class="lnt"> 55
+</span><span class="lnt"> 56
+</span><span class="lnt"> 57
+</span><span class="lnt"> 58
+</span><span class="lnt"> 59
+</span><span class="lnt"> 60
+</span><span class="lnt"> 61
+</span><span class="lnt"> 62
+</span><span class="lnt"> 63
+</span><span class="lnt"> 64
+</span><span class="lnt"> 65
+</span><span class="lnt"> 66
+</span><span class="lnt"> 67
+</span><span class="lnt"> 68
+</span><span class="lnt"> 69
+</span><span class="lnt"> 70
+</span><span class="lnt"> 71
+</span><span class="lnt"> 72
+</span><span class="lnt"> 73
+</span><span class="lnt"> 74
+</span><span class="lnt"> 75
+</span><span class="lnt"> 76
+</span><span class="lnt"> 77
+</span><span class="lnt"> 78
+</span><span class="lnt"> 79
+</span><span class="lnt"> 80
+</span><span class="lnt"> 81
+</span><span class="lnt"> 82
+</span><span class="lnt"> 83
+</span><span class="lnt"> 84
+</span><span class="lnt"> 85
+</span><span class="lnt"> 86
+</span><span class="lnt"> 87
+</span><span class="lnt"> 88
+</span><span class="lnt"> 89
+</span><span class="lnt"> 90
+</span><span class="lnt"> 91
+</span><span class="lnt"> 92
+</span><span class="lnt"> 93
+</span><span class="lnt"> 94
+</span><span class="lnt"> 95
+</span><span class="lnt"> 96
+</span><span class="lnt"> 97
+</span><span class="lnt"> 98
+</span><span class="lnt"> 99
+</span><span class="lnt">100
+</span><span class="lnt">101
+</span><span class="lnt">102
+</span><span class="lnt">103
+</span><span class="lnt">104
+</span><span class="lnt">105
+</span><span class="lnt">106
+</span><span class="lnt">107
+</span><span class="lnt">108
+</span><span class="lnt">109
+</span><span class="lnt">110
+</span><span class="lnt">111
+</span><span class="lnt">112
+</span><span class="lnt">113
+</span><span class="lnt">114
+</span><span class="lnt">115
+</span><span class="lnt">116
+</span><span class="lnt">117
+</span><span class="lnt">118
+</span><span class="lnt">119
+</span><span class="lnt">120
+</span><span class="lnt">121
+</span><span class="lnt">122
+</span><span class="lnt">123
+</span><span class="lnt">124
+</span><span class="lnt">125
+</span><span class="lnt">126
+</span><span class="lnt">127
+</span><span class="lnt">128
+</span><span class="lnt">129
+</span><span class="lnt">130
+</span><span class="lnt">131
+</span><span class="lnt">132
+</span><span class="lnt">133
+</span><span class="lnt">134
+</span><span class="lnt">135
+</span><span class="lnt">136
+</span><span class="lnt">137
+</span><span class="lnt">138
+</span><span class="lnt">139
+</span><span class="lnt">140
+</span><span class="lnt">141
+</span><span class="lnt">142
+</span><span class="lnt">143
+</span><span class="lnt">144
+</span><span class="lnt">145
+</span><span class="lnt">146
+</span><span class="lnt">147
+</span><span class="lnt">148
+</span><span class="lnt">149
+</span><span class="lnt">150
+</span><span class="lnt">151
+</span><span class="lnt">152
+</span><span class="lnt">153
+</span><span class="lnt">154
+</span><span class="lnt">155
+</span><span class="lnt">156
+</span><span class="lnt">157
+</span><span class="lnt">158
+</span><span class="lnt">159
+</span><span class="lnt">160
+</span><span class="lnt">161
+</span><span class="lnt">162
+</span><span class="lnt">163
+</span><span class="lnt">164
+</span><span class="lnt">165
+</span><span class="lnt">166
+</span><span class="lnt">167
+</span><span class="lnt">168
+</span><span class="lnt">169
+</span><span class="lnt">170
+</span><span class="lnt">171
+</span><span class="lnt">172
+</span><span class="lnt">173
+</span><span class="lnt">174
+</span><span class="lnt">175
+</span><span class="lnt">176
+</span><span class="lnt">177
+</span><span class="lnt">178
+</span><span class="lnt">179
+</span><span class="lnt">180
+</span><span class="lnt">181
+</span><span class="lnt">182
+</span><span class="lnt">183
+</span><span class="lnt">184
+</span><span class="lnt">185
+</span><span class="lnt">186
+</span><span class="lnt">187
+</span><span class="lnt">188
+</span><span class="lnt">189
+</span><span class="lnt">190
+</span><span class="lnt">191
+</span><span class="lnt">192
+</span><span class="lnt">193
+</span><span class="lnt">194
+</span><span class="lnt">195
+</span><span class="lnt">196
+</span><span class="lnt">197
+</span><span class="lnt">198
+</span><span class="lnt">199
+</span><span class="lnt">200
+</span><span class="lnt">201
+</span><span class="lnt">202
+</span><span class="lnt">203
+</span><span class="lnt">204
+</span><span class="lnt">205
+</span><span class="lnt">206
+</span><span class="lnt">207
+</span><span class="lnt">208
+</span><span class="lnt">209
+</span><span class="lnt">210
+</span><span class="lnt">211
+</span><span class="lnt">212
+</span><span class="lnt">213
+</span><span class="lnt">214
+</span><span class="lnt">215
+</span><span class="lnt">216
+</span><span class="lnt">217
+</span><span class="lnt">218
+</span><span class="lnt">219
+</span><span class="lnt">220
+</span><span class="lnt">221
+</span><span class="lnt">222
+</span><span class="lnt">223
+</span><span class="lnt">224
+</span><span class="lnt">225
+</span><span class="lnt">226
+</span><span class="lnt">227
+</span><span class="lnt">228
+</span><span class="lnt">229
+</span><span class="lnt">230
+</span><span class="lnt">231
+</span><span class="lnt">232
+</span><span class="lnt">233
+</span><span class="lnt">234
+</span><span class="lnt">235
+</span><span class="lnt">236
+</span><span class="lnt">237
+</span><span class="lnt">238
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-asm" data-lang="asm"><span class="c">;here where the routine starts, magic input 00000000000000000000000000000000000000000000000000000000000000001111111211211122121112121221122211111112112111221211121212211222
+</span><span class="c"></span><span class="nf">f_key_generator</span> <span class="no">proc</span> <span class="no">near</span>               <span class="c">; CODE XREF: sub_4003E4+4A↓p
+</span><span class="c"></span>  <span class="mi">0000000000400368</span>                 <span class="no">sub</span>     <span class="no">rsi</span><span class="p">,</span> <span class="mi">30</span><span class="no">h</span>
+  <span class="err">000000000040036</span><span class="nf">C</span>                 <span class="no">jz</span>      <span class="no">short</span> <span class="no">loc_40037A</span> <span class="c">; if RSI = 0
+</span><span class="c"></span>  <span class="mi">000000000040036</span><span class="no">E</span> <span class="no">RSI</span> <span class="err">&gt;</span> <span class="mi">0</span>
+  <span class="err">000000000040036</span><span class="nf">E</span>                 <span class="no">dec</span>     <span class="no">rsi</span>             <span class="c">; RSI -=1
+</span><span class="c"></span>  <span class="mi">0000000000400371</span>                 <span class="no">jz</span>      <span class="no">short</span> <span class="no">loc_400397</span> <span class="c">; if RSI = 1
+</span><span class="c"></span>  <span class="mi">0000000000400373</span> <span class="no">if</span> <span class="no">RSI</span> <span class="err">&gt;</span> <span class="mi">1</span>
+  <span class="err">0000000000400373</span>                 <span class="nf">dec</span>     <span class="no">rsi</span>
+  <span class="err">0000000000400376</span>                 <span class="nf">jz</span>      <span class="no">short</span> <span class="no">loc_4003B8</span> <span class="c">;  if ((RSI &gt; 1) - 1) - 1 = 0
+</span><span class="c"></span>  <span class="mi">0000000000400378</span>                 <span class="no">jmp</span>     <span class="no">short</span> <span class="no">f_exit</span>
+  <span class="err">000000000040037</span><span class="nf">A</span> <span class="c">; ---------------------------------------------------------------------------
+</span><span class="c"></span>  <span class="mi">000000000040037</span><span class="no">A</span> <span class="no">IF</span> <span class="no">RSI</span> <span class="err">=</span> <span class="mi">0</span>
+  <span class="err">000000000040037</span><span class="nf">A</span>
+  <span class="err">000000000040037</span><span class="nf">A</span> <span class="no">loc_40037A</span><span class="p">:</span>                             <span class="c">; CODE XREF: f_key_generator+4↑j
+</span><span class="c"></span><span class="no">.000000000040037A</span>                 <span class="no">mov</span>     <span class="no">ecx</span><span class="p">,</span> <span class="p">[</span><span class="no">rdi</span><span class="err">+</span><span class="mi">8</span><span class="p">]</span>
+  <span class="err">000000000040037</span><span class="nf">D</span>                 <span class="no">jecxz</span>   <span class="no">f_exit</span>          <span class="c">; The jecxz (or jne) instruction is a conditional jump that follows a test.
+</span><span class="c"></span>  <span class="mi">000000000040037</span><span class="no">D</span>                                         <span class="c">; It jumps to the specified location if ECX=0 (f_exit)
+</span><span class="c"></span>  <span class="mi">0000000000400380</span> <span class="no">Sets</span> <span class="no">bit</span> <span class="no">in</span> <span class="no">CL</span> <span class="no">position</span> <span class="no">to</span> <span class="no">ZERO</span> <span class="no">and</span> <span class="no">DECREMENTS</span> <span class="no">CL</span> <span class="no">for</span> <span class="no">reading</span> <span class="no">next</span> <span class="no">bit</span> <span class="p">(</span><span class="no">going</span> <span class="no">from</span> <span class="mi">0x40f</span> <span class="no">to</span> <span class="mi">0</span><span class="p">)</span>
+  <span class="err">0000000000400380</span>
+  <span class="err">0000000000400380</span> <span class="nf">EXC</span> <span class="err">=</span> <span class="mi">0x40</span>
+  <span class="err">0000000000400380</span> <span class="nf">RSI</span> <span class="err">=</span> <span class="mi">0</span> <span class="p">-</span><span class="err">&gt;</span> <span class="no">read</span> <span class="no">char</span> <span class="err">&#34;</span><span class="mi">0</span><span class="err">&#34;</span>
+  <span class="err">0000000000400380</span> <span class="nf">rax</span> <span class="err">=</span> <span class="no">x</span>
+  <span class="err">0000000000400380</span>                 <span class="nf">mov</span>     <span class="no">rax</span><span class="p">,</span> <span class="p">[</span><span class="no">rdi</span><span class="p">]</span>      <span class="c">; x = DEADFACEDEADBEEF
+</span><span class="c"></span>  <span class="mi">0000000000400383</span>                 <span class="no">rol</span>     <span class="no">rax</span><span class="p">,</span> <span class="no">cl</span>         <span class="c">; x &lt;&lt;&lt; cl -&gt; ror rax of cl
+</span><span class="c"></span>  <span class="mi">0000000000400386</span>
+  <span class="err">0000000000400386</span> <span class="nf">setting</span> <span class="no">the</span> <span class="no">LSB</span> <span class="no">to</span> <span class="mi">0</span>
+  <span class="err">0000000000400386</span> <span class="nf">eg.</span>
+  <span class="err">0000000000400386</span>
+  <span class="err">0000000000400386</span> <span class="err">01111</span> <span class="err">-&gt;</span> <span class="nf">initial</span> <span class="no">LSB</span> <span class="err">=</span> <span class="mi">1</span>
+  <span class="err">0000000000400386</span> <span class="nf">shr</span> <span class="mi">1</span> <span class="p">-</span><span class="err">&gt;</span> <span class="mi">00111</span>
+  <span class="err">0000000000400386</span> <span class="nf">shl</span> <span class="mi">1</span> <span class="p">-</span><span class="err">&gt;</span> <span class="mi">01110</span> <span class="p">-</span><span class="err">&gt;</span> <span class="no">LSB</span> <span class="no">is</span> <span class="no">now</span> <span class="mi">0</span>
+  <span class="err">0000000000400386</span>
+  <span class="err">0000000000400386</span>
+  <span class="err">0000000000400386</span>                 <span class="nf">shr</span>     <span class="no">rax</span><span class="p">,</span> <span class="mi">1</span>          <span class="c">; x = x/2 -&gt; divide rax by 2^1 -&gt; rax/2
+</span><span class="c"></span>  <span class="mi">0000000000400389</span>                 <span class="no">shl</span>     <span class="no">rax</span><span class="p">,</span> <span class="mi">1</span>          <span class="c">; x = x * 2 -&gt; multiply rax by 2^1 -&gt; rax *2
+</span><span class="c"></span>  <span class="mi">000000000040038</span><span class="no">C</span>                 <span class="no">ror</span>     <span class="no">rax</span><span class="p">,</span> <span class="no">cl</span>         <span class="c">; x &gt;&gt;&gt; cl -&gt; rol rax of cl
+</span><span class="c"></span>  <span class="mi">000000000040038</span><span class="no">F</span>                 <span class="no">mov</span>     <span class="p">[</span><span class="no">rdi</span><span class="p">],</span> <span class="no">rax</span>      <span class="c">; copy x value at RDI memory location (RAX - 1)
+</span><span class="c"></span>  <span class="mi">0000000000400392</span>                 <span class="no">dec</span>     <span class="no">dword</span> <span class="no">ptr</span> <span class="p">[</span><span class="no">rdi</span><span class="err">+</span><span class="mi">8</span><span class="p">]</span> <span class="c">; decremente x040f value
+</span><span class="c"></span>  <span class="mi">0000000000400395</span>                 <span class="no">jmp</span>     <span class="no">short</span> <span class="no">loc_4003DB</span>
+  <span class="err">0000000000400397</span> <span class="c">; ---------------------------------------------------------------------------
+</span><span class="c"></span>  <span class="err">0000000000400397</span> <span class="nf">if</span> <span class="no">RSI</span> <span class="err">=</span> <span class="mi">1</span>
+  <span class="err">0000000000400397</span>
+  <span class="err">0000000000400397</span> <span class="nl">loc_400397:</span>                             <span class="c">; CODE XREF: f_key_generator+9↑j
+</span><span class="c"></span>  <span class="err">0000000000400397</span>                 <span class="nf">mov</span>     <span class="no">ecx</span><span class="p">,</span> <span class="p">[</span><span class="no">rdi</span><span class="err">+</span><span class="mi">8</span><span class="p">]</span>
+  <span class="err">000000000040039</span><span class="nf">A</span>                 <span class="no">cmp</span>     <span class="no">ecx</span><span class="p">,</span> <span class="mi">40</span><span class="no">h</span>
+  <span class="err">000000000040039</span><span class="nf">D</span>                 <span class="no">jnb</span>     <span class="no">short</span> <span class="no">f_exit</span>    <span class="c">; if exc &gt;= 0x40
+</span><span class="c"></span>  <span class="mi">000000000040039</span><span class="no">F</span> <span class="c">;Sets bit in CL position to ZERO and INCREMENTS CL for reading next bit ;(going from 0 to 0x40f)
+</span><span class="c"></span>  <span class="mi">000000000040039</span><span class="no">F</span>
+  <span class="err">000000000040039</span><span class="nf">F</span> <span class="no">RSI</span> <span class="err">=</span> <span class="mi">1</span> <span class="p">-</span><span class="err">&gt;</span> <span class="no">read_char</span> <span class="p">(</span><span class="err">&#34;</span><span class="mi">1</span><span class="err">&#34;</span><span class="p">)</span>
+  <span class="err">000000000040039</span><span class="nf">F</span> <span class="no">ECX</span> <span class="err">&lt;</span> <span class="mi">0x40</span>
+  <span class="err">000000000040039</span><span class="nf">F</span>                 <span class="no">mov</span>     <span class="no">rax</span><span class="p">,</span> <span class="p">[</span><span class="no">rdi</span><span class="p">]</span>
+  <span class="err">00000000004003</span><span class="nf">A2</span>                 <span class="no">inc</span>     <span class="no">ecx</span>
+  <span class="err">00000000004003</span><span class="nf">A4</span>                 <span class="no">rol</span>     <span class="no">rax</span><span class="p">,</span> <span class="no">cl</span>
+  <span class="err">00000000004003</span><span class="nf">A7</span>
+  <span class="err">00000000004003</span><span class="nf">A7</span> <span class="no">setting</span> <span class="no">the</span> <span class="no">LSB</span> <span class="no">to</span> <span class="mi">0</span>
+  <span class="err">00000000004003</span><span class="nf">A7</span> <span class="no">eg.</span>
+  <span class="err">00000000004003</span><span class="nf">A7</span>
+  <span class="err">00000000004003</span><span class="nf">A7</span> <span class="mi">01111</span> <span class="p">-</span><span class="err">&gt;</span> <span class="no">initial</span> <span class="no">LSB</span> <span class="err">=</span> <span class="mi">1</span>
+  <span class="err">00000000004003</span><span class="nf">A7</span> <span class="no">shr</span> <span class="mi">1</span> <span class="p">-</span><span class="err">&gt;</span> <span class="mi">00111</span>
+  <span class="err">00000000004003</span><span class="nf">A7</span> <span class="no">shl</span> <span class="mi">1</span> <span class="p">-</span><span class="err">&gt;</span> <span class="mi">01110</span> <span class="p">-</span><span class="err">&gt;</span> <span class="no">LSB</span> <span class="no">is</span> <span class="no">now</span> <span class="mi">0</span>
+  <span class="err">00000000004003</span><span class="nf">A7</span>
+  <span class="err">00000000004003</span><span class="nf">A7</span>
+  <span class="err">00000000004003</span><span class="nf">A7</span>                 <span class="no">shr</span>     <span class="no">rax</span><span class="p">,</span> <span class="mi">1</span>
+  <span class="err">00000000004003</span><span class="nf">AA</span>                 <span class="no">shl</span>     <span class="no">rax</span><span class="p">,</span> <span class="mi">1</span>
+  <span class="err">00000000004003</span><span class="nf">AD</span>                 <span class="no">ror</span>     <span class="no">rax</span><span class="p">,</span> <span class="no">cl</span>
+  <span class="err">00000000004003</span><span class="nf">B0</span>                 <span class="no">mov</span>     <span class="p">[</span><span class="no">rdi</span><span class="p">],</span> <span class="no">rax</span>
+  <span class="err">00000000004003</span><span class="nf">B3</span>                 <span class="no">mov</span>     <span class="p">[</span><span class="no">rdi</span><span class="err">+</span><span class="mi">8</span><span class="p">],</span> <span class="no">ecx</span>
+  <span class="err">00000000004003</span><span class="nf">B6</span>                 <span class="no">jmp</span>     <span class="no">short</span> <span class="no">loc_4003DB</span>
+  <span class="err">00000000004003</span><span class="nf">B8</span> <span class="c">; ---------------------------------------------------------------------------
+</span><span class="c"></span>  <span class="mi">00000000004003</span><span class="no">B8</span> <span class="no">RSI</span> <span class="err">=</span> <span class="mi">2</span> <span class="p">-</span><span class="err">&gt;</span> <span class="no">read_char</span><span class="p">(</span><span class="err">&#34;</span><span class="mi">2</span><span class="err">&#34;</span><span class="p">)</span>
+  <span class="err">00000000004003</span><span class="nf">B8</span>
+  <span class="err">00000000004003</span><span class="nf">B8</span> <span class="no">loc_4003B8</span><span class="p">:</span>                             <span class="c">; CODE XREF: f_key_generator+E↑j
+</span><span class="c"></span>  <span class="mi">00000000004003</span><span class="no">B8</span>                 <span class="no">mov</span>     <span class="no">ecx</span><span class="p">,</span> <span class="p">[</span><span class="no">rdi</span><span class="err">+</span><span class="mi">8</span><span class="p">]</span>
+  <span class="err">00000000004003</span><span class="nf">BB</span>                 <span class="no">cmp</span>     <span class="no">ecx</span><span class="p">,</span> <span class="mi">40</span><span class="no">h</span>
+  <span class="err">00000000004003</span><span class="nf">BE</span>                 <span class="no">jnb</span>     <span class="no">short</span> <span class="no">f_exit</span>
+  <span class="err">00000000004003</span><span class="nf">C0</span> <span class="no">Sets</span> <span class="no">bit</span> <span class="no">in</span> <span class="no">CL</span> <span class="no">position</span> <span class="no">to</span> <span class="no">ONE</span> <span class="no">and</span> <span class="no">INCREMENTS</span> <span class="no">CL</span> <span class="no">for</span> <span class="no">reading</span> <span class="no">next</span> <span class="no">bit</span> <span class="p">(</span><span class="no">going</span> <span class="no">from</span> <span class="mi">0</span> <span class="no">to</span> <span class="mi">0x40f</span><span class="p">)</span>
+  <span class="err">00000000004003</span><span class="nf">C0</span>
+  <span class="err">00000000004003</span><span class="nf">C0</span> <span class="no">RSI</span> <span class="err">=</span> <span class="mi">2</span> <span class="p">-</span><span class="err">&gt;</span> <span class="no">read_char</span> <span class="p">(</span><span class="err">&#34;</span><span class="mi">2</span><span class="err">&#34;</span><span class="p">)</span>
+  <span class="err">00000000004003</span><span class="nf">C0</span>                 <span class="no">mov</span>     <span class="no">rax</span><span class="p">,</span> <span class="p">[</span><span class="no">rdi</span><span class="p">]</span>
+  <span class="err">00000000004003</span><span class="nf">C3</span>                 <span class="no">inc</span>     <span class="no">ecx</span>
+  <span class="err">00000000004003</span><span class="nf">C5</span>                 <span class="no">rol</span>     <span class="no">rax</span><span class="p">,</span> <span class="no">cl</span>
+  <span class="err">00000000004003</span><span class="nf">C8</span> <span class="no">set</span> <span class="no">LSB</span> <span class="no">to</span> <span class="mi">1</span>
+  <span class="err">00000000004003</span><span class="nf">C8</span>
+  <span class="err">00000000004003</span><span class="nf">C8</span> <span class="no">eg.</span>
+  <span class="err">00000000004003</span><span class="nf">C8</span>
+  <span class="err">00000000004003</span><span class="nf">C8</span> <span class="mi">01110</span> <span class="p">-</span><span class="err">&gt;</span> <span class="no">initial</span> <span class="no">LSB</span> <span class="err">=</span> <span class="mi">0</span>
+  <span class="err">00000000004003</span><span class="nf">C8</span> <span class="no">shr</span> <span class="mi">1</span> <span class="p">-</span><span class="err">&gt;</span> <span class="mi">00111</span>
+  <span class="err">00000000004003</span><span class="nf">C8</span> <span class="no">shl</span> <span class="mi">1</span> <span class="p">-</span><span class="err">&gt;</span> <span class="mi">01110</span>
+  <span class="err">00000000004003</span><span class="nf">C8</span> <span class="no">or</span> <span class="mi">1</span> <span class="p">-</span><span class="err">&gt;</span>  <span class="mi">00001</span>
+  <span class="err">00000000004003</span><span class="nf">C8</span>         <span class="p">-------</span>
+  <span class="err">00000000004003</span><span class="nf">C8</span>          <span class="mi">01111</span>
+  <span class="err">00000000004003</span><span class="nf">C8</span>
+  <span class="err">00000000004003</span><span class="nf">C8</span>                 <span class="no">shr</span>     <span class="no">rax</span><span class="p">,</span> <span class="mi">1</span>
+  <span class="err">00000000004003</span><span class="nf">CB</span>                 <span class="no">shl</span>     <span class="no">rax</span><span class="p">,</span> <span class="mi">1</span>
+  <span class="err">00000000004003</span><span class="nf">CE</span>                 <span class="no">or</span>      <span class="no">rax</span><span class="p">,</span> <span class="mi">1</span>
+  <span class="err">00000000004003</span><span class="nf">D2</span>                 <span class="no">ror</span>     <span class="no">rax</span><span class="p">,</span> <span class="no">cl</span>
+  <span class="err">00000000004003</span><span class="nf">D5</span>                 <span class="no">mov</span>     <span class="p">[</span><span class="no">rdi</span><span class="p">],</span> <span class="no">rax</span>
+  <span class="err">00000000004003</span><span class="nf">D8</span>                 <span class="no">mov</span>     <span class="p">[</span><span class="no">rdi</span><span class="err">+</span><span class="mi">8</span><span class="p">],</span> <span class="no">ecx</span>
+  <span class="err">00000000004003</span><span class="nf">DB</span>
+  <span class="err">00000000004003</span><span class="nf">DB</span> <span class="no">loc_4003DB</span><span class="p">:</span>                             <span class="c">; CODE XREF: f_key_generator+2D↑j
+</span><span class="c"></span>  <span class="mi">00000000004003</span><span class="no">DB</span>                                         <span class="c">; f_key_generator+4E↑j
+</span><span class="c"></span>  <span class="mi">00000000004003</span><span class="no">DB</span>                 <span class="no">xor</span>     <span class="no">eax</span><span class="p">,</span> <span class="no">eax</span>
+  <span class="err">00000000004003</span><span class="nf">DD</span>                 <span class="no">jmp</span>     <span class="no">short</span> <span class="no">locret_4003E3</span>
+  <span class="err">00000000004003</span><span class="nf">DF</span> <span class="c">; ---------------------------------------------------------------------------
+</span><span class="c"></span>  <span class="mi">00000000004003</span><span class="no">DF</span> <span class="no">exit</span>
+  <span class="err">00000000004003</span><span class="nf">DF</span>
+  <span class="err">00000000004003</span><span class="nf">DF</span> <span class="no">f_exit</span><span class="p">:</span>                                 <span class="c">; CODE XREF: f_key_generator+10↑j
+</span><span class="c"></span>  <span class="mi">00000000004003</span><span class="no">DF</span>                                         <span class="c">; f_key_generator+15↑j ...
+</span><span class="c"></span>  <span class="mi">00000000004003</span><span class="no">DF</span>                 <span class="no">or</span>      <span class="no">rax</span><span class="p">,</span> <span class="mi">0</span><span class="no">FFFFFFFFFFFFFFFFh</span>
+  <span class="err">00000000004003</span><span class="nf">E3</span>
+  <span class="err">00000000004003</span><span class="nf">E3</span> <span class="no">locret_4003E3</span><span class="p">:</span>                          <span class="c">; CODE XREF: f_key_generator+75↑j
+</span><span class="c"></span>  <span class="mi">00000000004003</span><span class="no">E3</span>                 <span class="no">retn</span>
+  <span class="err">00000000004003</span><span class="nf">E3</span> <span class="no">f_key_generator</span> <span class="no">endp</span>   
+  <span class="mi">00000000004003</span><span class="no">E3</span>
+  <span class="err">00000000004003</span><span class="nf">E4</span>
+  <span class="err">00000000004003</span><span class="nf">E4</span> <span class="c">; =============== S U B R O U T I N E =======================================
+</span><span class="c"></span>  <span class="mi">00000000004003</span><span class="no">E4</span>
+  <span class="err">00000000004003</span><span class="nf">E4</span>
+  <span class="err">00000000004003</span><span class="nf">E4</span> <span class="no">sub_4003E4</span>      <span class="no">proc</span> <span class="no">near</span>               <span class="c">; CODE XREF: _start+64↑p
+</span><span class="c"></span>  <span class="mi">00000000004003</span><span class="no">E4</span>
+  <span class="err">00000000004003</span><span class="nf">E4</span> <span class="no">qword_x</span>         <span class="err">=</span> <span class="no">qword</span> <span class="no">ptr</span> <span class="p">-</span><span class="mi">38</span><span class="no">h</span>
+  <span class="err">00000000004003</span><span class="nf">E4</span> <span class="no">dword_y</span>         <span class="err">=</span> <span class="no">dword</span> <span class="no">ptr</span> <span class="p">-</span><span class="mi">30</span><span class="no">h</span>
+  <span class="err">00000000004003</span><span class="nf">E4</span>
+  <span class="err">00000000004003</span><span class="nf">E4</span>                 <span class="no">push</span>    <span class="no">r12</span>
+  <span class="err">00000000004003</span><span class="nf">E6</span>                 <span class="no">push</span>    <span class="no">r13</span>
+  <span class="err">00000000004003</span><span class="nf">E8</span>                 <span class="no">push</span>    <span class="no">r14</span>
+  <span class="err">00000000004003</span><span class="nf">EA</span>                 <span class="no">push</span>    <span class="no">r15</span>
+  <span class="err">00000000004003</span><span class="nf">EC</span>                 <span class="no">push</span>    <span class="no">rbp</span>
+  <span class="err">00000000004003</span><span class="nf">ED</span>                 <span class="no">sub</span>     <span class="no">rsp</span><span class="p">,</span> <span class="mi">10</span><span class="no">h</span>
+  <span class="err">00000000004003</span><span class="nf">F1</span>                 <span class="no">mov</span>     <span class="p">[</span><span class="no">rsp</span><span class="err">+</span><span class="mi">38</span><span class="no">h</span><span class="err">+</span><span class="no">qword_x</span><span class="p">],</span> <span class="no">rsi</span> <span class="c">; x = 0DEADFACEDEADBEEFh (QWORD)
+</span><span class="c"></span>  <span class="mi">00000000004003</span><span class="no">F5</span>                 <span class="no">mov</span>     <span class="p">[</span><span class="no">rsp</span><span class="err">+</span><span class="mi">38</span><span class="no">h</span><span class="err">+</span><span class="no">dword_y</span><span class="p">],</span> <span class="mi">40</span><span class="no">h</span> <span class="c">; y = 0x40(64) (DWORD)
+</span><span class="c"></span>  <span class="mi">00000000004003</span><span class="no">FD</span>                 <span class="no">mov</span>     <span class="no">r12</span><span class="p">,</span> <span class="no">rdi</span>        <span class="c">; r12 = a -&gt; a = fd
+</span><span class="c"></span>  <span class="mi">0000000000400400</span>                 <span class="no">mov</span>     <span class="no">r13</span><span class="p">,</span> <span class="no">rdx</span>        <span class="c">; r13 = b -&gt; b = 123456701234567h
+</span><span class="c"></span>  <span class="mi">0000000000400403</span>                 <span class="no">mov</span>     <span class="no">r14</span><span class="p">,</span> <span class="no">rcx</span>        <span class="c">; r14 = i -&gt; i = 80h (for loop)
+</span><span class="c"></span>  <span class="mi">0000000000400406</span>                 <span class="no">mov</span>     <span class="no">r15</span><span class="p">,</span> <span class="no">r8</span>         <span class="c">; r15 = data_buff
+</span><span class="c"></span>  <span class="mi">0000000000400409</span> <span class="no">loop</span> <span class="no">for</span> <span class="mi">80</span><span class="no">h</span><span class="p">(</span><span class="mi">128</span><span class="p">)</span> <span class="no">time</span>
+  <span class="err">0000000000400409</span>
+  <span class="err">0000000000400409</span> <span class="nl">loop_for_128_decR14:</span>                    <span class="c">; CODE XREF: sub_4003E4+5F↓j
+</span><span class="c"></span>  <span class="err">0000000000400409</span>                 <span class="nf">mov</span>     <span class="no">rdi</span><span class="p">,</span> <span class="no">r12</span>        <span class="c">; rdi = a -&gt; rdi = fd
+</span><span class="c"></span>  <span class="mi">000000000040040</span><span class="no">C</span>                 <span class="no">call</span>    <span class="no">reads_char_file_content_</span>
+  <span class="err">0000000000400411</span>                 <span class="nf">mov</span>     <span class="no">rbp</span><span class="p">,</span> <span class="no">rax</span>        <span class="c">; rpb = read_char(one byte)
+</span><span class="c"></span>  <span class="mi">0000000000400414</span>                 <span class="no">or</span>      <span class="no">rax</span><span class="p">,</span> <span class="mi">0</span><span class="no">FFFFFFFFFFFFFFFFh</span> <span class="c">; setting RAX with 16 bits , RAX = -1
+</span><span class="c"></span>  <span class="mi">0000000000400418</span>                 <span class="no">cmp</span>     <span class="no">rbp</span><span class="p">,</span> <span class="no">rax</span>        <span class="c">; check if rbp is = -1 (if thechar was read)
+</span><span class="c"></span>  <span class="mi">000000000040041</span><span class="no">B</span>                 <span class="no">jz</span>      <span class="no">short</span> <span class="no">loc_400449</span> <span class="c">;
+</span><span class="c"></span>  <span class="mi">000000000040041</span><span class="no">B</span>                                         <span class="c">; cmp dst, src    ZF  CF
+</span><span class="c"></span>  <span class="mi">000000000040041</span><span class="no">B</span>                                         <span class="c">;     dst = src   1   0
+</span><span class="c"></span>  <span class="mi">000000000040041</span><span class="no">B</span>                                         <span class="c">;     dst &lt; src   0   1
+</span><span class="c"></span>  <span class="mi">000000000040041</span><span class="no">B</span>                                         <span class="c">;     dst &gt; src   0   0
+</span><span class="c"></span>  <span class="mi">000000000040041</span><span class="no">B</span>                                         <span class="c">;
+</span><span class="c"></span>  <span class="mi">000000000040041</span><span class="no">B</span>                                         <span class="c">;
+</span><span class="c"></span>  <span class="mi">000000000040041</span><span class="no">B</span>                                         <span class="c">; if (rbp != rax) then carry on ELSE exit and also return RAX = -1
+</span><span class="c"></span>  <span class="mi">000000000040041</span><span class="no">D</span>                 <span class="no">mov</span>     <span class="no">rdi</span><span class="p">,</span> <span class="no">r15</span>        <span class="c">; rdi = data_buff
+</span><span class="c"></span>  <span class="mi">0000000000400420</span>                 <span class="no">mov</span>     <span class="no">rsi</span><span class="p">,</span> <span class="no">rbp</span>        <span class="c">; rsi = x = read_char(one byte)
+</span><span class="c"></span>  <span class="mi">0000000000400423</span>                 <span class="no">call</span>    <span class="no">sub_4004F0</span>
+  <span class="err">0000000000400428</span>                 <span class="nf">mov</span>     <span class="no">rdi</span><span class="p">,</span> <span class="no">rsp</span>        <span class="c">; rdi = buffer
+</span><span class="c"></span>  <span class="mi">000000000040042</span><span class="no">B</span>                 <span class="no">mov</span>     <span class="no">rsi</span><span class="p">,</span> <span class="no">rbp</span>        <span class="c">; rsi = x = read_char(one byte)
+</span><span class="c"></span>  <span class="mi">000000000040042</span><span class="no">E</span>                 <span class="no">call</span>    <span class="no">f_key_generator</span>
+  <span class="err">0000000000400433</span>                 <span class="nf">test</span>    <span class="no">rax</span><span class="p">,</span> <span class="no">rax</span>        <span class="c">;
+</span><span class="c"></span>  <span class="mi">0000000000400433</span>                                         <span class="c">; set ZF to 1 if rax == 0
+</span><span class="c"></span>  <span class="mi">0000000000400433</span>                                         <span class="c">; IF rax == 0 carry on ELSE exit
+</span><span class="c"></span>  <span class="mi">0000000000400436</span>                 <span class="no">jnz</span>     <span class="no">short</span> <span class="no">loc_400449</span>
+  <span class="err">0000000000400438</span>                 <span class="nf">xor</span>     <span class="no">eax</span><span class="p">,</span> <span class="no">eax</span>
+  <span class="err">000000000040043</span><span class="nf">A</span>                 <span class="no">cmp</span>     <span class="p">[</span><span class="no">rsp</span><span class="err">+</span><span class="mi">38</span><span class="no">h</span><span class="err">+</span><span class="no">qword_x</span><span class="p">],</span> <span class="no">r13</span> <span class="c">;
+</span><span class="c"></span>  <span class="mi">000000000040043</span><span class="no">A</span>                                         <span class="c">; cmp dst, src    ZF  CF
+</span><span class="c"></span>  <span class="mi">000000000040043</span><span class="no">A</span>                                         <span class="c">;     dst = src   1   0
+</span><span class="c"></span>  <span class="mi">000000000040043</span><span class="no">A</span>                                         <span class="c">;     dst &lt; src   0   1
+</span><span class="c"></span>  <span class="mi">000000000040043</span><span class="no">A</span>                                         <span class="c">;     dst &gt; src   0   0
+</span><span class="c"></span>  <span class="mi">000000000040043</span><span class="no">A</span>                                         <span class="c">;
+</span><span class="c"></span>  <span class="mi">000000000040043</span><span class="no">A</span>                                         <span class="c">;
+</span><span class="c"></span>  <span class="mi">000000000040043</span><span class="no">A</span>                                         <span class="c">; if (rsp+38h+qword_x != r13(0123456701234567)) then carry on ELSE exit
+</span><span class="c"></span>  <span class="mi">000000000040043</span><span class="no">E</span>                 <span class="no">jz</span>      <span class="no">short</span> <span class="no">loc_400449</span>
+  <span class="err">0000000000400440</span>                 <span class="nf">dec</span>     <span class="no">r14</span>             <span class="c">; decrement i
+</span><span class="c"></span>  <span class="mi">0000000000400443</span>                 <span class="no">jnz</span>     <span class="no">short</span> <span class="no">loop_for_128_decR14</span>
+  <span class="err">0000000000400445</span>                 <span class="nf">or</span>      <span class="no">rax</span><span class="p">,</span> <span class="mi">0</span><span class="no">FFFFFFFFFFFFFFFFh</span>
+  <span class="err">0000000000400449</span>
+  <span class="err">0000000000400449</span> <span class="nl">loc_400449:</span>                             <span class="c">; CODE XREF: sub_4003E4+37↑j
+</span><span class="c"></span>  <span class="err">0000000000400449</span>                                         <span class="c">; sub_4003E4+52↑j ...
+</span><span class="c"></span>  <span class="err">0000000000400449</span>                 <span class="nf">add</span>     <span class="no">rsp</span><span class="p">,</span> <span class="mi">10</span><span class="no">h</span>
+  <span class="err">000000000040044</span><span class="nf">D</span>                 <span class="no">pop</span>     <span class="no">rbp</span>
+  <span class="err">000000000040044</span><span class="nf">E</span>                 <span class="no">pop</span>     <span class="no">r15</span>
+  <span class="err">0000000000400450</span>                 <span class="nf">pop</span>     <span class="no">r14</span>
+  <span class="err">0000000000400452</span>                 <span class="nf">pop</span>     <span class="no">r13</span>
+  <span class="err">0000000000400454</span>                 <span class="nf">pop</span>     <span class="no">r12</span>
+  <span class="err">0000000000400456</span>                 <span class="nf">retn</span>
+  <span class="err">0000000000400456</span> <span class="nf">sub_4003E4</span>      <span class="no">endp</span>
+  <span class="err">0000000000400456</span>
+  <span class="err">0000000000400457</span>
+  <span class="err">0000000000400457</span> <span class="c">; =============== S U B R O U T I N E =======================================
+</span><span class="c"></span>  <span class="err">0000000000400457</span>
+  <span class="err">0000000000400457</span>
+  <span class="err">0000000000400457</span> <span class="nf">xoring_32bitRAX_zero_buff</span> <span class="no">proc</span> <span class="no">near</span>     <span class="c">; CODE XREF: _start+37↑p
+</span><span class="c"></span>  <span class="mi">0000000000400457</span>                 <span class="no">xor</span>     <span class="no">eax</span><span class="p">,</span> <span class="no">eax</span>
+  <span class="err">0000000000400459</span>                 <span class="nf">mov</span>     <span class="no">rcx</span><span class="p">,</span> <span class="mi">20</span><span class="no">h</span>
+  <span class="err">0000000000400460</span>                 <span class="na">rep</span> <span class="nf">stosb</span>
+  <span class="err">0000000000400462</span>                 <span class="nf">retn</span>
+  <span class="err">0000000000400462</span> <span class="nf">xoring_32bitRAX_zero_buff</span> <span class="no">endp</span>
+  <span class="err">0000000000400462</span>
+  <span class="err">0000000000400463</span>
+  <span class="err">0000000000400463</span> <span class="c">; =============== S U B R O U T I N E =======================================
+</span><span class="c"></span>  <span class="err">0000000000400463</span>
+  <span class="err">0000000000400463</span>
+  <span class="err">0000000000400463</span> <span class="nf">char_from_rax_dil_manipulitaion</span> <span class="no">proc</span> <span class="no">near</span>
+  <span class="err">0000000000400463</span>                                         <span class="c">; CODE XREF: rsi_bits_modification+1F↓p
+</span><span class="c"></span>  <span class="err">0000000000400463</span>                                         <span class="c">; rsi_bits_modification+33↓p
+</span><span class="c"></span>  <span class="err">0000000000400463</span>                 <span class="nf">movzx</span>   <span class="no">rax</span><span class="p">,</span> <span class="no">dil</span>        <span class="c">; movzx -&gt; with Zero-Extend dil -&gt; low 8 bit of RDI
+</span><span class="c"></span>  <span class="mi">0000000000400467</span>                 <span class="no">and</span>     <span class="no">al</span><span class="p">,</span> <span class="mi">0</span><span class="no">Fh</span>         <span class="c">; and AL with F (1111) / dil &amp; 0x0f
+</span><span class="c"></span>  <span class="mi">0000000000400469</span>                 <span class="no">cmp</span>     <span class="no">al</span><span class="p">,</span> <span class="mi">0</span><span class="no">Ah</span>         <span class="c">; check if it&#39;s the end of buffer, hex value A (1010) = 10
+</span><span class="c"></span>  <span class="mi">0000000000400469</span>                                         <span class="c">; cmp if (dil &amp; 0x0f = 0x0a)
+</span><span class="c"></span>  <span class="mi">0000000000400469</span>                                         <span class="c">;
+</span><span class="c"></span>  <span class="mi">0000000000400469</span>                                         <span class="c">; cmp (dst, src)  ZF  CF
+</span><span class="c"></span>  <span class="mi">0000000000400469</span>                                         <span class="c">; dst = src       1   0
+</span><span class="c"></span>  <span class="mi">0000000000400469</span>                                         <span class="c">; dst &lt; src       0   1
+</span><span class="c"></span>  <span class="mi">0000000000400469</span>                                         <span class="c">; dst &gt; src       0   0
+</span><span class="c"></span>  <span class="mi">0000000000400469</span>                                         <span class="c">;
+</span><span class="c"></span>  <span class="mi">0000000000400469</span>                                         <span class="c">; if (dil &amp; 0x0f = 0A) -&gt; CF 0
+</span><span class="c"></span>  <span class="mi">0000000000400469</span>                                         <span class="c">; if (dil &amp; 0x0f &gt; 0A) -&gt; CF 0
+</span><span class="c"></span>  <span class="mi">0000000000400469</span>                                         <span class="c">; if (dil &amp; 0x0f &lt; 0A) -&gt; CF 1
+</span><span class="c"></span>  <span class="mi">000000000040046</span><span class="no">B</span>
+  <span class="err">000000000040046</span><span class="nf">B</span>
+  <span class="err">000000000040046</span><span class="nf">B</span>                 <span class="no">sbb</span>     <span class="no">dil</span><span class="p">,</span> <span class="no">dil</span>        <span class="c">; Destination = Destination - (Source + CF);
+</span><span class="c"></span>  <span class="mi">000000000040046</span><span class="no">B</span>                                         <span class="c">; dil = dil - (dil + CF)
+</span><span class="c"></span>  <span class="mi">000000000040046</span><span class="no">B</span>                                         <span class="c">; if CF = 1 -&gt; dil = -1
+</span><span class="c"></span>  <span class="mi">000000000040046</span><span class="no">B</span>                                         <span class="c">; if CF = 0 -&gt; dil = 0
+</span><span class="c"></span>  <span class="mi">000000000040046</span><span class="no">B</span>                                         <span class="c">;
+</span><span class="c"></span>  <span class="mi">000000000040046</span><span class="no">B</span>                                         <span class="c">; if (dil &amp; 0x0f = 0A) -&gt; CF 0 -&gt; dil =  0
+</span><span class="c"></span>  <span class="mi">000000000040046</span><span class="no">B</span>                                         <span class="c">; if (dil &amp; 0x0f &gt; 0A) -&gt; CF 0 -&gt; dil =  0
+</span><span class="c"></span>  <span class="mi">000000000040046</span><span class="no">B</span>                                         <span class="c">; if (dil &amp; 0x0f &lt; 0A) -&gt; CF 1 -&gt; dil = -1
+</span><span class="c"></span>  <span class="mi">000000000040046</span><span class="no">E</span>                 <span class="no">not</span>     <span class="no">dil</span>             <span class="c">; reverts bits in dil
+</span><span class="c"></span>  <span class="mi">0000000000400471</span>
+  <span class="err">0000000000400471</span>
+  <span class="err">0000000000400471</span>                 <span class="nf">and</span>     <span class="no">dil</span><span class="p">,</span> <span class="mi">7</span>          <span class="c">; if dil =-1 -&gt; dil = 7
+</span><span class="c"></span>  <span class="mi">0000000000400471</span>                                         <span class="c">; if dil = 0 -&gt; dil = 0
+</span><span class="c"></span>  <span class="mi">0000000000400475</span>                 <span class="no">add</span>     <span class="no">al</span><span class="p">,</span> <span class="mi">30</span><span class="no">h</span>         <span class="c">; add 30h(0) to al
+</span><span class="c"></span>  <span class="mi">0000000000400477</span>                 <span class="no">add</span>     <span class="no">al</span><span class="p">,</span> <span class="no">dil</span>         <span class="c">; Generating char -&gt; al + 30h (48)(&#34;o&#34;) + 7
+</span><span class="c"></span>  <span class="mi">000000000040047</span><span class="no">A</span>                 <span class="no">retn</span>
+  <span class="err">000000000040047</span><span class="nf">A</span> <span class="no">char_from_rax_dil_manipulitaion</span> <span class="no">endp</span>
+  <span class="err">000000000040047</span><span class="nf">A</span>
+</code></pre></td></tr></table>
+</div>
+</div><p>Here were the magic happens, the rountine does these three things:</p>
+<ol start="0">
+<li>with 0
+- it sets current bit (the one correspondin cto CL) to ZERO
+- dec     dword ptr [rdi+8] ; it starts decrementing from x040f value</li>
+<li>with 1
+- it sets current bit (the one correspondin cto CL) to ZERO
+- inc ecx ,
+- mov     [rdi+8], ecx
+it increments the value in  dword ptr [rdi+8]</li>
+<li>with 2
+- it sets current bit (the one correspondin cto CL) to ONE
+- inc ecx ,
+- mov     [rdi+8], ecx
+it increments the value in  dword ptr [rdi+8]</li>
+</ol>
+<blockquote>
+<p>What we need to do is to run a series on 0s (64) to set the value of <strong>[rsp+38h+qword_x]</strong> to all 0s, then we need to start the routine for other 64 times in order to build the number  0123456701234567 &ndash;&gt; in bits:<br>
+<strong>000100100011010001010110011100000001001000110100010101100111</strong></p>
+</blockquote>
+<blockquote>
+<p>Now just convert the 0 to 1 and the 1 to 2 and add that nummber to the first 64 0s:
+<br> <strong>00000000000000000000000000000000000000000000000000000000000000001111111211211122121112121221122211111112112111221211121212211222</strong></p>
+</blockquote>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-NASM" data-lang="NASM"> <span class="nf">xor</span>     <span class="nb">eax</span><span class="p">,</span> <span class="nb">eax</span>
+                <span class="nf">cmp</span>     <span class="p">[</span><span class="nb">rsp</span><span class="o">+</span><span class="mh">38h</span><span class="o">+</span><span class="kt">qword</span><span class="nv">_x</span><span class="p">],</span> <span class="nv">r13</span> <span class="c1">; r13 = 0123456701234567</span>
+                        <span class="c1">; cmp dst, src    ZF  CF</span>
+                        <span class="c1">;     dst = src   1   0</span>
+                        <span class="c1">;     dst &lt; src   0   1</span>
+                        <span class="c1">;     dst &gt; src   0   0</span>
+                        <span class="c1">;</span>
+                        <span class="c1">;</span>
+                        <span class="c1">; if (rsp+38h+qword_x != r13(0123456701234567)) then carry on ELSE exit</span>
+                <span class="nf">jz</span>      <span class="nv">short</span> <span class="nv">loc_400449</span>
+</code></pre></td></tr></table>
+</div>
+</div><h2 id="9656-reversing-hero-5">▸ Reversing Hero 5</h2>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span><span class="lnt">33
+</span><span class="lnt">34
+</span><span class="lnt">35
+</span><span class="lnt">36
+</span><span class="lnt">37
+</span><span class="lnt">38
+</span><span class="lnt">39
+</span><span class="lnt">40
+</span><span class="lnt">41
+</span><span class="lnt">42
+</span><span class="lnt">43
+</span><span class="lnt">44
+</span><span class="lnt">45
+</span><span class="lnt">46
+</span><span class="lnt">47
+</span><span class="lnt">48
+</span><span class="lnt">49
+</span><span class="lnt">50
+</span><span class="lnt">51
+</span><span class="lnt">52
+</span><span class="lnt">53
+</span><span class="lnt">54
+</span><span class="lnt">55
+</span><span class="lnt">56
+</span><span class="lnt">57
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-TASM" data-lang="TASM"> 
+ 
+<span class="err">0000000000400340</span> <span class="nf">sub_400340</span>      <span class="nv">proc</span> <span class="nv">near</span>               <span class="c1">; CODE XREF: _start+2A↓p</span>
+  <span class="err">0000000000400340</span>                                         <span class="c1">; DATA XREF: _start+6D↓o ...</span>
+  <span class="err">0000000000400340</span>                 <span class="nf">push</span>    <span class="nv">r12</span>
+  <span class="err">0000000000400342</span>                 <span class="nf">push</span>    <span class="nv">r13</span>
+  <span class="err">0000000000400344</span>                 <span class="nf">push</span>    <span class="nv">r13</span>
+  <span class="err">0000000000400346</span>                 <span class="nf">mov</span>     <span class="nv">r12</span><span class="p">,</span> <span class="nb">rdi</span>
+  <span class="err">0000000000400349</span>                 <span class="nf">mov</span>     <span class="nv">r13</span><span class="p">,</span> <span class="nb">rsi</span>
+  <span class="err">000000000040034</span><span class="nf">C</span>                 <span class="nv">xor</span>     <span class="nb">edx</span><span class="p">,</span> <span class="nb">edx</span>        <span class="c1">; Logical Exclusive OR</span>
+  <span class="err">000000000040034</span><span class="nf">E</span>
+  <span class="err">000000000040034</span><span class="nf">E</span> <span class="nv">loc_40034E</span><span class="p">:</span>                             <span class="c1">; CODE XREF: sub_400340+36↓j</span>
+  <span class="err">000000000040034</span><span class="nf">E</span>                 <span class="nv">mov</span>     <span class="nb">rcx</span><span class="p">,</span> <span class="nb">rdx</span>
+  <span class="err">0000000000400351</span>
+  <span class="err">0000000000400351</span> <span class="nl">loc_400351:</span>                             <span class="c1">; CODE XREF: sub_400340+2E↓j</span>
+  <span class="err">0000000000400351</span>                 <span class="nf">mov</span>     <span class="nv">r8</span><span class="p">,</span> <span class="p">[</span><span class="nv">r12</span><span class="o">+</span><span class="nb">rdx</span><span class="o">*</span><span class="mi">8</span><span class="p">]</span>
+  <span class="err">0000000000400355</span>                 <span class="nf">cmp</span>     <span class="nv">r8</span><span class="p">,</span> <span class="p">[</span><span class="nv">r12</span><span class="o">+</span><span class="nb">rcx</span><span class="o">*</span><span class="mi">8</span><span class="p">]</span> <span class="c1">; Compare Two Operands</span>
+  <span class="err">0000000000400359</span>          <span class="err">--&gt;</span>    <span class="nf">ja</span>      <span class="nv">short</span> <span class="nv">loc_400368</span> <span class="c1">; Jump if Above (CF=0 &amp; ZF=0) </span>
+                                                                 <span class="nf">what</span> <span class="nv">if</span> <span class="nb">rdx</span><span class="o">=</span><span class="nb">rcx</span> <span class="nv">?</span> 
+  <span class="err">000000000040035</span><span class="nf">B</span>                 <span class="nv">lea</span>     <span class="nb">rdi</span><span class="p">,</span> <span class="p">[</span><span class="nv">r12</span><span class="o">+</span><span class="nb">rdx</span><span class="o">*</span><span class="mi">8</span><span class="p">]</span> <span class="c1">; Load Effective Address</span>
+  <span class="err">000000000040035</span><span class="nf">F</span>                 <span class="nv">lea</span>     <span class="nb">rsi</span><span class="p">,</span> <span class="p">[</span><span class="nv">r12</span><span class="o">+</span><span class="nb">rcx</span><span class="o">*</span><span class="mi">8</span><span class="p">]</span> <span class="c1">; Load Effective Address</span>
+  <span class="err">0000000000400363</span>                 <span class="nf">call</span>    <span class="nv">sub_40037F</span>      <span class="c1">; Call Procedure</span>
+            
+  <span class="c1">;========= if rdx=rcx -&gt; the swap fuction will xor same values giving a result of 0 =======</span>
+
+  <span class="err">0000000000400368</span>
+  <span class="err">0000000000400368</span> <span class="nl">loc_400368:</span>                             <span class="c1">; CODE XREF: sub_400340+19↑j</span>
+  <span class="err">0000000000400368</span>                 <span class="nf">inc</span>     <span class="nb">rcx</span>             <span class="c1">; Increment by 1</span>
+  <span class="err">000000000040036</span><span class="nf">B</span>                 <span class="nv">cmp</span>     <span class="nb">rcx</span><span class="p">,</span> <span class="nv">r13</span>        <span class="c1">; Compare Two Operands</span>
+  <span class="err">000000000040036</span><span class="nf">E</span>                 <span class="nv">jb</span>      <span class="nv">short</span> <span class="nv">loc_400351</span> <span class="c1">; Jump if Below (CF=1)</span>
+  <span class="err">0000000000400370</span>                 <span class="nf">inc</span>     <span class="nb">rdx</span>             <span class="c1">; Increment by 1</span>
+  <span class="err">0000000000400373</span>                 <span class="nf">cmp</span>     <span class="nb">rdx</span><span class="p">,</span> <span class="nv">r13</span>        <span class="c1">; Compare Two Operands</span>
+  <span class="err">0000000000400376</span>                 <span class="nf">jb</span>      <span class="nv">short</span> <span class="nv">loc_40034E</span> <span class="c1">; Jump if Below (CF=1)</span>
+  <span class="err">0000000000400378</span>                 <span class="nf">pop</span>     <span class="nv">r13</span>
+  <span class="err">000000000040037</span><span class="nf">A</span>                 <span class="nv">pop</span>     <span class="nv">r13</span>
+  <span class="err">000000000040037</span><span class="nf">C</span>                 <span class="nv">pop</span>     <span class="nv">r12</span>
+  <span class="err">000000000040037</span><span class="nf">E</span>                 <span class="nv">retn</span>                    <span class="c1">; Return Near from Procedure</span>
+  <span class="err">000000000040037</span><span class="nf">E</span> <span class="nv">sub_400340</span>      <span class="nv">endp</span>
+  <span class="err">000000000040037</span><span class="nf">E</span>
+  <span class="err">000000000040037</span><span class="nf">F</span>
+  <span class="err">000000000040037</span><span class="nf">F</span> <span class="c1">; =============== S U B R O U T I N E =======================================</span>
+  <span class="err">000000000040037</span><span class="nf">F</span>
+  <span class="err">000000000040037</span><span class="nf">F</span>
+  <span class="err">000000000040037</span><span class="nf">F</span> <span class="nv">sub_40037F</span>      <span class="nv">proc</span> <span class="nv">near</span>               <span class="c1">; CODE XREF: sub_400340+23↑p</span>
+  <span class="err">000000000040037</span><span class="nf">F</span>                 <span class="nv">mov</span>     <span class="nb">rax</span><span class="p">,</span> <span class="p">[</span><span class="nb">rdi</span><span class="p">]</span>      <span class="c1">; eg [rdi] = a</span>
+                                                                    <span class="err">[</span><span class="nf">rsi</span><span class="p">]</span> <span class="o">=</span> <span class="nv">b</span>
+
+  <span class="err">0000000000400382</span>                 <span class="nf">xor</span>     <span class="p">[</span><span class="nb">rsi</span><span class="p">],</span> <span class="nb">rax</span>      <span class="c1">; Logical Exclusive OR</span>
+  <span class="err">0000000000400385</span>                 <span class="nf">mov</span>     <span class="nb">rax</span><span class="p">,</span> <span class="p">[</span><span class="nb">rsi</span><span class="p">]</span>
+  <span class="err">0000000000400388</span>                 <span class="nf">xor</span>     <span class="p">[</span><span class="nb">rdi</span><span class="p">],</span> <span class="nb">rax</span>      <span class="c1">; Logical Exclusive OR</span>
+  <span class="err">000000000040038</span><span class="nf">B</span>                 <span class="nv">mov</span>     <span class="nb">rax</span><span class="p">,</span> <span class="p">[</span><span class="nb">rdi</span><span class="p">]</span>
+  <span class="err">000000000040038</span><span class="nf">E</span>                 <span class="nv">xor</span>     <span class="p">[</span><span class="nb">rsi</span><span class="p">],</span> <span class="nb">rax</span>      <span class="c1">; Logical Exclusive OR</span>
+  <span class="err">0000000000400391</span>                 <span class="nf">retn</span>                    <span class="c1">; Return Near from Procedure</span>
+  <span class="err">0000000000400391</span> <span class="nf">sub_40037F</span>      <span class="nv">endp</span>
+  <span class="err">0000000000400391</span>
+  <span class="err">0000000000400392</span>
+  <span class="err">0000000000400392</span> <span class="c1">; =============== S U B R O U T I N E =======================================</span>
+</code></pre></td></tr></table>
+</div>
+</div><blockquote>
+<p>Here the image shows that only if the result of <strong>&ldquo;cmp r8,[r12+rcx*8]&quot;</strong> is  <strong>r8 &gt; [r12+rcx*8]</strong> , then <strong>&ldquo;ja&rdquo;</strong> command jumps to <strong>loc_400368</strong></p>
+</blockquote>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-TASM" data-lang="TASM">
+ <span class="err">0000000000400351</span>                 <span class="nf">mov</span>     <span class="nv">r8</span><span class="p">,</span> <span class="p">[</span><span class="nv">r12</span><span class="o">+</span><span class="nb">rdx</span><span class="o">*</span><span class="mi">8</span><span class="p">]</span>
+ <span class="err">0000000000400355</span>                 <span class="nf">cmp</span>     <span class="nv">r8</span><span class="p">,</span> <span class="p">[</span><span class="nv">r12</span><span class="o">+</span><span class="nb">rcx</span><span class="o">*</span><span class="mi">8</span><span class="p">]</span> <span class="c1">; Compare Two Operands</span>
+ <span class="err">0000000000400359</span>          <span class="err">--&gt;</span>    <span class="nf">ja</span>      <span class="nv">short</span> <span class="nv">loc_400368</span> <span class="c1">; Jump if Above (CF=0 &amp; ZF=0) </span>
+</code></pre></td></tr></table>
+</div>
+</div><figure><img src=""
+         alt="swap routine"/>
+</figure>
+
+<blockquote>
+<p>This situation can lead to a seriuous issue when <strong>[r12+rdx*8]</strong> is  = to <strong>[r12+rcx*8]</strong>, the following routine will xor the values to 0 if these values are the same</p>
+</blockquote>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span><span class="lnt">33
+</span><span class="lnt">34
+</span><span class="lnt">35
+</span><span class="lnt">36
+</span><span class="lnt">37
+</span><span class="lnt">38
+</span><span class="lnt">39
+</span><span class="lnt">40
+</span><span class="lnt">41
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-TASM" data-lang="TASM">  <span class="err">000000000040035</span><span class="nf">B</span>                 <span class="nv">lea</span>     <span class="nb">rdi</span><span class="p">,</span> <span class="p">[</span><span class="nv">r12</span><span class="o">+</span><span class="nb">rdx</span><span class="o">*</span><span class="mi">8</span><span class="p">]</span> <span class="c1">; Load Effective Address</span>
+  <span class="err">000000000040035</span><span class="nf">F</span>                 <span class="nv">lea</span>     <span class="nb">rsi</span><span class="p">,</span> <span class="p">[</span><span class="nv">r12</span><span class="o">+</span><span class="nb">rcx</span><span class="o">*</span><span class="mi">8</span><span class="p">]</span> <span class="c1">; Load Effective Address</span>
+
+<span class="c1">;rdi and rsi point to the same address </span>
+
+
+  <span class="err">000000000040037</span><span class="nf">F</span> <span class="nv">sub_40037F</span>      <span class="nv">proc</span> <span class="nv">near</span>               <span class="c1">; CODE XREF: sub_400340+23↑p</span>
+  <span class="err">000000000040037</span><span class="nf">F</span>                 <span class="nv">mov</span>     <span class="nb">rax</span><span class="p">,</span> <span class="p">[</span><span class="nb">rdi</span><span class="p">]</span>      <span class="c1">; [rdi] = a</span>
+                                                               <span class="c1">; [rsi] = a</span>
+                                       <span class="c1">;mov    rax , [a]       ;   rax = a</span>
+
+  <span class="err">0000000000400382</span>                 <span class="nf">xor</span>     <span class="p">[</span><span class="nb">rsi</span><span class="p">],</span> <span class="nb">rax</span>      <span class="c1">; Logical Exclusive OR</span>
+                                        
+                                                                <span class="c1">; [rdi] = 0  &lt;--- also rdi is set to 0</span>
+                                      <span class="c1">;xor     [a], a  = 0      ; [rsi] = 0</span>
+                                                                <span class="c1">; rax = a</span>
+
+  <span class="err">0000000000400385</span>                 <span class="nf">mov</span>     <span class="nb">rax</span><span class="p">,</span> <span class="p">[</span><span class="nb">rsi</span><span class="p">]</span>       
+                                                                 <span class="c1">; [rdi] = 0</span>
+                                                                 <span class="c1">; [rsi] = 0</span>
+                                       <span class="c1">;mov     rax , [0]        ;   rax = 0</span>
+
+  <span class="err">0000000000400388</span>                 <span class="nf">xor</span>     <span class="p">[</span><span class="nb">rdi</span><span class="p">],</span> <span class="nb">rax</span>      <span class="c1">; Logical Exclusive OR</span>
+                                      <span class="c1">;xor     [a], 0 =  a     ; [rdi] = 0</span>
+                                                               <span class="c1">; [rsi] = 0</span>
+                                                               <span class="c1">;   rax = 0</span>
+
+  <span class="err">000000000040038</span><span class="nf">B</span>                 <span class="nv">mov</span>     <span class="nb">rax</span><span class="p">,</span> <span class="p">[</span><span class="nb">rdi</span><span class="p">]</span>
+                                                               <span class="c1">; [rdi] = 0</span>
+                                                               <span class="c1">; [rsi] = 0</span>
+                                       <span class="c1">;mov     rax , [a]      ;   rax = 0</span>
+
+  <span class="err">000000000040038</span><span class="nf">E</span>                 <span class="nv">xor</span>     <span class="p">[</span><span class="nb">rsi</span><span class="p">],</span> <span class="nb">rax</span>      <span class="c1">; Logical Exclusive OR</span>
+                                                               <span class="c1">; [rdi] = 0</span>
+                                      <span class="c1">;xor     [0],  a = a     ; [rsi] = 0</span>
+                                                               <span class="c1">;   rax = 0</span>
+  <span class="err">0000000000400391</span>                 <span class="nf">retn</span>                    <span class="c1">; Return Near from Procedure</span>
+  <span class="err">0000000000400391</span> <span class="nf">sub_40037F</span>      <span class="nv">endp</span>
+  <span class="err">0000000000400391</span>
+  <span class="err">0000000000400392</span>
+  <span class="err">0000000000400392</span> 
+</code></pre></td></tr></table>
+</div>
+</div><blockquote>
+<p>In oder to avoid this issue we have to modify the <strong>&ldquo;ja&rdquo;</strong> (jump above) instruction into <strong>&ldquo;jae&rdquo;</strong> or <strong>&ldquo;jnb&rdquo;</strong>.</p>
+</blockquote>
+<figure><img src=""
+         alt="swap routine"/>
+</figure>
+
+<h2 id="9656-reversing-hero-6">▸ Reversing Hero 6</h2>
+<blockquote>
+<p>Th analysis of this challange took me to function <strong>&ldquo;sub_4006AE&rdquo;</strong></p>
+</blockquote>
+<figure><img src=""
+         alt="binary tree"/>
+</figure>
+
+<nav class="recent">
+  <h1>Recent Posts</h1>
+  <ul>{{range first .Site.Params.SidebarRecentLimit .Site.Recent}}
+    <li><a href="{{.RelPermalink}}">{{.Title}}</a></li>
+  {{end}}</ul>
+</nav>
+</div><div class="post-footer" id="post-footer">
+    <div class="post-info">
+        <div class="post-info-line">
+            <div class="post-info-mod">
+                <span>Updated on 20 Feb 2022&nbsp;<a class="git-hash" href="https://github.com/dillonzq/LoveIt/commit/e6132990af33bb0085334a318ad880565ad9b5e5" target="_blank" title="commit by psqnix(psqnix@gmail.com) e6132990af33bb0085334a318ad880565ad9b5e5: new commit">
+                                    <i class="fas fa-hashtag fa-fw"></i>e613299</a></span>
+            </div>
+            <div class="post-info-license"></div>
+        </div>
+        <div class="post-info-line">
+            <div class="post-info-md"><span>
+                            <a class="link-to-markdown" href="/reveringhero/index.md" target="_blank">Read Markdown</a>
+                        </span></div>
+            <div class="post-info-share">
+                <span><a href="javascript:void(0);" title="Share on Twitter" data-sharer="twitter" data-url="https://pasqnix.github.io/reveringhero/" data-title="Reversing Hero" data-via="xxxx" data-hashtags="Reverse Engineering,Ida Pro,Assembly,Linux"><i class="fab fa-twitter fa-fw"></i>&nbsp;</a><a href="javascript:void(0);" title="Share on Facebook" data-sharer="facebook" data-url="https://pasqnix.github.io/reveringhero/" data-hashtag="Reverse Engineering"><i class="fab fa-facebook-square fa-fw"></i>&nbsp;</a><a href="javascript:void(0);" title="Share on Hacker News" data-sharer="hackernews" data-url="https://pasqnix.github.io/reveringhero/" data-title="Reversing Hero"><i class="fab fa-hacker-news fa-fw"></i>&nbsp;</a><a href="javascript:void(0);" title="Share on Line" data-sharer="line" data-url="https://pasqnix.github.io/reveringhero/" data-title="Reversing Hero"><i data-svg-src="/lib/simple-icons/icons/line.min.svg"></i></a><a href="javascript:void(0);" title="Share on 微博" data-sharer="weibo" data-url="https://pasqnix.github.io/reveringhero/" data-title="Reversing Hero"><i class="fab fa-weibo fa-fw"></i>&nbsp;</a></span>
+            </div>
+        </div>
+    </div>
+
+    <div class="post-info-more">
+        <section class="post-tags"><i class="fas fa-tags fa-fw"></i>&nbsp;<a href="/tags/reverse-engineering/">Reverse Engineering</a>,&nbsp;<a href="/tags/ida-pro/">Ida Pro</a>,&nbsp;<a href="/tags/assembly/">Assembly</a>,&nbsp;<a href="/tags/linux/">Linux</a></section>
+        <section>
+            <span><a href="javascript:void(0);" onclick="window.history.back();">Back</a></span>&nbsp;|&nbsp;<span><a href="/">Home</a></span>
+        </section>
+    </div>
+
+    <div class="post-nav"><a href="/practicalbinaryanalysis_part1/" class="prev" rel="prev" title="[Practical Binary Analysis]  Part.1 (Chapter.1)"><i class="fas fa-angle-left fa-fw"></i>[Practical Binary Analysis]  Part.1 (Chapter.1)</a></div>
+</div>
+
+
+        <div style="height: 80px;position:absolute;">&nbsp;</div>
+    </article></div>
+            </main><footer class="footer">
+        <div class="footer-container"><div class="footer-line">Powered by <a href="https://gohugo.io/" target="_blank" rel="noopener noreffer" title="Hugo 0.92.2">Hugo</a> | Theme - <a href="https://github.com/dillonzq/LoveIt" target="_blank" rel="noopener noreffer" title="LoveIt 0.2.10"><i class="far fa-kiss-wink-heart fa-fw"></i> LoveIt</a>&nbsp;|&nbsp;<span class="license"><a rel="license external nofollow noopener noreffer" href="https://creativecommons.org/licenses/by-nc/4.0/" target="_blank">CC BY-NC 4.0</a></span></div>
+        </div>
+    </footer></div>
+
+        <div id="fixed-buttons"><a href="#" id="back-to-top" class="fixed-button" title="Back to Top">
+                <i class="fas fa-arrow-up fa-fw"></i>
+            </a><a href="#" id="view-comments" class="fixed-button" title="View Comments">
+                <i class="fas fa-comment fa-fw"></i>
+            </a>
+        </div><link rel="stylesheet" href="/lib/lightgallery/lightgallery.min.css"><script type="text/javascript" src="/lib/smooth-scroll/smooth-scroll.min.js"></script><script type="text/javascript" src="/lib/autocomplete/autocomplete.min.js"></script><script type="text/javascript" src="/lib/lunr/lunr.min.js"></script><script type="text/javascript" src="/lib/lazysizes/lazysizes.min.js"></script><script type="text/javascript" src="/lib/lightgallery/lightgallery.min.js"></script><script type="text/javascript" src="/lib/lightgallery/lg-thumbnail.min.js"></script><script type="text/javascript" src="/lib/lightgallery/lg-zoom.min.js"></script><script type="text/javascript" src="/lib/clipboard/clipboard.min.js"></script><script type="text/javascript" src="/lib/sharer/sharer.min.js"></script><script type="text/javascript">window.config={"code":{"copyTitle":"Copy to clipboard","maxShownLines":10},"comment":{},"lightGallery":{"actualSize":false,"exThumbImage":"data-thumbnail","hideBarsDelay":2000,"selector":".lightgallery","speed":400,"thumbContHeight":80,"thumbWidth":80,"thumbnail":true},"search":{"highlightTag":"em","lunrIndexURL":"/index.json","maxResultLength":20,"noResultsFound":"No results found","snippetLength":30,"type":"lunr"}};</script><script type="text/javascript" src="/js/theme.min.js"></script></body>
+</html>
