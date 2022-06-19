@@ -35,7 +35,7 @@
                             "url": "https:\/\/pasqnix.github.io\/startingpoint\/featured-image.jpg",
                             "width":  768 ,
                             "height":  1621 
-                        }],"genre": "posts","keywords": "reverse engineering, ida pro, hackthebox, assembly","wordcount":  6666 ,
+                        }],"genre": "posts","keywords": "reverse engineering, ida pro, hackthebox, assembly","wordcount":  6656 ,
         "url": "https:\/\/pasqnix.github.io\/startingpoint\/","datePublished": "2020-12-14T00:00:00+00:00","dateModified": "2022-02-20T16:09:18-05:00","license": "This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.","publisher": {
             "@type": "Organization",
             "name": "xxxx","logo": {
@@ -348,34 +348,18 @@ shares.</p>
 </span><span class="lnt"> 8
 </span><span class="lnt"> 9
 </span><span class="lnt">10
-</span><span class="lnt">11
-</span><span class="lnt">12
-</span><span class="lnt">13
-</span><span class="lnt">14
-</span><span class="lnt">15
-</span><span class="lnt">16
-</span><span class="lnt">17
-</span><span class="lnt">18
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell">  -----------------------------------------
-  smbclient -N -L <span class="se">\\\\\\\\</span>10.10.10.27
-  
-  Sharename Type Comment
-  
-  --------- ---- -------
-  
-  ADMIN<span class="se">\$</span> Disk Remote Admin
-  
-  **backups Disk**
-  
-  C<span class="se">\$</span> Disk Default share
-  
-  IPC<span class="se">\$</span> IPC Remote IPC
-  
-  SMB1 disabled -- no workgroup available
+<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell">smbclient -N -L <span class="se">\\\\</span>10.10.10.27
 
-  -----------------------------------------
+        Sharename       Type      Comment
+        ---------       ----      -------
+        ADMIN$          Disk      Remote Admin
+        backups         Disk      
+        C$              Disk      Default share
+        IPC$            IPC       Remote IPC
+        
+SMB1 disabled -- no workgroup available
 </code></pre></td></tr></table>
 </div>
 </div><p>It seems there is a share called <strong>backups</strong>. Let&rsquo;s attempt to access it

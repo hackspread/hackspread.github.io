@@ -103,24 +103,16 @@ other sensitive information. We can use smbclient to list available
 shares.
 
 ``` shell 
-  -----------------------------------------
-  smbclient -N -L \\\\\\\\10.10.10.27
-  
-  Sharename Type Comment
-  
-  --------- ---- -------
-  
-  ADMIN\$ Disk Remote Admin
-  
-  **backups Disk**
-  
-  C\$ Disk Default share
-  
-  IPC\$ IPC Remote IPC
-  
-  SMB1 disabled -- no workgroup available
+smbclient -N -L \\\\10.10.10.27
 
-  -----------------------------------------
+        Sharename       Type      Comment
+        ---------       ----      -------
+        ADMIN$          Disk      Remote Admin
+        backups         Disk      
+        C$              Disk      Default share
+        IPC$            IPC       Remote IPC
+        
+SMB1 disabled -- no workgroup available
 ```
 It seems there is a share called **backups**. Let's attempt to access it
 and see what's inside.
