@@ -126,37 +126,26 @@ It seems there is a share called **backups**. Let's attempt to access it
 and see what's inside.
 
 ``` shell 
-  --------------------------------------------------------
-  **smbclient -N \\\\\\\\10.10.10.27\\\\backups**
-  
-  Try "help" to get a list of possible commands.
-  
-  smb: \\> **dir**
-  
-  . D 0 Mon Jan 20 07:20:57 2020
-  
-  .. D 0 Mon Jan 20 07:20:57 2020
-  
-  **prod.dtsConfig** AR 609 Mon Jan 20 07:23:02 2020
-  
-  10328063 blocks of size 4096. 8251965 blocks available
-  
-  smb: \\>
+smbclient -N  \\\\10.10.10.27\\backups
 
-  --------------------------------------------------------
+Try "help" to get a list of possible commands.
+smb: \> dir
+  ..                                DR        0  Mon Jan 20 07:20:57 2020
+  ..                                DR        0  Mon Jan 20 07:20:57 2020
+  prod.dtsConfig                     AR      609  Mon Jan 20 07:23:02 2020
+
+smb: \\>
 ```
+
 There is a <b>dtsConfig</b> file, which is a config file used with SSIS. Let’s
 see the code
 
 ```shell 
-  -------------------------------------------------------------------------------------------------------------
-  smb: \\> get prod.dtsConfig
+smb: \\> get prod.dtsConfig
   
   getting file \\prod.dtsConfig of size 609 as prod.dtsConfig (3.5 KiloBytes/sec) (average 3.5 KiloBytes/sec)
   
-  smb: \\>
-
-  -------------------------------------------------------------------------------------------------------------
+smb: \\>
 ```
 Checking the file we see:
 
@@ -164,8 +153,6 @@ Checking the file we see:
 
 - The user ID : **ARCHETYPE\\sql\_svc**
 ```shell 
-  -------------------------------------------------------------------------------------------------------------------------------
-
 more prod.dtsConfig
 
 <DTSConfiguration>
@@ -185,10 +172,6 @@ more prod.dtsConfig
     ……
 
 </DTSConfiguration>
-
- 
-
-  -------------------------------------------------------------------------------------------------------------------------------
 ```
 ### &#9702; Foothold
 

@@ -35,7 +35,7 @@
                             "url": "https:\/\/pasqnix.github.io\/startingpoint\/featured-image.jpg",
                             "width":  768 ,
                             "height":  1621 
-                        }],"genre": "posts","keywords": "reverse engineering, ida pro, hackthebox, assembly","wordcount":  6698 ,
+                        }],"genre": "posts","keywords": "reverse engineering, ida pro, hackthebox, assembly","wordcount":  6666 ,
         "url": "https:\/\/pasqnix.github.io\/startingpoint\/","datePublished": "2020-12-14T00:00:00+00:00","dateModified": "2022-02-20T16:09:18-05:00","license": "This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.","publisher": {
             "@type": "Organization",
             "name": "xxxx","logo": {
@@ -382,44 +382,26 @@ shares.</p>
 and see what&rsquo;s inside.</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
-</span><span class="lnt"> 2
-</span><span class="lnt"> 3
-</span><span class="lnt"> 4
-</span><span class="lnt"> 5
-</span><span class="lnt"> 6
-</span><span class="lnt"> 7
-</span><span class="lnt"> 8
-</span><span class="lnt"> 9
-</span><span class="lnt">10
-</span><span class="lnt">11
-</span><span class="lnt">12
-</span><span class="lnt">13
-</span><span class="lnt">14
-</span><span class="lnt">15
-</span><span class="lnt">16
-</span><span class="lnt">17
-</span><span class="lnt">18
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span><span class="lnt">8
+</span><span class="lnt">9
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell">  --------------------------------------------------------
-  **smbclient -N <span class="se">\\\\\\\\</span>10.10.10.27<span class="se">\\\\</span>backups**
-  
-  Try <span class="s2">&#34;help&#34;</span> to get a list of possible commands.
-  
-  smb: <span class="se">\\</span>&gt; **dir**
-  
-  . D <span class="m">0</span> Mon Jan <span class="m">20</span> 07:20:57 <span class="m">2020</span>
-  
-  .. D <span class="m">0</span> Mon Jan <span class="m">20</span> 07:20:57 <span class="m">2020</span>
-  
-  **prod.dtsConfig** AR <span class="m">609</span> Mon Jan <span class="m">20</span> 07:23:02 <span class="m">2020</span>
-  
-  <span class="m">10328063</span> blocks of size 4096. <span class="m">8251965</span> blocks available
-  
-  smb: <span class="se">\\</span>&gt;
+<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell">smbclient -N  <span class="se">\\\\</span>10.10.10.27<span class="se">\\</span>backups
 
-  --------------------------------------------------------
+Try <span class="s2">&#34;help&#34;</span> to get a list of possible commands.
+smb: <span class="se">\&gt;</span> dir
+  ..                                DR        <span class="m">0</span>  Mon Jan <span class="m">20</span> 07:20:57 <span class="m">2020</span>
+  ..                                DR        <span class="m">0</span>  Mon Jan <span class="m">20</span> 07:20:57 <span class="m">2020</span>
+  prod.dtsConfig                     AR      <span class="m">609</span>  Mon Jan <span class="m">20</span> 07:23:02 <span class="m">2020</span>
+
+smb: <span class="se">\\</span>&gt;
 </code></pre></td></tr></table>
 </div>
 </div><p>There is a <b>dtsConfig</b> file, which is a config file used with SSIS. Let’s
@@ -431,19 +413,13 @@ see the code</p>
 </span><span class="lnt">3
 </span><span class="lnt">4
 </span><span class="lnt">5
-</span><span class="lnt">6
-</span><span class="lnt">7
-</span><span class="lnt">8
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell">  -------------------------------------------------------------------------------------------------------------
-  smb: <span class="se">\\</span>&gt; get prod.dtsConfig
+<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell">smb: <span class="se">\\</span>&gt; get prod.dtsConfig
   
   getting file <span class="se">\\</span>prod.dtsConfig of size <span class="m">609</span> as prod.dtsConfig <span class="o">(</span>3.5 KiloBytes/sec<span class="o">)</span> <span class="o">(</span>average 3.5 KiloBytes/sec<span class="o">)</span>
   
-  smb: <span class="se">\\</span>&gt;
-
-  -------------------------------------------------------------------------------------------------------------
+smb: <span class="se">\\</span>&gt;
 </code></pre></td></tr></table>
 </div>
 </div><p>Checking the file we see:</p>
@@ -476,17 +452,9 @@ see the code</p>
 </span><span class="lnt">17
 </span><span class="lnt">18
 </span><span class="lnt">19
-</span><span class="lnt">20
-</span><span class="lnt">21
-</span><span class="lnt">22
-</span><span class="lnt">23
-</span><span class="lnt">24
-</span><span class="lnt">25
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell">  -------------------------------------------------------------------------------------------------------------------------------
-
-more prod.dtsConfig
+<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell">more prod.dtsConfig
 
 &lt;DTSConfiguration&gt;
 
@@ -505,10 +473,6 @@ more prod.dtsConfig
     ……
 
 &lt;/DTSConfiguration&gt;
-
- 
-
-  -------------------------------------------------------------------------------------------------------------------------------
 </code></pre></td></tr></table>
 </div>
 </div><h3 id="9702-foothold">◦ Foothold</h3>
