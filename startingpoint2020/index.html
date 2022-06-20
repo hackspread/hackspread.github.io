@@ -35,7 +35,7 @@
                             "url": "https:\/\/pasqnix.github.io\/startingpoint2020\/featured-image.jpg",
                             "width":  768 ,
                             "height":  1621 
-                        }],"genre": "posts","keywords": "reverse engineering, ida pro, hackthebox, assembly","wordcount":  6656 ,
+                        }],"genre": "posts","keywords": "reverse engineering, ida pro, hackthebox, assembly","wordcount":  6660 ,
         "url": "https:\/\/pasqnix.github.io\/startingpoint2020\/","datePublished": "2020-12-14T00:00:00+00:00","dateModified": "2022-06-20T00:35:13-04:00","license": "This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.","publisher": {
             "@type": "Organization",
             "name": "xxxx","logo": {
@@ -350,7 +350,7 @@ shares.</p>
 </span><span class="lnt">10
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell">smbclient -N -L <span class="se">\\\\</span>10.10.10.27
+<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell">smbclient -N -L <span class="se">\\</span>10.10.10.27
 
         Sharename       Type      Comment
         ---------       ----      -------
@@ -358,7 +358,7 @@ shares.</p>
         backups         Disk      
         C$              Disk      Default share
         IPC$            IPC       Remote IPC
-        
+
 SMB1 disabled -- no workgroup available
 </code></pre></td></tr></table>
 </div>
@@ -377,7 +377,7 @@ and see what&rsquo;s inside.</p>
 </span><span class="lnt">9
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell">smbclient -N  <span class="se">\\\\</span>10.10.10.27<span class="se">\\</span>backups
+<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell">smbclient -N  <span class="se">\\</span>10.10.10.27<span class="se">\b</span>ackups
 
 Try <span class="s2">&#34;help&#34;</span> to get a list of possible commands.
 smb: <span class="se">\&gt;</span> dir
@@ -385,7 +385,7 @@ smb: <span class="se">\&gt;</span> dir
   ..                                DR        <span class="m">0</span>  Mon Jan <span class="m">20</span> 07:20:57 <span class="m">2020</span>
   prod.dtsConfig                     AR      <span class="m">609</span>  Mon Jan <span class="m">20</span> 07:23:02 <span class="m">2020</span>
 
-smb: <span class="se">\\</span>&gt;
+smb: <span class="se">\&gt;</span>
 </code></pre></td></tr></table>
 </div>
 </div><p>There is a <b>dtsConfig</b> file, which is a config file used with SSIS. Let’s
@@ -399,11 +399,11 @@ see the code</p>
 </span><span class="lnt">5
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell">smb: <span class="se">\\</span>&gt; get prod.dtsConfig
+<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell">smb: <span class="se">\&gt;</span> get prod.dtsConfig
   
-  getting file <span class="se">\\</span>prod.dtsConfig of size <span class="m">609</span> as prod.dtsConfig <span class="o">(</span>3.5 KiloBytes/sec<span class="o">)</span> <span class="o">(</span>average 3.5 KiloBytes/sec<span class="o">)</span>
+  getting file <span class="se">\p</span>rod.dtsConfig of size <span class="m">609</span> as prod.dtsConfig <span class="o">(</span>3.5 KiloBytes/sec<span class="o">)</span> <span class="o">(</span>average 3.5 KiloBytes/sec<span class="o">)</span>
   
-smb: <span class="se">\\</span>&gt;
+smb: <span class="se">\&gt;</span>
 </code></pre></td></tr></table>
 </div>
 </div><p>Checking the file we see:</p>
@@ -446,7 +446,7 @@ smb: <span class="se">\\</span>&gt;
 
       …..
 
-      &lt;ConfiguredValue&gt;Data <span class="nv">Source</span><span class="o">=</span>.<span class="p">;</span><span class="nv">Password</span><span class="o">=</span><span class="sb">`</span>**M3g4c0rp123<span class="sb">`</span>**<span class="p">;</span> User <span class="nv">ID</span><span class="o">=</span>ARCHETYPE<span class="se">\`</span>**sql_svc&lt;/b&gt;<span class="sb">`</span>**<span class="p">;</span>
+      &lt;ConfiguredValue&gt;Data <span class="nv">Source</span><span class="o">=</span>.<span class="p">;</span><span class="nv">Password</span><span class="o">=</span>M3g4c0rp123<span class="p">;</span> User <span class="nv">ID</span><span class="o">=</span>ARCHETYPE<span class="se">\s</span>ql_svc<span class="p">;</span> &lt;- username and password
 
         .….
 
@@ -632,7 +632,7 @@ their desktop.</p>
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">  type C:\\Users\\sql\_svc\\AppData\\Roaming\\Microsoft\\Windows\\Powershell \\PSReadline\\ConsoleHost\_history.txt 
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">  type C:\Users\sql_svc\AppData\Roaming\Microsoft\Windows\Powershell \PSReadline\ConsoleHost_history.txt 
 </code></pre></td></tr></table>
 </div>
 </div><p>From the ConsoleHost_history.txt we can see the administrator password:</p>
@@ -642,7 +642,7 @@ their desktop.</p>
 </span><span class="lnt">2
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">  net.exe use T: \\\\Archetype\\backups /user:**administrator** **MEGACORP\_4dm1n!!**  
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">  net.exe use T: \\Archetype\backups /user:**administrator** **MEGACORP_4dm1n!!**  
   exit  
 </code></pre></td></tr></table>
 </div>
@@ -960,7 +960,7 @@ good idea to check for database connection information.</p>
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">mysqli\_connect(DB\_HOST, DB\_USERNAME, DB\_PASSWORD,DB\_NAME);&#34; 
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">mysqli_connect(DB_HOST, DB_USERNAME, DB_PASSWORD,DB_NAME);&#34; 
 </code></pre></td></tr></table>
 </div>
 </div><p>So let’s use the page credentials in db.php :</p>

