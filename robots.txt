@@ -61,4 +61,4 @@ Disallow: /
 User-agent: ZoominfoBot
 Disallow: /
 
-Sitemap: https://pasqnix.github.io/sitemap.xml
+Sitemap: https://psqnix.github.io/sitemap.xml

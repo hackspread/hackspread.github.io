@@ -1,23 +1,23 @@
 <rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0">
     <channel>
-        <title>Reverse Engineering - Tag - HackSpread.com</title>
-        <link>https://pasqnix.github.io/tags/reverse-engineering/</link>
-        <description>Reverse Engineering - Tag - HackSpread.com</description>
-        <generator>Hugo -- gohugo.io</generator><language>en</language><copyright>This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.</copyright><lastBuildDate>Wed, 12 Jan 2022 00:00:00 &#43;0000</lastBuildDate><atom:link href="https://pasqnix.github.io/tags/reverse-engineering/" rel="self" type="application/rss+xml" /><item>
+        <title>Reverse Engineering - Tag - backwards.engineering</title>
+        <link>https://psqnix.github.io/tags/reverse-engineering/</link>
+        <description>Reverse Engineering - Tag - backwards.engineering</description>
+        <generator>Hugo -- gohugo.io</generator><language>en</language><copyright>This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.</copyright><lastBuildDate>Wed, 12 Jan 2022 00:00:00 &#43;0000</lastBuildDate><atom:link href="https://psqnix.github.io/tags/reverse-engineering/" rel="self" type="application/rss+xml" /><item>
     <title>Reversing Hero</title>
-    <link>https://pasqnix.github.io/reveringhero/</link>
+    <link>https://psqnix.github.io/reveringhero/</link>
     <pubDate>Wed, 12 Jan 2022 00:00:00 &#43;0000</pubDate>
     <author>Author</author>
-    <guid>https://pasqnix.github.io/reveringhero/</guid>
+    <guid>https://psqnix.github.io/reveringhero/</guid>
     <description><![CDATA[INTRODUCTION ReversingHero is a Reverse Engineering self learning kit (x86_64 on linux) wrapped inside one binary file. It is made of 15 levels, with difficulty gradually increasing. Created by xoprd, this course can be found here : Reversing Hero
 Here is just my attempt to solve the 15 levels.
  ▸ Reversing Hero 1  ▸ Reversing Hero 2 The following procedure shows a simple routine where there is a bit rotation.]]></description>
 </item><item>
     <title>Starting Point on HackTheBox (2020)</title>
-    <link>https://pasqnix.github.io/startingpoint2020/</link>
+    <link>https://psqnix.github.io/startingpoint2020/</link>
     <pubDate>Mon, 14 Dec 2020 00:00:00 &#43;0000</pubDate>
     <author>Author</author>
-    <guid>https://pasqnix.github.io/startingpoint2020/</guid>
+    <guid>https://psqnix.github.io/startingpoint2020/</guid>
     <description><![CDATA[* { box-sizing: border-box; } .zoom:hover{ cursor: -moz-zoom-in; cursor: -webkit-zoom-in; cursor: zoom-in; } .zoom:link { transition: transform .2s; margin: 0 auto; } .zoom:active { cursor: -moz-zoom-in; cursor: -webkit-zoom-in; cursor: zoom-in; -ms-transform: scale(2); /* IE 9 */ -webkit-transform: scale(2); /* Safari 3-8 */ transform: scale(2); position: absolute; z-index: 9999; }  INTRODUCTION (pdf)
 This path is composed of 6 boxes in a way that later boxes use information (like credentials) gathered from the previous ones.]]></description>
 </item></channel>
