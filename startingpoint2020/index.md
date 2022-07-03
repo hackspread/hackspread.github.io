@@ -33,8 +33,8 @@
 </style>
 
 ## INTRODUCTION
-([pdf](sp2020.pdf))
 
+(<a href="sp2020.pdf" target="_blank">pdf</a>)
 
  This path is composed of 6 boxes in a way that later boxes use information (like credentials) gathered from the previous ones.
 <br>
