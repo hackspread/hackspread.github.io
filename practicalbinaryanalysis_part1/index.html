@@ -35,7 +35,7 @@
                             "url": "https:\/\/psqnix.github.io\/practicalbinaryanalysis_part1\/featured-image.jpg",
                             "width":  425 ,
                             "height":  260 
-                        }],"genre": "posts","keywords": "ReverseEngineering, Assembly, Hacking, Debugging, Binary Analysis","wordcount":  7502 ,
+                        }],"genre": "posts","keywords": "Binary Analysis, Reverse Engineering, Assembly, Disassembling","wordcount":  7353 ,
         "url": "https:\/\/psqnix.github.io\/practicalbinaryanalysis_part1\/","datePublished": "2021-11-16T00:00:00+00:00","dateModified": "2022-06-20T00:35:13-04:00","license": "This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.","publisher": {
             "@type": "Organization",
             "name": "xxxx","logo": {
@@ -147,7 +147,7 @@
             <div class="post-meta-line" style="padding-top: 25px;;">
                 <table ><tr>
                 <td style="border:none"><i class="far fa-calendar-alt fa-fw"></i>&nbsp;<time datetime="16-11-2021">16-11-2021</time>&nbsp;
-                <i class="far fa-clock fa-fw"></i>&nbsp;36 minutes&nbsp;
+                <i class="far fa-clock fa-fw"></i>&nbsp;35 minutes&nbsp;
 </td><td style="border:none;text-align: right;">
                 <span><a href="javascript:void(0);" onclick="window.history.back();">Back</a></span>&nbsp;|&nbsp;<span><a href="/">Home</a></span></td>
             </tr></table>
@@ -191,7 +191,7 @@
     <li><a href="#9656-summary">▸ Summary</a></li>
   </ul>
 </nav></div>
-            </div><div class="content" id="content"><!-- >
+            </div><div class="content" id="content"><!-- 
 
 As malware increasingly obfuscates itself and applies anti-analysis techniques to thwart our analysis, we need more sophisticated methods that allow us to raise that dark curtain designed to keep us out--binary analysis can help. The goal of all binary analysis is to determine (and possibly modify) the true properties of binary programs to understand what they really do, rather than what we think they should do. While reverse engineering and disassembly are critical first steps in many forms of binary analysis, there is much more to be learned.
 
@@ -222,7 +222,7 @@ SOMMARIO
 -->
 <p>The content of this page is entirly coming from the &ldquo;Practical Binary Analysis&rdquo; book (<a href="https://practicalbinaryanalysis.com/" target="_blank" rel="noopener noreffer">https://practicalbinaryanalysis.com/</a>) from Andriesse (<a href="https://mistakenot.net/" target="_blank" rel="noopener noreffer">https://mistakenot.net/</a>)</p>
 <h2 id="chapter-1"><strong>CHAPTER 1</strong></h2>
-<p>(<a href="pba.pdf" rel="">pdf</a>)</p>
+<p>(<a href="pba.pdf" target="_blank">pdf</a>)</p>
 <h2 id="9656--the-anatomy-of-a-binary">▸  <strong>The anatomy of a BINARY</strong></h2>
 <p>=================</p>
 <p><em><strong>What exactly is a binary?</strong></em></p>
@@ -267,17 +267,8 @@ or all of these phases):</p>
 </ol>
 <h3 id="9702-the-processing-phase">◦ The Processing Phase</h3>
 <p>Below a typical compilation process for C code:</p>
-<p><img
-        width="200"
-        height="200"
-        class=" lazyload"
-        src="/svg/loading.min.svg"
-        data-src="fig1.jpeg"
-        data-srcset="/practicalbinaryanalysis_part1/fig1.jpeg, fig1.jpeg 1.5x, /practicalbinaryanalysis_part1/fig1.jpeg 2x"
-        data-sizes="auto"
-        alt="/practicalbinaryanalysis_part1/fig1.jpeg"
-        title="WhatsApp Image 2019-12-08 at 11"
-        style="width: 100%;object-fit: cover;margin: 0pt;"/></p>
+<div style="width:100%; background-color:#252b34;text-align: center;;border: 1px solid black;" class="zoom"><img width="100%"  src="fig1.jpeg"></div>
+<!--  ![WhatsApp Image 2019-12-08 at 11](fig1.jpeg) -->
 <p>The compilation process starts with a number of source files that have
 to be compiled ( <em><strong>file-1.c</strong></em> through <em><strong>file-n.c</strong></em> )</p>
 <p>It is possible to have one large file but typically, <em>large programs are
@@ -2010,17 +2001,8 @@ still have their names as before.</p>
 <p>The figure below shows how a loaded ELF binary is represented in memory
 on a Linux-based platform.</p>
 <p>(<em>At a high level, loading a PE binary on Windows is quite similar).</em></p>
-<p><img
-        width="200"
-        height="200"
-        class=" lazyload"
-        src="/svg/loading.min.svg"
-        data-src="fig09.jpeg"
-        data-srcset="/practicalbinaryanalysis_part1/fig09.jpeg, fig09.jpeg 1.5x, /practicalbinaryanalysis_part1/fig09.jpeg 2x"
-        data-sizes="auto"
-        alt="/practicalbinaryanalysis_part1/fig09.jpeg"
-        title="WhatsApp Image 2019-12-14 at 12"
-        style="width: 100%;object-fit: cover;margin: 0pt;"/></p>
+<div style="width:100%; background-color:#252b34;text-align: center;;border: 1px solid black;" class="zoom"><img width="50%"  src="fig09.jpeg"></div>
+<!--  ![WhatsApp Image 2019-12-08 at 11](fig09.jpeg) -->
 <p>Loading a binary is a complicated process that involves a lot of work by
 the operating system. It is also important to note a binary’s
 representation in memory does not necessarily correspond one to one with
@@ -2082,17 +2064,8 @@ last-minute relocations in the binary’s code sections to fill in
 the correct address for references to the dynamic libraries.</p>
 </li>
 </ol>
-<p><img
-        width="200"
-        height="200"
-        class=" lazyload"
-        src="/svg/loading.min.svg"
-        data-src="fig10.jpeg"
-        data-srcset="/practicalbinaryanalysis_part1/fig10.jpeg, fig10.jpeg 1.5x, /practicalbinaryanalysis_part1/fig10.jpeg 2x"
-        data-sizes="auto"
-        alt="/practicalbinaryanalysis_part1/fig10.jpeg"
-        title="WhatsApp Image 2019-12-14 at 12"
-        style="width: 100%;object-fit: cover;margin: 0pt;"/></p>
+<div style="width:100%; background-color:#252b34;text-align: center;;border: 1px solid black;" class="zoom"><img width="100%"  src="fig10.jpeg"></div>
+<!--  ![WhatsApp Image 2019-12-08 at 11](fig10.jpeg) -->
 <ol>
 <li>
 <p>In reality, instead of resolving these references immediately at
@@ -2220,17 +2193,13 @@ into memory. The executable&rsquo;s <em>program headers</em> describe the segm
             <div class="post-info-license"></div>
         </div>
         <div class="post-info-line">
-            <div class="post-info-md"><span>
-                            <a class="link-to-markdown" href="/practicalbinaryanalysis_part1/index.md" target="_blank">Read Markdown</a>
-                        </span></div>
-            <div class="post-info-share">
-                <span><a href="javascript:void(0);" title="Share on Twitter" data-sharer="twitter" data-url="https://psqnix.github.io/practicalbinaryanalysis_part1/" data-title="[Practical Binary Analysis]  Part.1 (Chapter.1)" data-via="xxxx" data-hashtags="ReverseEngineering,Assembly,Hacking,Debugging,Binary Analysis"><i class="fab fa-twitter fa-fw"></i>&nbsp;</a><a href="javascript:void(0);" title="Share on Facebook" data-sharer="facebook" data-url="https://psqnix.github.io/practicalbinaryanalysis_part1/" data-hashtag="ReverseEngineering"><i class="fab fa-facebook-square fa-fw"></i>&nbsp;</a><a href="javascript:void(0);" title="Share on Hacker News" data-sharer="hackernews" data-url="https://psqnix.github.io/practicalbinaryanalysis_part1/" data-title="[Practical Binary Analysis]  Part.1 (Chapter.1)"><i class="fab fa-hacker-news fa-fw"></i>&nbsp;</a><a href="javascript:void(0);" title="Share on Line" data-sharer="line" data-url="https://psqnix.github.io/practicalbinaryanalysis_part1/" data-title="[Practical Binary Analysis]  Part.1 (Chapter.1)"><i data-svg-src="/lib/simple-icons/icons/line.min.svg"></i></a><a href="javascript:void(0);" title="Share on 微博" data-sharer="weibo" data-url="https://psqnix.github.io/practicalbinaryanalysis_part1/" data-title="[Practical Binary Analysis]  Part.1 (Chapter.1)"><i class="fab fa-weibo fa-fw"></i>&nbsp;</a></span>
-            </div>
+            
+     
         </div>
     </div>
 
     <div class="post-info-more">
-        <section class="post-tags"><i class="fas fa-tags fa-fw"></i>&nbsp;<a href="/tags/reverseengineering/">ReverseEngineering</a>,&nbsp;<a href="/tags/assembly/">Assembly</a>,&nbsp;<a href="/tags/hacking/">Hacking</a>,&nbsp;<a href="/tags/debugging/">Debugging</a>,&nbsp;<a href="/tags/binary-analysis/">Binary Analysis</a></section>
+        <section class="post-tags"><i class="fas fa-tags fa-fw"></i>&nbsp;<a href="/tags/binary-analysis/">Binary Analysis</a>,&nbsp;<a href="/tags/reverse-engineering/">Reverse Engineering</a>,&nbsp;<a href="/tags/assembly/">Assembly</a>,&nbsp;<a href="/tags/disassembling/">Disassembling</a></section>
         <section>
             <span><a href="javascript:void(0);" onclick="window.history.back();">Back</a></span>&nbsp;|&nbsp;<span><a href="/">Home</a></span>
         </section>

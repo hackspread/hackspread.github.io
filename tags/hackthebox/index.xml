@@ -1,8 +1,8 @@
 <rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0">
     <channel>
-        <title>hackthebox - Tag - backwards.engineering</title>
+        <title>HackTheBox - Tag - backwards.engineering</title>
         <link>https://psqnix.github.io/tags/hackthebox/</link>
-        <description>hackthebox - Tag - backwards.engineering</description>
+        <description>HackTheBox - Tag - backwards.engineering</description>
         <generator>Hugo -- gohugo.io</generator><language>en</language><copyright>This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.</copyright><lastBuildDate>Mon, 14 Dec 2020 00:00:00 &#43;0000</lastBuildDate><atom:link href="https://psqnix.github.io/tags/hackthebox/" rel="self" type="application/rss+xml" /><item>
     <title>Starting Point on HackTheBox (2020)</title>
     <link>https://psqnix.github.io/startingpoint2020/</link>

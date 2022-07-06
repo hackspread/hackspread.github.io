@@ -1,6 +1,6 @@
 # [Practical Binary Analysis]  Part.1 (Chapter.1)
 
-<!-- >
+<!-- 
 
 As malware increasingly obfuscates itself and applies anti-analysis techniques to thwart our analysis, we need more sophisticated methods that allow us to raise that dark curtain designed to keep us out--binary analysis can help. The goal of all binary analysis is to determine (and possibly modify) the true properties of binary programs to understand what they really do, rather than what we think they should do. While reverse engineering and disassembly are critical first steps in many forms of binary analysis, there is much more to be learned.
 
@@ -34,7 +34,8 @@ The content of this page is entirly coming from the "Practical Binary Analysis" 
 
 
 ##  **CHAPTER 1** 
-([pdf](pba.pdf))
+(<a href="pba.pdf" target="_blank">pdf</a>)
+
 ## &#9656;  **The anatomy of a BINARY** 
 =================
 
@@ -85,7 +86,9 @@ or all of these phases):
 
 Below a typical compilation process for C code:
 
-![WhatsApp Image 2019-12-08 at 11](fig1.jpeg)
+<div style="width:100%; background-color:#252b34;text-align: center;;border: 1px solid black;" class="zoom"><img width="100%"  src="fig1.jpeg"></div>
+
+<!--  ![WhatsApp Image 2019-12-08 at 11](fig1.jpeg) -->
 
 The compilation process starts with a number of source files that have
 to be compiled ( ***file-1.c*** through ***file-n.c*** )
@@ -1720,7 +1723,9 @@ on a Linux-based platform.
 
 (*At a high level, loading a PE binary on Windows is quite similar).*
 
- ![WhatsApp Image 2019-12-14 at 12](fig09.jpeg)
+<div style="width:100%; background-color:#252b34;text-align: center;;border: 1px solid black;" class="zoom"><img width="50%"  src="fig09.jpeg"></div>
+
+<!--  ![WhatsApp Image 2019-12-08 at 11](fig09.jpeg) -->
 
 Loading a binary is a complicated process that involves a lot of work by
 the operating system. It is also important to note a binary’s
@@ -1781,7 +1786,9 @@ The command below shows the ***.interp*** section of the file a.out:
     the correct address for references to the dynamic libraries.
 
   
-  ![WhatsApp Image 2019-12-14 at 12](fig10.jpeg)
+<div style="width:100%; background-color:#252b34;text-align: center;;border: 1px solid black;" class="zoom"><img width="100%"  src="fig10.jpeg"></div>
+
+<!--  ![WhatsApp Image 2019-12-08 at 11](fig10.jpeg) -->
   
 
 1.  In reality, instead of resolving these references immediately at

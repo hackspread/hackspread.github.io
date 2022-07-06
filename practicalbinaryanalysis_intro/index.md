@@ -37,7 +37,8 @@ The content of this page is entirly coming from the "Practical Binary Analysis" 
 ## INTRODUCTION  
 =================
 
-([pdf](pba.pdf))
+(<a href="pba.pdf" target="_blank">pdf</a>)
+
 - The vast majority of computers programs are written in high-level
 languages like C or C++, which computers cannot run directly.
 

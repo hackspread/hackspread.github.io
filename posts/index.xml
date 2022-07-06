@@ -18,7 +18,13 @@ Here is just my attempt to solve the 15 levels.
     <pubDate>Tue, 16 Nov 2021 00:00:00 &#43;0000</pubDate>
     <author>Author</author>
     <guid>https://psqnix.github.io/practicalbinaryanalysis_part1/</guid>
-    <description><![CDATA[As malware increasingly obfuscates itself and applies anti-analysis techniques to thwart our analysis, we need more sophisticated methods that allow us to raise that dark curtain designed to keep us out--binary analysis can help. The goal of all binary analysis is to determine (and possibly modify) the true properties of binary programs to understand what they really do, rather than what we think they should do. While reverse engineering and disassembly are critical first steps in many forms of binary analysis, there is much more to be learned.]]></description>
+    <description><![CDATA[The content of this page is entirly coming from the &ldquo;Practical Binary Analysis&rdquo; book (https://practicalbinaryanalysis.com/) from Andriesse (https://mistakenot.net/)
+CHAPTER 1 (pdf)
+▸ The anatomy of a BINARY =================
+What exactly is a binary?
+Modern computers perform their computations using the binary numerical system, which express all numbers as strings of one and zeros.
+The machine code that these systems execute is called binary code.
+Every program consists of a collection of:]]></description>
 </item><item>
     <title>[Practical Binary Analysis] Introduction</title>
     <link>https://psqnix.github.io/practicalbinaryanalysis_intro/</link>
