@@ -61,4 +61,4 @@ Disallow: /
 User-agent: ZoominfoBot
 Disallow: /
 
-Sitemap: https://psqnix.github.io/sitemap.xml
+Sitemap: https://hackspread.github.io/sitemap.xml

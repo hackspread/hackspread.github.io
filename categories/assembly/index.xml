@@ -1,14 +1,14 @@
 <rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0">
     <channel>
-        <title>Assembly - Category - backwards.engineering</title>
-        <link>https://psqnix.github.io/categories/assembly/</link>
-        <description>Assembly - Category - backwards.engineering</description>
-        <generator>Hugo -- gohugo.io</generator><language>en</language><copyright>This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.</copyright><lastBuildDate>Wed, 12 Jan 2022 00:00:00 &#43;0000</lastBuildDate><atom:link href="https://psqnix.github.io/categories/assembly/" rel="self" type="application/rss+xml" /><item>
+        <title>Assembly - Category - hackspread.com</title>
+        <link>https://hackspread.github.io//categories/assembly/</link>
+        <description>Assembly - Category - hackspread.com</description>
+        <generator>Hugo -- gohugo.io</generator><language>en</language><copyright>This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.</copyright><lastBuildDate>Wed, 12 Jan 2022 00:00:00 &#43;0000</lastBuildDate><atom:link href="https://hackspread.github.io//categories/assembly/" rel="self" type="application/rss+xml" /><item>
     <title>Reversing Hero</title>
-    <link>https://psqnix.github.io/reveringhero/</link>
+    <link>https://hackspread.github.io//reveringhero/</link>
     <pubDate>Wed, 12 Jan 2022 00:00:00 &#43;0000</pubDate>
     <author>Author</author>
-    <guid>https://psqnix.github.io/reveringhero/</guid>
+    <guid>https://hackspread.github.io//reveringhero/</guid>
     <description><![CDATA[INTRODUCTION ReversingHero is a Reverse Engineering self learning kit (x86_64 on linux) wrapped inside one binary file. It is made of 15 levels, with difficulty gradually increasing. Created by xoprd, this course can be found here : Reversing Hero
 Here is just my attempt to solve the 15 levels.
  ▸ Reversing Hero 1  ▸ Reversing Hero 2 The following procedure shows a simple routine where there is a bit rotation.]]></description>
