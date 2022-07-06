@@ -1,14 +1,14 @@
 <rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0">
     <channel>
         <title>HackTheBox - Category - hackspread.com</title>
-        <link>https://hackspread.github.io//categories/hackthebox/</link>
+        <link>https://hackspread.github.io/categories/hackthebox/</link>
         <description>HackTheBox - Category - hackspread.com</description>
-        <generator>Hugo -- gohugo.io</generator><language>en</language><copyright>This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.</copyright><lastBuildDate>Mon, 14 Dec 2020 00:00:00 &#43;0000</lastBuildDate><atom:link href="https://hackspread.github.io//categories/hackthebox/" rel="self" type="application/rss+xml" /><item>
+        <generator>Hugo -- gohugo.io</generator><language>en</language><copyright>This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.</copyright><lastBuildDate>Mon, 14 Dec 2020 00:00:00 &#43;0000</lastBuildDate><atom:link href="https://hackspread.github.io/categories/hackthebox/" rel="self" type="application/rss+xml" /><item>
     <title>Starting Point on HackTheBox (2020)</title>
-    <link>https://hackspread.github.io//startingpoint2020/</link>
+    <link>https://hackspread.github.io/startingpoint2020/</link>
     <pubDate>Mon, 14 Dec 2020 00:00:00 &#43;0000</pubDate>
     <author>Author</author>
-    <guid>https://hackspread.github.io//startingpoint2020/</guid>
+    <guid>https://hackspread.github.io/startingpoint2020/</guid>
     <description><![CDATA[* { box-sizing: border-box; } .zoom:hover{ cursor: -moz-zoom-in; cursor: -webkit-zoom-in; cursor: zoom-in; } .zoom:link { transition: transform .2s; margin: 0 auto; } .zoom:active { cursor: -moz-zoom-in; cursor: -webkit-zoom-in; cursor: zoom-in; -ms-transform: scale(2); /* IE 9 */ -webkit-transform: scale(2); /* Safari 3-8 */ transform: scale(2); position: absolute; z-index: 9999; }  INTRODUCTION (pdf)
 This path is composed of 6 boxes in a way that later boxes use information (like credentials) gathered from the previous ones.]]></description>
 </item></channel>
