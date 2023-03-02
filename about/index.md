@@ -7,7 +7,7 @@
 
 Below some useful links:
 
--	Bin.RE (https://github.com/baderj) (https://bin.re/)
+-	Bin.re (https://github.com/baderj) (https://bin.re/)
 -	Hasherezade (https://github.com/hasherezade) (https://hasherezade.github.io/)
 -	OALabs - Malware analysis tools, techniques, and tutorials! (https://www.youtube.com/c/OALabs)
 -   Hexorcist Reverse Engineering Tutorials by Nicolas Brulez (https://www.youtube.com/c/HEXORCIST)
