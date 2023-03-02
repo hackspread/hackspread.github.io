@@ -2,26 +2,26 @@
     xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
     xmlns:xhtml="http://www.w3.org/1999/xhtml"
     ><url>
-            <loc>https://hackspread.github.io/reveringhero/</loc><lastmod>2022-06-20T00:35:13-04:00</lastmod><changefreq>weekly</changefreq><priority>0.7</priority></url><url>
-            <loc>https://hackspread.github.io/practicalbinaryanalysis_part1/</loc><lastmod>2022-06-20T00:35:13-04:00</lastmod><changefreq>weekly</changefreq><priority>0.7</priority></url><url>
-            <loc>https://hackspread.github.io/practicalbinaryanalysis_intro/</loc><lastmod>2022-06-20T00:35:13-04:00</lastmod><changefreq>weekly</changefreq><priority>0.7</priority></url><url>
-            <loc>https://hackspread.github.io/startingpoint2020/</loc><lastmod>2022-06-20T00:35:13-04:00</lastmod><changefreq>weekly</changefreq><priority>0.7</priority></url><url>
-            <loc>https://hackspread.github.io/tags/assembly/</loc><lastmod>2022-06-20T00:35:13-04:00</lastmod><changefreq>weekly</changefreq><priority>0.7</priority></url><url>
-            <loc>https://hackspread.github.io/categories/assembly/</loc><lastmod>2022-06-20T00:35:13-04:00</lastmod><changefreq>weekly</changefreq><priority>0.7</priority></url><url>
-            <loc>https://hackspread.github.io/categories/</loc><lastmod>2022-06-20T00:35:13-04:00</lastmod><changefreq>weekly</changefreq><priority>0.7</priority></url><url>
-            <loc>https://hackspread.github.io/</loc><lastmod>2022-06-20T00:35:13-04:00</lastmod><changefreq>weekly</changefreq><priority>0.7</priority></url><url>
-            <loc>https://hackspread.github.io/tags/ida-pro/</loc><lastmod>2022-06-20T00:35:13-04:00</lastmod><changefreq>weekly</changefreq><priority>0.7</priority></url><url>
-            <loc>https://hackspread.github.io/tags/linux/</loc><lastmod>2022-06-20T00:35:13-04:00</lastmod><changefreq>weekly</changefreq><priority>0.7</priority></url><url>
-            <loc>https://hackspread.github.io/posts/</loc><lastmod>2022-06-20T00:35:13-04:00</lastmod><changefreq>weekly</changefreq><priority>0.7</priority></url><url>
-            <loc>https://hackspread.github.io/tags/reverse-engineering/</loc><lastmod>2022-06-20T00:35:13-04:00</lastmod><changefreq>weekly</changefreq><priority>0.7</priority></url><url>
-            <loc>https://hackspread.github.io/categories/reversing/</loc><lastmod>2022-06-20T00:35:13-04:00</lastmod><changefreq>weekly</changefreq><priority>0.7</priority></url><url>
-            <loc>https://hackspread.github.io/tags/</loc><lastmod>2022-06-20T00:35:13-04:00</lastmod><changefreq>weekly</changefreq><priority>0.7</priority></url><url>
-            <loc>https://hackspread.github.io/tags/binary-analysis/</loc><lastmod>2022-06-20T00:35:13-04:00</lastmod><changefreq>weekly</changefreq><priority>0.7</priority></url><url>
-            <loc>https://hackspread.github.io/categories/binary-analysis/</loc><lastmod>2022-06-20T00:35:13-04:00</lastmod><changefreq>weekly</changefreq><priority>0.7</priority></url><url>
-            <loc>https://hackspread.github.io/tags/disassembling/</loc><lastmod>2022-06-20T00:35:13-04:00</lastmod><changefreq>weekly</changefreq><priority>0.7</priority></url><url>
-            <loc>https://hackspread.github.io/tags/hacking/</loc><lastmod>2022-06-20T00:35:13-04:00</lastmod><changefreq>weekly</changefreq><priority>0.7</priority></url><url>
-            <loc>https://hackspread.github.io/tags/hackthebox/</loc><lastmod>2022-06-20T00:35:13-04:00</lastmod><changefreq>weekly</changefreq><priority>0.7</priority></url><url>
-            <loc>https://hackspread.github.io/categories/hackthebox/</loc><lastmod>2022-06-20T00:35:13-04:00</lastmod><changefreq>weekly</changefreq><priority>0.7</priority></url><url>
-            <loc>https://hackspread.github.io/tags/penetration-testing/</loc><lastmod>2022-06-20T00:35:13-04:00</lastmod><changefreq>weekly</changefreq><priority>0.7</priority></url><url>
-            <loc>https://hackspread.github.io/about/</loc><lastmod>2022-06-20T00:35:13-04:00</lastmod><changefreq>weekly</changefreq><priority>0.7</priority></url><url>
+            <loc>https://hackspread.github.io/reveringhero/</loc><lastmod>2022-06-20T00:35:13-04:00</lastmod><changefreq>weekly</changefreq><priority>0.5</priority></url><url>
+            <loc>https://hackspread.github.io/practicalbinaryanalysis_part1/</loc><lastmod>2023-03-02T07:30:09-05:00</lastmod><changefreq>weekly</changefreq><priority>1</priority></url><url>
+            <loc>https://hackspread.github.io/practicalbinaryanalysis_intro/</loc><lastmod>2023-03-02T07:30:09-05:00</lastmod><changefreq>weekly</changefreq><priority>1</priority></url><url>
+            <loc>https://hackspread.github.io/startingpoint2020/</loc><lastmod>2023-03-02T07:30:09-05:00</lastmod><changefreq>weekly</changefreq><priority>1</priority></url><url>
+            <loc>https://hackspread.github.io/tags/assembly/</loc><lastmod>2023-03-02T07:30:09-05:00</lastmod><changefreq>weekly</changefreq><priority>1</priority></url><url>
+            <loc>https://hackspread.github.io/categories/assembly/</loc><lastmod>2022-06-20T00:35:13-04:00</lastmod><changefreq>weekly</changefreq><priority>0.5</priority></url><url>
+            <loc>https://hackspread.github.io/categories/</loc><lastmod>2023-03-02T07:30:09-05:00</lastmod><changefreq>weekly</changefreq><priority>1</priority></url><url>
+            <loc>https://hackspread.github.io/</loc><lastmod>2023-03-02T07:30:09-05:00</lastmod><changefreq>weekly</changefreq><priority>1</priority></url><url>
+            <loc>https://hackspread.github.io/tags/ida-pro/</loc><lastmod>2022-06-20T00:35:13-04:00</lastmod><changefreq>weekly</changefreq><priority>0.5</priority></url><url>
+            <loc>https://hackspread.github.io/tags/linux/</loc><lastmod>2022-06-20T00:35:13-04:00</lastmod><changefreq>weekly</changefreq><priority>0.5</priority></url><url>
+            <loc>https://hackspread.github.io/posts/</loc><lastmod>2023-03-02T07:30:09-05:00</lastmod><changefreq>weekly</changefreq><priority>1</priority></url><url>
+            <loc>https://hackspread.github.io/tags/reverse-engineering/</loc><lastmod>2023-03-02T07:30:09-05:00</lastmod><changefreq>weekly</changefreq><priority>1</priority></url><url>
+            <loc>https://hackspread.github.io/categories/reversing/</loc><lastmod>2023-03-02T07:30:09-05:00</lastmod><changefreq>weekly</changefreq><priority>1</priority></url><url>
+            <loc>https://hackspread.github.io/tags/</loc><lastmod>2023-03-02T07:30:09-05:00</lastmod><changefreq>weekly</changefreq><priority>1</priority></url><url>
+            <loc>https://hackspread.github.io/tags/binary-analysis/</loc><lastmod>2023-03-02T07:30:09-05:00</lastmod><changefreq>weekly</changefreq><priority>1</priority></url><url>
+            <loc>https://hackspread.github.io/categories/binary-analysis/</loc><lastmod>2023-03-02T07:30:09-05:00</lastmod><changefreq>weekly</changefreq><priority>1</priority></url><url>
+            <loc>https://hackspread.github.io/tags/disassembling/</loc><lastmod>2023-03-02T07:30:09-05:00</lastmod><changefreq>weekly</changefreq><priority>1</priority></url><url>
+            <loc>https://hackspread.github.io/tags/hacking/</loc><lastmod>2023-03-02T07:30:09-05:00</lastmod><changefreq>weekly</changefreq><priority>1</priority></url><url>
+            <loc>https://hackspread.github.io/tags/hackthebox/</loc><lastmod>2023-03-02T07:30:09-05:00</lastmod><changefreq>weekly</changefreq><priority>1</priority></url><url>
+            <loc>https://hackspread.github.io/categories/hackthebox/</loc><lastmod>2023-03-02T07:30:09-05:00</lastmod><changefreq>weekly</changefreq><priority>1</priority></url><url>
+            <loc>https://hackspread.github.io/tags/penetration-testing/</loc><lastmod>2023-03-02T07:30:09-05:00</lastmod><changefreq>weekly</changefreq><priority>1</priority></url><url>
+            <loc>https://hackspread.github.io/about/</loc><lastmod>2023-03-02T07:30:09-05:00</lastmod><changefreq>weekly</changefreq><priority>1</priority></url><url>
             <loc>https://hackspread.github.io/categories/documentation/</loc><lastmod>2022-02-20T16:09:18-05:00</lastmod><changefreq>weekly</changefreq><priority>0.5</priority></url></urlset>
